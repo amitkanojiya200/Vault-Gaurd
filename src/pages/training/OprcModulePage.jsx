@@ -385,7 +385,7 @@ export default function OprcModulePage({ variant, routes, onNavigate }) {
                         className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white/90 px-3 py-1 text-[0.7rem] text-slate-700 shadow-sm hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:bg-slate-800/80"
                     >
                         <ChevronLeft className="h-3.5 w-3.5" />
-                        <span>Back to Training – National</span>
+                        <span>Back to Training - National</span>
                     </button>
                 </div>
 
@@ -484,73 +484,8 @@ export default function OprcModulePage({ variant, routes, onNavigate }) {
                                 onOpen={handleOpenFile}
                             />
                         </div>
-                        
-                        {/* Manuals Section */}
-                        <div className="flex flex-col gap-3">
-                            <div className="flex flex-col gap-3 lg:flex-row">
-                                <div className="flex flex-1 flex-col rounded-2xl border border-slate-200 bg-white/90 p-4 text-xs shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/85 dark:shadow-black/40">
-                                    <div className="mb-3 flex items-center gap-2">
-                                        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-200">
-                                            <FileText className="h-3.5 w-3.5" />
-                                        </div>
-                                        <div>
-                                            <p className="text-[0.75rem] font-semibold text-slate-800 dark:text-slate-100">
-                                                Training Manuals
-                                            </p>
-                                            <p className="text-[0.7rem] text-slate-500 dark:text-slate-400">
-                                                Instructor and participant guides
-                                            </p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div className="flex flex-col gap-2">
-                                        <button
-                                            type="button"
-                                            onClick={() => handleOpenFile({
-                                                path: config.instructorManual.filePath,
-                                                label: config.instructorManual.title,
-                                                fileName: config.instructorManual.filePath.split('/').pop()
-                                            })}
-                                            className="group flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-left text-[0.75rem] transition hover:border-amber-400 hover:bg-amber-50/90 dark:border-slate-700 dark:bg-slate-900/80 dark:hover:border-amber-400/70 dark:hover:bg-slate-800/80"
-                                        >
-                                            <span className="font-medium text-slate-900 dark:text-slate-50">
-                                                {config.instructorManual.buttonText}
-                                            </span>
-                                            <FileText className="h-4 w-4 text-slate-400 transition group-hover:text-amber-500 dark:text-slate-500" />
-                                        </button>
-                                        
-                                        <button
-                                            type="button"
-                                            onClick={() => handleOpenFile({
-                                                path: config.participantManual.filePath,
-                                                label: config.participantManual.title,
-                                                fileName: config.participantManual.filePath.split('/').pop()
-                                            })}
-                                            className="group flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-left text-[0.75rem] transition hover:border-amber-400 hover:bg-amber-50/90 dark:border-slate-700 dark:bg-slate-900/80 dark:hover:border-amber-400/70 dark:hover:bg-slate-800/80"
-                                        >
-                                            <span className="font-medium text-slate-900 dark:text-slate-50">
-                                                {config.participantManual.buttonText}
-                                            </span>
-                                            <FileText className="h-4 w-4 text-slate-400 transition group-hover:text-amber-500 dark:text-slate-500" />
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
-                    {/* Videos Section (conditionally rendered) */}
-                    {hasVideos && (
-                        <div className="lg:flex-1">
-                            <VideoSectionCard
-                                icon={<Video className="h-3.5 w-3.5" />}
-                                title="Videos"
-                                description="Demonstration and training videos."
-                                items={config.videos}
-                                onOpen={handleOpenVideo}
-                            />
-                        </div>
-                    )}
                 </motion.div>
             </div>
         </div>

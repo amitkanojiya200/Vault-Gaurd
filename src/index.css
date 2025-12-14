@@ -5,7 +5,7 @@
 
 /* Default (light) theme variables */
 :root {
-  --bg-light: #fff7ed;           /* warm cream */
+  --bg-light: #f5f5f5;           /* warm cream */
   --bg-light-soft: #ffffff;      /* white for cards / surfaces */
   --bg-light-alt: #fef3c7;       /* soft amber */
   --navy: #1f2933;               /* deep slate/navy */
@@ -23,9 +23,13 @@
 
   /* Accent set (light theme primary accents) */
   --orange: #f97316;             /* warm orange */
+  --orange400: #fb923c;             /* warm orange */
+  --orange500: #f97316;             /* warm orange */
+  --orange700: #c2410c;             /* warm orange */
   --yellow: #fbbf24;             /* soft amber yellow */
   --white-acc: #ffffff;          /* explicit white accent */
-  --dark-acc: #111827;           /* deep accent for contrast */
+  --dark-acc: #13203f;           /* deep accent for contrast */
+  --dark-acc-2: #111827;           /* deep accent for contrast */
 }
 
 /* Dark theme variables */

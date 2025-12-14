@@ -91,7 +91,7 @@ export default function DocIndexingModal({
         className="relative z-10 w-[min(900px,95%)] max-h-[85vh] overflow-hidden rounded-2xl border border-[var(--border-dark-soft,#1f2937)] bg-slate-900/95 p-4 shadow-2xl"
       >
         <div className="mb-3 flex items-center justify-between gap-3">
-          <h3 className="text-lg font-semibold text-sky-300">
+          <h3 className="text-lg font-semibold text-(--orange400)">
             All Doc Indexing · By The Type Of Files
           </h3>
           <button
@@ -117,7 +117,7 @@ export default function DocIndexingModal({
                   key={type}
                   className="p-3" // Increased padding for visual separation
                 >
-                  <div className="text-xl font-bold text-sky-300">
+                  <div className="text-xl font-bold text-(--orange500)">
                     {Number(count).toLocaleString()}
                   </div>
                   <div className="text-xs font-medium text-slate-400 mt-1">
@@ -184,7 +184,7 @@ export default function DocIndexingModal({
 
           <p className="mt-3 text-md text-slate-400">
             This modal displays a breakdown of all indexed files from your System.
-            <span className="font-mono text-sky-300 block mt-1">
+            <span className="font-mono text-(--orange400) block mt-1">
                The counts are aggregated by the **drive** where the file resides and the file's **document type**.
             </span>
           </p>

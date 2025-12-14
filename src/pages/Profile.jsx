@@ -135,7 +135,7 @@ export default function Profile() {
                     </div>
 
                     <div className="flex gap-2">
-                        <button type="submit" disabled={saving} className="rounded-md bg-sky-600 text-white px-4 py-2">{saving ? 'Saving…' : 'Save Changes'}</button>
+                        <button type="submit" disabled={saving} className="rounded-md bg-(--orange500) text-white px-4 py-2">{saving ? 'Saving…' : 'Save Changes'}</button>
                         <button type="button" onClick={() => { setName(profile.name); setUsername(profile.username); setNewPassword(''); setConfirmPassword(''); }} className="rounded-md border px-4 py-2">Reset</button>
                     </div>
                 </form>

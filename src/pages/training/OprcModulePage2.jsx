@@ -571,7 +571,7 @@ export default function OprcModulePage2({ variant, routes, onNavigate }) {
                 )}
 
                 {/* Overview Section */}
-                <motion.div
+                {/* <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="mb-4 rounded-2xl border border-slate-200 bg-white/90 p-4 text-xs shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/85 dark:shadow-black/40"
@@ -586,7 +586,7 @@ export default function OprcModulePage2({ variant, routes, onNavigate }) {
                             </p>
                         ))}
                     </div>
-                </motion.div>
+                </motion.div> */}
 
                 {/* Three sections: Course PPT + Exercise + Videos (conditionally) */}
                 <motion.div

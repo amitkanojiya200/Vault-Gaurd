@@ -80,7 +80,7 @@ export default function CollabSacep({ routes, onNavigate }) {
                             </div>
                         </div>
 
-                        <p className="text-lg leading-relaxed text-slate-700 dark:text-slate-200">
+                        <p className="text-lg leading-relaxed text-slate-700 dark:text-slate-200  text-justify leading-relaxed break-words">
                             South Asia Co-operative Environment Programme (SACEP) is an inter-governmental organization, established in 1982 by the governments of South Asia to promote and support protection, management and enhancement of the environment in the region. SACEP member countries are Afghanistan , Bangladesh , Bhutan , India , Maldives , Nepal , Pakistan and Sri Lanka.
                             South Asia is one of the most diverse regions in the world. Bordered to the north by the Himalayas and to the south by the Indian Ocean, covers a diversity of ecosystems from lush tropical forest to harsh, dry desert. It is also one of the most populous regions, with over 1 billion people living in India alone. Although never remounted as a single country, the movements of peoples over thousands of years has resulted in strong commonalities between cultures. Yet there remains a huge diversity of languages, religions and outlooks across the sub-continent. . Most of the South Asian nations share many similar environmental problems, stemming from poverty and its consequences on natural resources. According to the World Bank, during the past decade, South Asia has been the second fastest economically growing region in the world, and their efforts at increased production have put increasing pressure on natural resources and the environment. Significant natural resource concerns of the region include depletion of water quality and quantity, dwindling forests and coastal resources, and soil degradation resulting from nutrient depletion and salinization
                             Many countries of the region have taken actions for the protection and management of the environment. They are also party to many multilateral environmental agreements requiring them to work cooperatively for the mitigation of concern issues. SACEP supports national government’s efforts for environmental protection and sustainable development.
@@ -88,9 +88,9 @@ export default function CollabSacep({ routes, onNavigate }) {
                             The Malé Declaration on control and prevention of air pollution and its likely transboundary effects for South Asia is another significant efforts which encourages intergovernmental cooperation to combat the transboundary air pollution problem
 
                         </p>
-                        <ul className="mt-3 space-y-1.5 text-lg text-slate-700 dark:text-slate-200">
+                        <ul className="mt-3 space-y-1.5 text-lg text-slate-700 dark:text-slate-200  text-justify leading-relaxed break-words">
                             <li className="flex items-start gap-2">
-                                <span className='font-bold'>
+                                <span className='font-bold text-xl underline'>
                                     Some of the salient attributes of South Asia are as follows:
                                 </span>
                             </li>

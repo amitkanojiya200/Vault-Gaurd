@@ -39,9 +39,12 @@ import oImage7 from '../assets/images/homepage/operational/oimg7.jpg';
 import oImage8 from '../assets/images/homepage/operational/oimg8.jpg';
 
 // Video Gallery
-import vid1 from '@/assets/videos/vid1.mp4';
-import vid2 from '@/assets/videos/vid2.mp4';
-import vid3 from '@/assets/videos/vid3.mp4';
+import vid1 from '@/assets/images/homepage/operational/oimg8.jpg';
+import vid2 from '@/assets/images/homepage/operational/oimg8.jpg';
+import vid3 from '@/assets/images/homepage/operational/oimg8.jpg';
+// import vid1 from '@/assets/videos/vid1.mp4';
+// import vid2 from '@/assets/videos/vid2.mp4';
+// import vid3 from '@/assets/videos/vid3.mp4';
 
 import bgImage2 from '../assets/dbg2.png';
 import icgEmblem from '../assets/icg.png';
@@ -72,22 +75,22 @@ const operationalImgs = [
 
 const IgBhishamSharmaParagraphs = () => {
   return (
-    <div className="max-w-4xl mx-auto p-4 space-y-4 bg-gray-50 dark:bg-slate-900/80 text-gray-800 border-l-4 border-blue-600 dark:border-blue-400">
-      <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4 border-b pb-2">
+    <div className="max-w-4xl mx-auto p-4 space-y-4 bg-gray-50 dark:bg-slate-900/80 text-gray-800 border-l-4 border-(--orange500) dark:border-(--orange500)">
+      <h1 className="text-2xl font-bold text-(--orange500) dark:text-(--orange500) mb-4 border-b pb-2">
         Inspector General Bhisham Sharma, PTM, TM: Commander, Coast Guard Region (West)
       </h1>
 
       <section className="space-y-3 text-blue-950 dark:text-blue-100">
-        <p className='text-[15px]'>
+        <p className="text-[15px] text-justify leading-relaxed break-words">
           Inspector General Bhisham Sharma, PTM, TM, assumed charge as the <b>Commander, Coast Guard Region (West)</b> at Mumbai on November 23, 2023. The Flag Officer joined the Indian Coast Guard in January 1990 and is an alumnus of the Indian Naval Academy, where he was honored as the Best Trainee Assistant Commandant. An accomplished aviator, he earned his coveted flying wings at the Indian Naval Helicopter Training School (HTS) in 1995. He has since served in all frontline helicopter squadrons on both the Western and Eastern Seaboards, successfully undertaking numerous operations, including the critical Search and Rescue (SAR) of six personnel adrift in the Andaman Sea in February 2001.
         </p>
-        <p className='text-[15px]'>
+        <p className="text-[15px] text-justify leading-relaxed break-words">
           The Flag Officer possesses exceptionally rich operational experience and holds a unique record: he is the **only CG Aviator** to have commanded all four classes of ships in the Coast Guard. These include the Inshore Patrol Vessel (IPV) ICGS Chandbibi, the Extra Fast Patrol Vessel (XFPV) ICGS Kasturba Gandhi (as its commissioning CO), the new generation Offshore Patrol Vessel (OPV) ICGS Vijit, and the Advanced Offshore Patrol Vessel (AOPV) ICGS Sagar. Prior to his elevation to Flag Rank, he was commanding the Coast Guard Air Station at Chennai.
         </p>
-        <p className='text-[15px]'>
+        <p className="text-[15px] text-justify leading-relaxed break-words">
           IG Sharma has held several pivotal staff and ashore appointments across the service. His notable roles include Chief Staff Officer (P&A) at Regional Headquarters (West) Mumbai, Chief Staff Officer (Operations) at Regional Headquarters (East) Chennai, and **District Commander, Coast Guard District Maharashtra**. At the Coast Guard Headquarters in New Delhi, he has served as the **Coast Guard Advisor (CGA)** to the Director General, Director (Infra & Works), Principal Director (Air Staff), and Deputy Director General (Aviation). Immediately prior to assuming command of the Western Region, he held the strategic appointment of **Commander, Coast Guard Region (A&N)**, where he spearheaded infrastructure growth and operational integration within the overall mandate of the Andaman & Nicobar Command (ANC).
         </p>
-        <p className='text-[15px]'>
+        <p className="text-[15px] text-justify leading-relaxed break-words">
           The Flag Officer is a graduate of the prestigious **Defence Services Staff College (DSSC), Wellington**. He is a recipient of the **Tatrakshak Medal (Meritorious Service)** and has also been commended by the Director General, Indian Coast Guard on two separate occasions. Outside of his service, he is an avid cyclist and actively promotes cycling among the Coast Guard fraternity. He is married to Mrs. Anju Sharma (Home Maker) and the couple has two sons, Sankalp and Sukkrit.
         </p>
       </section>
@@ -284,7 +287,7 @@ const handleDocClick = (item, e) => {
             {/* What's New card */}
             <div className="rounded-2xl flex flex-col border border-slate-200 bg-white/85 p-4 backdrop-blur-xl shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/80 dark:shadow-black/40">
               <div className="mb-10 flex items-center justify-between gap-2">
-                <p className="text-lg font-semibold text-sky-700 dark:text-sky-300">
+                <p className="text-lg font-semibold text-(--orange500) dark:text-(--orange500)">
                   What&apos;s New
                 </p>
                 <span className="text-[0.7rem] text-slate-500 dark:text-slate-400">
@@ -332,7 +335,7 @@ const handleDocClick = (item, e) => {
                   <p className="truncate text-md font-semibold text-slate-900 dark:text-slate-100">
                     Inspector General Bhisham Sharma
                   </p>
-                  <p className="mb-1 text-md font-semibold uppercase tracking-wide text-sky-700 dark:text-sky-300">
+                  <p className="mb-1 text-md font-semibold uppercase tracking-wide text-(--orange500) dark:text-(--orange500)">
                     PTM,TM
                   </p>
                   <p className="text-md text-slate-600 dark:text-slate-400">
@@ -353,10 +356,10 @@ const handleDocClick = (item, e) => {
 
             {/* b. About us */}
             <div className="rounded-2xl border border-slate-200 bg-white/85 p-4 backdrop-blur-xl shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/80 dark:shadow-black/40">
-              <p className="mb-2 text-2xl font-semibold text-sky-700 dark:text-sky-300">
+              <p className="mb-2 text-2xl font-semibold text-(--orange500) dark:text-(--orange500)">
                 About Us
               </p>
-              <p className="text-lg text-slate-600 dark:text-slate-300">
+              <p className="text-lg text-slate-600 dark:text-slate-300 text-justify leading-relaxed break-words">
                 The Coast Guard Pollution Response Team (W), Mumbai was initially established as Pollution Control Cell in the 80s at Naval Dockyard, Mumbai. However, the unit was activated on 15 Apr 1989 as Coast Guard Pollution Response Cell within the premises of Mumbai Port Authority for responding to marine oil spills on the West coast of India. Prior to accord of Govt. sanction, the appointment of Officers and dedicated Staff was commenced w.e.f. 06 Jun 94 and Government sanction for establishing Pollution Response Team (West) was accorded vide Ministry of Defence sanction letter CS/0116/CG/403/DO/D (N-II) dated 25 Mar 96. On 15 Apr 89, the Unit was shifted to MbPT Shed No. 3, New Ferry Wharf and again shifted to present Loco/ Boiler Shed, MbPT Workshop at Mazgaon on 09 Jul 2017.
               </p>
             </div>

@@ -601,7 +601,7 @@ export default function NavBar() {
                 <button
                   type="button"
                   onClick={() => navTo(ROUTES.DASHBOARD)}
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-sky-500 dark:bg-sky-500 dark:text-slate-950"
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-(--orange500) px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-(--orange400) dark:bg-(--orange500)dark:text-slate-950"
                 >
                   <LayoutDashboard size={15} /> Dashboard
                 </button>
@@ -731,7 +731,7 @@ export default function NavBar() {
                   <button
                     type="button"
                     onClick={() => navTo(ROUTES.DASHBOARD)}
-                    className="flex-1 rounded-md bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-sky-500 dark:bg-sky-500 dark:text-slate-950"
+                    className="flex-1 rounded-md bg-(--orange500) px-3 py-1.5 text-xs font-semibold text-white hover:bg-(--orange400) dark:bg-(--orange500) dark:text-slate-950"
                   >
                     Dashboard
                   </button>

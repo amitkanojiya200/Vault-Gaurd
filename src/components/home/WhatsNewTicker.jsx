@@ -116,7 +116,7 @@ export default function WhatsNewTicker({
                         className="w-full text-left rounded-xl border border-slate-300/70 dark:border-slate-700/70 bg-gradient-to-br from-slate-50/90 to-slate-100/50 dark:from-slate-900/80 dark:to-slate-800/60 px-3 py-2.5 text-[0.78rem] font-medium text-slate-700 dark:text-slate-200 shadow-sm shadow-slate-300/50 dark:shadow-black/40 backdrop-blur-sm focus:outline-none focus:ring-1 focus:ring-sky-500/70 whitespace-nowrap transition-colors">
                         <span className="inline-flex items-center gap-2 cursor-pointer">
                             {/* 🔹 left accent indicator */}
-                            <span className="h-1.5 w-1.5 rounded-full bg-sky-500 dark:bg-sky-400" />
+                            <span className="h-1.5 w-1.5 rounded-full bg-(--orange500) dark:bg-(--orange400)" />
 
                             {/* 📰 title */}
                             <span className="truncate">{item.title}</span>

@@ -63,21 +63,21 @@ export default function NationalCollaboration({ routes, onNavigate }) {
                     <section className="bg-white/95 dark:bg-gray-800/90 p-6 md:p-8 rounded-xl shadow-2xl">
                         <p className="">The Indian Coast Guard (ICG) collaborates with various national and state agencies for pollution response through exercises like the National Level Pollution Response Exercise (NATPOLREX-X) and the National Oil Spill Disaster Contingency Plan (NOSDCP). Key partners include the Greater Chennai Corporation, State Pollution Control Boards, State Disaster Management Authorities, and other state administrations, which participate in mock drills and review meetings to strengthen coordination and preparedness for marine oil spills.</p>
                         <div className="p-4 bg-white dark:bg-gray-900 rounded-lg shadow-lg">
-    <h2 className="text-2xl font-extrabold text-center text-sky-700 dark:text-sky-300 my-6 border-b-2 border-sky-400 dark:border-sky-600 pb-3">
+    <h2 className="text-2xl font-extrabold text-center text-(--orange500) dark:text-(--orange400) my-6 border-b-2 border-(--orange400) dark:border-(--orange400) pb-3">
         Key Collaborations and Exercises
     </h2>
     <ul className="space-y-4 list-disc list-inside">
-        <li className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition duration-300 border-l-4 border-sky-500">
-            <span className="font-semibold text-sky-600 dark:text-sky-400">NATPOLREX-X:</span> The ICG conducts this national-level exercise to test India's preparedness for marine oil spills and improve inter-agency coordination. The 10th edition in October 2025 involved a shoreline cleanup drill at Marina Beach with the Greater Chennai Corporation and other local agencies.
+        <li className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition duration-300 border-l-4 border-(--orange500)">
+            <span className="font-semibold text-(--orange500) dark:text-(--orange400)">NATPOLREX-X:</span> The ICG conducts this national-level exercise to test India's preparedness for marine oil spills and improve inter-agency coordination. The 10th edition in October 2025 involved a shoreline cleanup drill at Marina Beach with the Greater Chennai Corporation and other local agencies.
         </li>
-        <li className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition duration-300 border-l-4 border-sky-500">
-            <span className="font-semibold text-sky-600 dark:text-sky-400">NOSDCP:</span> The ICG is the nodal agency for the National Oil Spill Disaster Contingency Plan, which coordinates the national response framework. The plan includes regular meetings to review and enhance preparedness.
+        <li className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition duration-300 border-l-4 border-(--orange500)">
+            <span className="font-semibold text-(--orange500) dark:text-(--orange400)">NOSDCP:</span> The ICG is the nodal agency for the National Oil Spill Disaster Contingency Plan, which coordinates the national response framework. The plan includes regular meetings to review and enhance preparedness.
         </li>
-        <li className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition duration-300 border-l-4 border-sky-500">
-            <span className="font-semibold text-sky-600 dark:text-sky-400">State and local government agencies:</span> State governments are responsible for coordinating district and local administrations for shoreline response. During NATPOLREX-X, the Greater Chennai Corporation, State Pollution Control Board, and State Disaster Management Authority have worked alongside the ICG.
+        <li className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition duration-300 border-l-4 border-(--orange500)">
+            <span className="font-semibold text-(--orange500) dark:text-(--orange400)">State and local government agencies:</span> State governments are responsible for coordinating district and local administrations for shoreline response. During NATPOLREX-X, the Greater Chennai Corporation, State Pollution Control Board, and State Disaster Management Authority have worked alongside the ICG.
         </li>
-        <li className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition duration-300 border-l-4 border-sky-500">
-            <span className="font-semibold text-sky-600 dark:text-sky-400">Other national agencies:</span> The Indian Air Force collaborates by providing rapid support and relief using its large aircraft, as seen in previous exercises. The military also participates, as demonstrated by a joint exercise with the Garrison Battalion in Maharashtra.
+        <li className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition duration-300 border-l-4 border-(--orange500)">
+            <span className="font-semibold text-(--orange500) dark:text-(--orange400)">Other national agencies:</span> The Indian Air Force collaborates by providing rapid support and relief using its large aircraft, as seen in previous exercises. The military also participates, as demonstrated by a joint exercise with the Garrison Battalion in Maharashtra.
         </li>
     </ul>
 </div>

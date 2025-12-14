@@ -28,7 +28,7 @@ export default function StorageInfoModal({ open, onClose, drives = [] }) {
       <div onClick={onClose} className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
       <motion.div initial={{ y: 8 }} animate={{ y: 0 }} transition={{ duration: 0.18 }} className="relative z-10 w-[min(900px,95%)] max-h-[85vh] overflow-auto rounded-2xl bg-slate-900/95 p-4">
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-lg font-semibold text-sky-300">Storage & Drives</h3>
+          <h3 className="text-lg font-semibold text-(--orange400)">Storage & Drives</h3>
           <button className="px-2 py-1 text-sm text-slate-300" onClick={onClose}>Close</button>
         </div>
 
@@ -54,7 +54,7 @@ export default function StorageInfoModal({ open, onClose, drives = [] }) {
                   <td className="py-2">{used != null ? used.toFixed(2) : '—'}</td>
                   <td className="py-2 w-48">
                     <div className="w-full rounded-full h-3 bg-slate-700">
-                      <div className="h-3 rounded-full bg-sky-500" style={{ width: pct != null ? `${pct}%` : '10%' }} />
+                      <div className="h-3 rounded-full bg-(--orange500)" style={{ width: pct != null ? `${pct}%` : '10%' }} />
                     </div>
                     <div className="text-xs mt-1 text-slate-400">{pct != null ? `${pct}%` : '—'}</div>
                   </td>

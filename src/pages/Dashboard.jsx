@@ -1106,7 +1106,7 @@ export default function Dashboard() {
             <span className="text-[0.68rem] uppercase tracking-wide text-slate-500 dark:text-slate-400">
               Storage
             </span>
-            <span className="text-lg font-semibold text-sky-700 dark:text-sky-300">
+            <span className="text-lg font-semibold text-(--orange500) dark:text-(--orange500)">
               {/* formatted TB label (Used / Total) */}
               {totalStorage.labelTB}
             </span>
@@ -1142,7 +1142,7 @@ export default function Dashboard() {
             <span className="text-[0.68rem] uppercase tracking-wide text-slate-500 dark:text-slate-400">
               Indexed Files
             </span>
-            <span className="text-lg font-semibold text-sky-700 dark:text-sky-300">
+            <span className="text-lg font-semibold text-(--orange500) dark:text-sky-300">
               {totalIndexedFiles.toLocaleString()}
             </span>
             <span className="mt-1 text-[0.7rem] text-slate-500 dark:text-slate-400">
@@ -1150,7 +1150,7 @@ export default function Dashboard() {
             </span>
           </button>
           <button
-            className="px-3 py-1 rounded bg-sky-700 text-white"
+            className="px-3 py-1 rounded bg-(--orange500) text-white"
             onClick={handleIndexAllDrivesClick}
           >
             Index All Drives

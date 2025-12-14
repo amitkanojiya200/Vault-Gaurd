@@ -37,7 +37,7 @@ export default function Operations({ routes, onNavigate }) {
                     </button>
 
                     <div className="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-1 text-[0.7rem] text-slate-600 shadow-sm ring-1 ring-slate-200 dark:bg-slate-900/80 dark:text-slate-300 dark:ring-slate-700">
-                        <ShieldCheck className="h-3.5 w-3.5 text-sky-600 dark:text-sky-300" />
+                        <ShieldCheck className="h-3.5 w-3.5 text-sky-600 dark:text-(--orange500)" />
                         <span className="font-medium">Collaboration · International · CSC</span>
                     </div>
                 </div>
@@ -56,7 +56,7 @@ export default function Operations({ routes, onNavigate }) {
                 <div className="p-4 sm:p-6 md:p-8 space-y-8 bg-white dark:bg-gray-900 text-slate-700 dark:text-slate-200">
                     {/* 1. Introduction */}
                     <section>
-                        <h2 className="text-xl font-bold text-sky-700 dark:text-sky-300 mb-3">
+                        <h2 className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3">
                             1. Introduction
                         </h2>
                         <p className="text-sm leading-relaxed">
@@ -66,7 +66,7 @@ export default function Operations({ routes, onNavigate }) {
 
                     {/* 2. Operations (Modified Block) */}
                     <section>
-                        <h2 className="text-xl font-bold text-sky-700 dark:text-sky-300 mb-3">
+                        <h2 className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3">
                             2. Operations
                         </h2>
                         <p className="text-sm leading-relaxed mb-4">
@@ -105,7 +105,7 @@ export default function Operations({ routes, onNavigate }) {
 
                     {/* 3. Exercises */}
                     <section>
-                        <h2 className="text-xl font-bold text-sky-700 dark:text-sky-300 mb-3">
+                        <h2 className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3">
                             3. Exercises
                         </h2>
                         <p className="text-sm leading-relaxed mb-4">
@@ -125,7 +125,7 @@ export default function Operations({ routes, onNavigate }) {
 
                     {/* 4. Joint Inspections */}
                     <section>
-                        <h2 className="text-xl font-bold text-sky-700 dark:text-sky-300 mb-3">
+                        <h2 className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3">
                             4. Joint Inspections
                         </h2>
                         <p className="text-sm leading-relaxed mb-4">
@@ -157,8 +157,8 @@ export default function Operations({ routes, onNavigate }) {
                                         <tr>
                                             <td className="px-4 py-2 whitespace-nowrap text-sm">2</td>
                                             <td className="px-4 py-2 whitespace-nowrap text-sm">MbPA, Mumbai</td>
-                                            <td className="px-4 py-2 whitespace-nowrap text-sm">-</td>
-                                            <td className="px-4 py-2 whitespace-nowrap text-sm">-</td>
+                                            <td className="px-4 py-2 whitespace-nowrap text-sm">Apr 25</td>
+                                            <td className="px-4 py-2 whitespace-nowrap text-sm text-green-600 dark:text-green-400">Completed</td>
                                         </tr>
                                         <tr>
                                             <td className="px-4 py-2 whitespace-nowrap text-sm">3</td>
@@ -169,8 +169,8 @@ export default function Operations({ routes, onNavigate }) {
                                         <tr>
                                             <td className="px-4 py-2 whitespace-nowrap text-sm">4</td>
                                             <td className="px-4 py-2 whitespace-nowrap text-sm">Mormugao Port Trust, Goa</td>
-                                            <td className="px-4 py-2 whitespace-nowrap text-sm">-</td>
-                                            <td className="px-4 py-2 whitespace-nowrap text-sm">-</td>
+                                            <td className="px-4 py-2 whitespace-nowrap text-sm">Oct 25</td>
+                                            <td className="px-4 py-2 text-sm text-amber-600 dark:text-amber-400">Dates awaited from Ministry of Ports, Shipping and Waterways</td>
                                         </tr>
                                         <tr>
                                             <td className="px-4 py-2 whitespace-nowrap text-sm">5</td>
@@ -236,7 +236,7 @@ export default function Operations({ routes, onNavigate }) {
                                         <tr>
                                             <td className="px-4 py-2 whitespace-nowrap text-sm">2</td>
                                             <td className="px-4 py-2 whitespace-nowrap text-sm">M/s Jawahar Lal Nehru Port Authority</td>
-                                            <td className="px-4 py-2 whitespace-nowrap text-sm">-</td>
+                                            <td className="px-4 py-2 text-sm text-green-600 dark:text-green-400">Completed & forwarded with observation</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -246,7 +246,7 @@ export default function Operations({ routes, onNavigate }) {
 
                     {/* 5. Embarkations */}
                     <section>
-                        <h2 className="text-xl font-bold text-sky-700 dark:text-sky-300 mb-3">
+                        <h2 className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3">
                             5. Embarkations
                         </h2>
                         <p className="text-sm leading-relaxed mb-4">
@@ -285,7 +285,7 @@ export default function Operations({ routes, onNavigate }) {
                                         <td className="px-4 py-2 whitespace-nowrap text-sm">4</td>
                                         <td className="px-4 py-2 whitespace-nowrap text-sm">ICGS Sankalp</td>
                                         <td className="px-4 py-2 whitespace-nowrap text-sm">16-26 Apr 25</td>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">-</td>
+                                        <td className="px-4 py-2 whitespace-nowrap text-sm">Monsoon Deployment</td>
                                     </tr>
                                     <tr>
                                         <td className="px-4 py-2 whitespace-nowrap text-sm">5</td>
@@ -306,7 +306,7 @@ export default function Operations({ routes, onNavigate }) {
 
                     {/* 6. Availability of Oil Spill Dispersant (OSD) */}
                     <section>
-                        <h2 className="text-xl font-bold text-sky-700 dark:text-sky-300 mb-3">
+                        <h2 className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3">
                             6. Availability of Oil Spill Dispersant (OSD)
                         </h2>
                         <p className="text-sm leading-relaxed">

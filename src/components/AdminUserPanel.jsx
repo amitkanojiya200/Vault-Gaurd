@@ -70,7 +70,7 @@ export default function AdminUsersPanel({ sessionToken: tokenProp }) {
             <div className="flex items-center justify-between mb-3">
                 <h2 className="text-lg font-semibold">Admin · Users</h2>
                 <div>
-                    <button onClick={openCreate} className="rounded-md bg-sky-600 text-white px-3 py-1">Create user</button>
+                    <button onClick={openCreate} className="rounded-md bg-(--orange500) text-white px-3 py-1">Create user</button>
                 </div>
             </div>
 
@@ -79,7 +79,7 @@ export default function AdminUsersPanel({ sessionToken: tokenProp }) {
                 <div className="overflow-auto max-h-64">
                     <table className="w-full text-sm">
                         <thead className="text-slate-500">
-                            <tr>
+                            <tr className='text-left'>
                                 <th className="text-left">Name</th>
                                 <th>Username</th>
                                 <th>Role</th>
@@ -94,9 +94,9 @@ export default function AdminUsersPanel({ sessionToken: tokenProp }) {
                                     <td className="py-2 text-slate-600">{u.username}</td>
                                     <td className="py-2 text-slate-600">{u.role}</td>
                                     <td className="py-2 text-slate-600">{u.last_login ? new Date(u.last_login * 1000).toLocaleString() : '—'}</td>
-                                    <td className="py-2 text-right">
-                                        <button onClick={() => openEdit(u)} className="mr-2 text-sky-600">Edit</button>
-                                        <button onClick={() => handleDelete(u)} className="text-red-600">Delete</button>
+                                    <td className="py-2 text-center">
+                                        <button onClick={() => openEdit(u)} className="mr-2 text-(--orange500)">Edit</button>
+                                        <button onClick={() => handleDelete(u)} className="text-red-600 font-bold border-l-1 pl-2 border-gray-400">Delete</button>
                                     </td>
                                 </tr>
                             ))}

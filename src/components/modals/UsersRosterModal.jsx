@@ -42,7 +42,7 @@ export default function UsersRosterModal({
         className="relative z-10 w-[min(960px,95%)] max-h-[85vh] overflow-hidden rounded-2xl border border-[var(--border-dark-soft,#1f2937)] bg-slate-900/95 p-4 shadow-2xl"
       >
         <div className="mb-3 flex items-center justify-between gap-3">
-          <h3 className="text-lg font-semibold text-sky-300">
+          <h3 className="text-lg font-semibold text-(--orange400)">
             Registered Admins & Users
           </h3>
           <button
@@ -55,7 +55,7 @@ export default function UsersRosterModal({
 
         <div className="grid max-h-[70vh] gap-4 overflow-auto text-sm text-slate-200 md:grid-cols-2">
           <div>
-            <p className="mb-2 text-sm font-semibold text-sky-300">Admins</p>
+            <p className="mb-2 text-sm font-semibold text-(--orange400)">Admins</p>
             <table className="w-full text-xs">
               <thead className="border-b border-slate-800/70 text-slate-400">
                 <tr>
@@ -84,7 +84,7 @@ export default function UsersRosterModal({
           </div>
 
           <div>
-            <p className="mb-2 text-sm font-semibold text-sky-300">Users</p>
+            <p className="mb-2 text-sm font-semibold text-(--orange400)">Users</p>
             <table className="w-full text-xs">
               <thead className="border-b border-slate-800/70 text-slate-400">
                 <tr>

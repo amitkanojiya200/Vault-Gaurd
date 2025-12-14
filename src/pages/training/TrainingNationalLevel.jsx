@@ -144,36 +144,36 @@ export default function TrainingNationalLevel({ routes, onNavigate }) {
                                 <h1 className="lg:text-2xl sm:text-4xl font-extrabold text-gray-800 dark:text-white mb-6 text-left pt-5">
                                     2.1 National Level
                                 </h1>
-                                <div className="overflow-x-auto shadow-2xl rounded-xl border border-gray-200 dark:border-gray-700">
-                                    <table className="min-w-full divide-gray-200 dark:divide-gray-700">
+                                <div className="overflow-x-auto shadow-2xl rounded-xl border border-orange-200 dark:border-orange-700">
+                                    <table className="min-w-full divide-orange-200 dark:divide-orange-700">
                                         {/* Table Header */}
-                                        <thead className="bg-sky-600 dark:bg-sky-800 text-white">
+                                        <thead className="bg-(--orange500) dark:bg-(--orange500) text-white">
                                             <tr>
                                                 <th
                                                     scope="col"
                                                     rowSpan="2"
-                                                    className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider border-r border-sky-700 dark:border-sky-900 w-16"
+                                                    className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider border-r border-orange-700 dark:border-orange-900 w-16"
                                                 >
                                                     Ser No.
                                                 </th>
                                                 <th
                                                     scope="col"
                                                     rowSpan="2"
-                                                    className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider border-r border-sky-700 dark:border-sky-900 min-w-[200px]"
+                                                    className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider border-r border-orange-700 dark:border-orange-900 min-w-[200px]"
                                                 >
                                                     Course Title
                                                 </th>
                                                 <th
                                                     scope="colgroup"
                                                     colSpan="2"
-                                                    className="px-6 py-3 text-center text-xs font-semibold uppercase tracking-wider border-r border-sky-700 dark:border-sky-900"
+                                                    className="px-6 py-3 text-center text-xs font-semibold uppercase tracking-wider border-r border-orange-700 dark:border-orange-900"
                                                 >
                                                     No. of Courses
                                                 </th>
                                                 <th
                                                     scope="col"
                                                     rowSpan="2"
-                                                    className="px-6 py-3 text-center text-xs font-semibold uppercase tracking-wider border-r border-sky-700 dark:border-sky-900"
+                                                    className="px-6 py-3 text-center text-xs font-semibold uppercase tracking-wider border-r border-orange-700 dark:border-orange-900"
                                                 >
                                                     No. of ICG Trainees
                                                 </th>
@@ -186,11 +186,11 @@ export default function TrainingNationalLevel({ routes, onNavigate }) {
                                                 </th>
                                             </tr>
                                             {/* Sub-Header for No. of Courses */}
-                                            <tr className="bg-sky-700 dark:bg-sky-900 text-white">
-                                                <th scope="col" className="px-3 py-2 text-center text-xs font-semibold uppercase tracking-wider border-r border-sky-800 dark:border-sky-950">
+                                            <tr className="bg-(--bg-light) dark:bg-(--dark-acc) text-(--orange500) dark:text-white">
+                                                <th scope="col" className="px-3 py-2 text-center text-xs font-semibold uppercase tracking-wider border-t border-r border-(--orange700) dark:border-sky-950">
                                                     ICG
                                                 </th>
-                                                <th scope="col" className="px-3 py-2 text-center text-xs font-semibold uppercase tracking-wider border-r border-sky-800 dark:border-sky-950">
+                                                <th scope="col" className="px-3 py-2 text-center text-xs font-semibold uppercase tracking-wider border-t border-r border-(--orange700) dark:border-sky-950">
                                                     Stakeholders
                                                 </th>
                                             </tr>

@@ -120,23 +120,23 @@ export default function TrainingInternationalLevel({ routes, onNavigate }) {
                 <div className="overflow-x-auto shadow-2xl rounded-xl border border-gray-200 dark:border-gray-700">
                   <table className="min-w-full divide-gray-200 dark:divide-gray-700">
                     {/* Table Header */}
-                    <thead className="bg-sky-600 dark:bg-sky-800 text-white">
+                    <thead className="bg-(--orange500) dark:bg-(--orange500) text-white">
                       <tr>
                         <th
                           scope="col"
-                          className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider border-r border-sky-700 dark:border-sky-900 w-16"
+                          className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider border-r border-orange-700 dark:border-orange-900 w-16"
                         >
                           Ser No.
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider border-r border-sky-700 dark:border-sky-900 min-w-[200px]"
+                          className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider border-r border-orange-700 dark:border-orange-900 min-w-[200px]"
                         >
                           Course Title
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-center text-xs font-semibold uppercase tracking-wider border-r border-sky-700 dark:border-sky-900"
+                          className="px-6 py-3 text-center text-xs font-semibold uppercase tracking-wider border-r border-orange-700 dark:border-orange-900"
                         >
                           No. of Courses
                         </th>
@@ -167,13 +167,13 @@ export default function TrainingInternationalLevel({ routes, onNavigate }) {
                       </tr>
                       {/* Row 2 */}
                       <tr className="bg-gray-50 dark:bg-gray-700">
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white border-r border-gray-200 dark:border-gray-700">
+                        <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white border-r border-gray-200 dark:border-gray-800">
                           2
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white border-r border-gray-200 dark:border-gray-700">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white border-r border-gray-200 dark:border-gray-800">
                           OPRC Level-2
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white text-center border-r border-gray-200 dark:border-gray-700">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white text-center border-r border-gray-200 dark:border-gray-800">
                           02
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-900 dark:text-white">

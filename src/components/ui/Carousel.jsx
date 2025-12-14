@@ -267,20 +267,20 @@ export default function Carousel({
             type="button"
             aria-label="Previous slide"
             onClick={goPrev}
-            className="absolute left-3 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-white/90 dark:bg-[#061022]/80 shadow-md hover:scale-105 transition-transform focus:outline-none focus:ring-2 focus:ring-[var(--coastal)]"
+            className="absolute left-3 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-white/90 dark:bg-[#061022]/80 shadow-md hover:scale-105 transition-transform focus:outline-none focus:ring-2 focus:ring-[var(--yellow)]"
             style={{ backdropFilter: "blur(4px)" }}
           >
-            <FiChevronLeft className="h-5 w-5 text-[var(--navy)] dark:text-[var(--soft-white)]" />
+            <FiChevronLeft className="h-5 w-5 text-[var(--orange)] dark:text-[var(--soft-white)]" />
           </button>
 
           <button
             type="button"
             aria-label="Next slide"
             onClick={goNext}
-            className="absolute right-3 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-white/90 dark:bg-[#061022]/80 shadow-md hover:scale-105 transition-transform focus:outline-none focus:ring-2 focus:ring-[var(--coastal)]"
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-white/90 dark:bg-[#061022]/80 shadow-md hover:scale-105 transition-transform focus:outline-none focus:ring-2 focus:ring-[var(--yellow)]"
             style={{ backdropFilter: "blur(4px)" }}
           >
-            <FiChevronRight className="h-5 w-5 text-[var(--navy)] dark:text-[var(--soft-white)]" />
+            <FiChevronRight className="h-5 w-5 text-[var(--orange)] dark:text-[var(--soft-white)]" />
           </button>
         </>
       )}
@@ -304,12 +304,12 @@ export default function Carousel({
                 style={{ width: 36, height: 36 }}
               >
                 <motion.span
-                  className={`absolute inset-0 rounded-full ${normalizedIndex === i ? "bg-[var(--coastal)]/30" : "bg-black/8 dark:bg-white/5"}`}
+                  className={`absolute inset-0 rounded-full ${normalizedIndex === i ? "bg-[var(--orange)]/30" : "bg-black/8 dark:bg-white/5"}`}
                   initial={{ scale: 1, opacity: 0.35 }}
                   animate={normalizedIndex === i ? { scale: [1, 1.6, 1], opacity: [0.35, 0.12, 0.35] } : { scale: 1, opacity: 0.35 }}
                   transition={normalizedIndex === i ? { repeat: Infinity, repeatDelay: 1.6, duration: 1.6 } : { duration: 0.25 }}
                 />
-                <span className={`relative rounded-full w-3.5 h-3.5 ${normalizedIndex === i ? "bg-[var(--coastal)]" : "bg-white/90 dark:bg-[#0F172A]"}`} />
+                <span className={`relative rounded-full w-3.5 h-3.5 ${normalizedIndex === i ? "bg-[var(--orange)]" : "bg-white/90 dark:bg-[#0F172A]"}`} />
               </motion.button>
             ))}
           </div>
