@@ -1,0 +1,18 @@
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE IF NOT EXISTS file_tags (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  path TEXT NOT NULL,
+  tag TEXT NOT NULL,
+  created_by INTEGER,
+  created_at INTEGER,
+  FOREIGN KEY(created_by) REFERENCES users(id) ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS recent_access (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER,
+  path TEXT NOT NULL,
+  accessed_at INTEGER NOT NULL,
+  FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
+);

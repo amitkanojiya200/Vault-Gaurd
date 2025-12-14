@@ -1,0 +1,18 @@
+<!-- src/branding/logo.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0F4C81"/>
+      <stop offset="1" stop-color="#1E90FF"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="100" cy="100" r="92" fill="url(#g1)" stroke="#081826" stroke-width="4"/>
+
+  <g transform="translate(100,68)" fill="#F8FAFC">
+    <path d="M-6 2 L-6 -30 L-10 -30 L-2 -54 L6 -30 L2 -30 L2 2 Z" />
+    <rect x="-2" y="2" width="4" height="48" rx="2" />
+  </g>
+
+  <text x="100" y="170" text-anchor="middle" font-family="Verdana, sans-serif" font-size="18" fill="#F8FAFC" font-weight="700">COAST VAULT</text>
+</svg>

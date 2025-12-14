@@ -1,0 +1,251 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Default (light) theme variables */
+:root {
+  --bg-light: #fff7ed;           /* warm cream */
+  --bg-light-soft: #ffffff;      /* white for cards / surfaces */
+  --bg-light-alt: #fef3c7;       /* soft amber */
+  --navy: #1f2933;               /* deep slate/navy */
+  --navy-muted: #4b5563;         /* muted navy/slate */
+  --navy-soft: #6b7280;          /* softer neutral for accents */
+  --coastal: #3b82f6;            /* soft coastal blue (supporting) */
+  --ocean: #2563eb;              /* ocean / primary blue accent */
+  --sky: #93c5fd;                /* light sky highlight */
+  --gradient-from: #fff7ed;      /* warm pale orange */
+  --gradient-to: #fef3c7;        /* warm pale yellow */
+  --soft-white: #111827;         /* dark text on light background */
+  --soft-white-muted: #6b7280;   /* muted text */
+  --border-dark-soft: rgba(15,23,42,0.8);
+  --tooltip-bg: rgba(15,23,42,0.95);
+
+  /* Accent set (light theme primary accents) */
+  --orange: #f97316;             /* warm orange */
+  --yellow: #fbbf24;             /* soft amber yellow */
+  --white-acc: #ffffff;          /* explicit white accent */
+  --dark-acc: #111827;           /* deep accent for contrast */
+}
+
+/* Dark theme variables */
+.dark {
+  --bg-dark: #050816;            /* deep midnight with slight warmth */
+  --bg-dark-soft: #0b1220;       /* soft dark surface */
+  --bg-dark-alt: #020617;        /* alternate dark surface */
+  --soft-white: #f9fafb;         /* near-white text on dark */
+  --soft-white-muted: #e5e7eb;   /* muted light text */
+  --coastal: #38bdf8;            /* vivid but soft coastal blue accent */
+  --ocean: #2563eb;              /* supporting blue accent */
+  --sky: #93c5fd;                /* bright sky for highlights */
+  --border-dark: #111827;
+  --border-dark-soft: #1e293b;
+  --gradient-from: #050816;      /* dark -> warm navy gradient */
+  --gradient-to: #0b1220;
+  --orange: #fb923c;             /* brighter orange in dark */
+  --yellow: #facc15;             /* rich yellow in dark */
+  --emerald: #22c55e;
+  --tooltip-bg: rgba(2,6,23,0.95);
+
+  /* Extra accents */
+  --white-acc: #f9fafb;
+  --dark-acc: #020617;
+
+  /* background / foreground tokens tuned to warm orange/blue palette */
+  --background: linear-gradient(180deg, var(--bg-dark), var(--bg-dark-alt));
+  --foreground: var(--soft-white);
+  --card: var(--bg-dark-soft);
+  --card-foreground: var(--soft-white);
+  --popover: var(--bg-dark-soft);
+  --popover-foreground: var(--soft-white);
+
+  /* Orange-first primary, blue secondary, yellow accent */
+  --primary: var(--orange);
+  --primary-foreground: var(--dark-acc);
+  --secondary: var(--coastal);
+  --secondary-foreground: var(--soft-white);
+  --muted: #6b7280;
+  --muted-foreground: var(--soft-white-muted);
+  --accent: var(--yellow);
+  --accent-foreground: var(--dark-acc);
+  --destructive: #ff6b6b;
+  --border: rgba(148,163,184,0.35);
+  --input: rgba(15,23,42,0.7);
+  --ring: rgba(248,181,61,0.45); /* warm ring */
+
+  /* Charts: mostly orange/yellow with a touch of blue + green */
+  --chart-1: #fb923c;            /* orange */
+  --chart-2: #f97316;            /* deeper orange */
+  --chart-3: #facc15;            /* yellow */
+  --chart-4: #3b82f6;            /* blue accent */
+  --chart-5: #22c55e;            /* green */
+
+  --sidebar: var(--bg-dark-soft);
+  --sidebar-foreground: var(--soft-white);
+  --sidebar-primary: var(--orange);
+  --sidebar-primary-foreground: var(--dark-acc);
+  --sidebar-accent: var(--yellow);
+  --sidebar-accent-foreground: var(--dark-acc);
+  --sidebar-border: rgba(15,23,42,0.8);
+  --sidebar-ring: rgba(248,181,61,0.35);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.bg-app {
+  background: var(--bg);
+}
+
+.card-bg {
+  background: var(--card-bg);
+}
+
+.text-primary {
+  color: var(--text);
+}
+
+.text-muted {
+  color: var(--subtext);
+}
+
+.text-soft-white {
+  color: var(--soft-white);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.bg-accent {
+  background-color: var(--accent);
+}
+
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.22); /* warm orange focus */
+  border-radius: 6px;
+}
+
+/* Gradient utilities */
+
+.bg-linear-to-b {
+  background-image: linear-gradient(to bottom, var(--gradient-from), var(--gradient-to));
+}
+
+.bg-linear-to-r {
+  background-image: linear-gradient(to right, var(--gradient-from), var(--gradient-to));
+}
+
+.glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.animate-marquee {
+  display: inline-block;
+  display: flex;
+  white-space: nowrap;
+  animation: marquee 18s linear infinite;
+}
+.animate-marquee2 {
+  display: inline-block;
+  display: flex;
+  white-space: nowrap;
+  animation: marquee2 10s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+@keyframes marquee2 {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+kbd {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.gradient-text {
+  background-image: linear-gradient(90deg, var(--gradient-from), var(--gradient-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.card-shadow {
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.35);
+}
+
+.bg-var {
+  background-color: var(--bg) !important;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
