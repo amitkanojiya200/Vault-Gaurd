@@ -99,7 +99,7 @@ const IgBhishamSharmaParagraphs = () => {
 };
 
 const documentItems = [
-  { title: "NOSDCP Circular 05/2025", path: "/docs/NOSDCP_Circular_05_  .pdf" },
+  { title: "NOSDCP Circular 05/2025", path: "/docs/NOSDCP_Circular_05_2025.pdf" },
   { title: "10th National Level Pollution Response Exercise (NATPOLREX-X)", path: "/docs/Notice_NATPOLREX_X.pdf" },
   { title: "Chairperson NOS DCP Circular No: 04/2025", path: "/docs/NOSDCP_Circular_04_2025.pdf" },
   { title: "CNA NOSDCP 07-2025", path: "/docs/CNA_NOSDCP_07_2025.pdf" },
