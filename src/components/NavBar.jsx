@@ -18,26 +18,93 @@ import { useRoute, ROUTES } from "../router/Router";
 import sessionClient from "@/lib/sessionClient";
 import * as userClient from "@/lib/userClient";
 import * as authClient from "@/lib/authClient";
+import ModalPdfViewer from '@/components/ModalPdfViewer';
 
-// Stakeholder-specific OPRC pages (separate from Documents > OPRC pages)
-const STAKEHOLDERS_LIST = [
-  {
-    key: "stake-oprc-level1",
-    label: "OPRC Level1 stakeholder",
-    routeKey: ROUTES.STAKE_OPRC_LEVEL1,
-  },
-  {
-    key: "stake-oprc-level2",
-    label: "OPRC Level2 stakeholder",
-    routeKey: ROUTES.STAKE_OPRC_LEVEL2,
-  },
-  {
-    key: "stake-oprc-level3",
-    label: "OPRC Level3 stakeholder",
-    routeKey: ROUTES.STAKE_OPRC_LEVEL3,
-  },
+// --- Stakeholder documents with exact names and paths ---
+const STAKEHOLDER_DOCUMENTS = [
+  { title: "HALDIA DOCK CO-OP SMPK", path: "/stakeholders/HALDIA_DOCK_CO-OP_SMPK.pdf" },
+  { title: "FINOLEX, RATNAGIRI", path: "/stakeholders/FINOLEX_RATNAGIRI.pdf" },
+  { title: "GAIL (INDIA) LTD, KOCHI (1)", path: "/stakeholders/GAIL_INDIA_LTD_KOCHI_1.pdf" },
+  { title: "ESSAR BULK TERMINAL SALAYA LTD", path: "/stakeholders/ESSAR_BULK_TERMINAL_SALAYA_LTD.pdf" },
+  { title: "DIRECTORATE OF FISHERIES GOA (2)", path: "/stakeholders/DIRECTORATE_OF_FISHERIES_GOA_2.pdf" },
+  { title: "DIRECTORATE OF FISHERIES GOA (1)", path: "/stakeholders/DIRECTORATE_OF_FISHERIES_GOA_1.pdf" },
+  { title: "DEENDAYAL PORT AUTHORITY", path: "/stakeholders/DEENDAYAL_PORT_AUTHORITY.pdf" },
+  { title: "DGS. GOVT. OF INDIA (1)", path: "/stakeholders/DGS_GOVT_OF_INDIA_1.pdf" },
+  { title: "DEENDAYAL PORT AUTHORITY 2", path: "/stakeholders/DEENDAYAL_PORT_AUTHORITY_2.pdf" },
+  { title: "CAPTAIN OF PORT GOA", path: "/stakeholders/CAPTAIN_OF_PORT_GOA.pdf" },
+  { title: "CHENNAI PRT TRUST", path: "/stakeholders/CHENNAI_PRT_TRUST.pdf" },
+  { title: "CARNIVAL PORT AUTHORITY", path: "/stakeholders/CARNIVAL_PORT_AUTHORITY.pdf" },
+  { title: "CAIRN VEDANTA OIL & GAS", path: "/stakeholders/CAIRN_VEDANTA_OIL_GAS.pdf" },
+  { title: "BP CORPORATION LTD (1)", path: "/stakeholders/BP_CORPORATION_LTD_1.pdf" },
+  { title: "BHARAT PETROLEUM", path: "/stakeholders/BHARAT_PETROLEUM.pdf" },
+  { title: "ANGRE PORT PVT LTD (1)", path: "/stakeholders/ANGRE_PORT_PVT_LTD_1.pdf" },
+  { title: "APM TERMINAL, MUMBAI", path: "/stakeholders/APM_TERMINAL_MUMBAI.pdf" },
+  { title: "AEGIS LOGISTICS LIMITED", path: "/stakeholders/AEGIS_LOGISTICS_LIMITED.pdf" },
+  { title: "ADANI PORT", path: "/stakeholders/ADANI_PORT.pdf" },
+  { title: "ADANI MUNDRA PORT LTD", path: "/stakeholders/ADANI_MUNDRA_PORT_LTD.pdf" },
+  { title: "ONGC Mumbai Level-1 Qualified stakeholders (2021-2025)", path: "/stakeholders/ONGC_Mumbai_Level-1_Qualified_stakeholders_2021-2025.pdf" },
+  { title: "MS MANGALORE REFINERY AND PETROCHEMICALS LTD", path: "/stakeholders/MS_MANGALORE_REFINERY_AND_PETROCHEMICALS_LTD.pdf" },
+  { title: "MS IOCL, MANGALORE", path: "/stakeholders/MS_IOCL_MANGALORE.pdf" },
+  { title: "MS KONKAN LNG LTD", path: "/stakeholders/MS_KONKAN_LNG_LTD.pdf" },
+  { title: "MS HPCL VISAKH REFINERY", path: "/stakeholders/MS_HPCL_VISAKH_REFINERY.pdf" },
+  { title: "MS FINOLEX INDUSTRIES LTD, RATNAGIRI", path: "/stakeholders/MS_FINOLEX_INDUSTRIES_LTD_RATNAGIRI.pdf" },
+  { title: "MS AMBUJA CEMENTS LTD", path: "/stakeholders/MS_AMBUJA_CEMENTS_LTD.pdf" },
+  { title: "MS CAPTAIN OF PORT GOA", path: "/stakeholders/MS_CAPTAIN_OF_PORT_GOA.pdf" },
+  { title: "MbPA Level-1 Qualified stakeholders (2021-2025)", path: "/stakeholders/MbPA_Level-1_Qualified_stakeholders_2021-2025.pdf" },
+  { title: "MORMUGAO PORT AUTHORITY", path: "/stakeholders/MORMUGAO_PORT_AUTHORITY.pdf" },
+  { title: "MPA GOA", path: "/stakeholders/MPA_GOA.pdf" },
+  { title: "MS ADANI ELECTRICITY MUMBAI LTD DAHANU PORT", path: "/stakeholders/MS_ADANI_ELECTRICITY_MUMBAI_LTD_DAHANU_PORT.pdf" },
+  { title: "MS BPCL, KOCHI", path: "/stakeholders/MS_BPCL_KOCHI.pdf" },
+  { title: "JSW JAIGARH PORT", path: "/stakeholders/JSW_JAIGARH_PORT.pdf" },
+  { title: "JSW STEEL LIMITED", path: "/stakeholders/JSW_STEEL_LIMITED.pdf" },
+  { title: "JSW DHARAMTAR PORT", path: "/stakeholders/JSW_DHARAMTAR_PORT.pdf" },
+  { title: "JNPA NAVI MUMBAI", path: "/stakeholders/JNPA_NAVI_MUMBAI.pdf" },
+  { title: "GAIL (INDIA) LTD, KOCHI", path: "/stakeholders/GAIL_INDIA_LTD_KOCHI.pdf" },
+  { title: "DGS. GOVT. OF INDIA", path: "/stakeholders/DGS_GOVT_OF_INDIA.pdf" },
+  { title: "DIRECTORATE OF FISHERIES GOA", path: "/stakeholders/DIRECTORATE_OF_FISHERIES_GOA.pdf" },
+  { title: "COCHIN PORT AUTHORITY", path: "/stakeholders/COCHIN_PORT_AUTHORITY.pdf" },
+  { title: "BP CORPORATION LTD", path: "/stakeholders/BP_CORPORATION_LTD.pdf" },
+  { title: "ANGRE PORT PVT LTD", path: "/stakeholders/ANGRE_PORT_PVT_LTD.pdf" },
+  { title: "BHARAT PETROLEUM", path: "/stakeholders/BHARAT_PETROLEUM_2.pdf" }, // Note: duplicate name, different file
+  { title: "ULTRATECH CEMENT", path: "/stakeholders/ULTRATECH_CEMENT.pdf" },
+  { title: "SPTL (RELIANCE) JAMNAGAR", path: "/stakeholders/SPTL_RELIANCE_JAMNAGAR.pdf" },
+  { title: "VEDANTA LIMITED", path: "/stakeholders/VEDANTA_LIMITED.pdf" },
+  { title: "VISAKHAPATNAM Port Authority", path: "/stakeholders/VISAKHAPATNAM_Port_Authority.pdf" },
+  { title: "HPCL – VISAKH REFINERY", path: "/stakeholders/HPCL_VISAKH_REFINERY.pdf" },
+  { title: "SIKKA PORTS & TERMINAL LTD", path: "/stakeholders/SIKKA_PORTS_TERMINAL_LTD.pdf" },
+  { title: "SHYAMA PRASAD MUKHERJI PORT AUTHORITY", path: "/stakeholders/SHYAMA_PRASAD_MUKHERJI_PORT_AUTHORITY.pdf" },
+  { title: "SADHAV SHIPPING LTD", path: "/stakeholders/SADHAV_SHIPPING_LTD.pdf" },
+  { title: "KONKAN LNG LTD", path: "/stakeholders/KONKAN_LNG_LTD.pdf" },
+  { title: "JAWAHARLAL NEHRU PORT AUTHORITY", path: "/stakeholders/JAWAHARLAL_NEHRU_PORT_AUTHORITY.pdf" },
+  { title: "COCHIN PORT AUTHORITY (1)", path: "/stakeholders/COCHIN_PORT_AUTHORITY_1.pdf" },
+  { title: "AMBUJA CEMENTS LTD", path: "/stakeholders/AMBUJA_CEMENTS_LTD.pdf" },
+  { title: "PIPAVAV PORT LTD", path: "/stakeholders/PIPAVAV_PORT_LTD.pdf" },
+  { title: "PARADIP PORT AUTHORITY", path: "/stakeholders/PARADIP_PORT_AUTHORITY.pdf" },
+  { title: "OSCT LLM INDIA LTD. MUMBAI", path: "/stakeholders/OSCT_LLM_INDIA_LTD_MUMBAI.pdf" },
+  { title: "ONGC Mumbai Level-1 & 2 Qualified stakeholders (2021-2025)", path: "/stakeholders/ONGC_Mumbai_Level-1_2_Qualified_stakeholders_2021-2025.pdf" },
+  { title: "OIL AND NATURAL GAS CORPORATION", path: "/stakeholders/OIL_AND_NATURAL_GAS_CORPORATION.pdf" },
+  { title: "OFFSHORE OIL TERMINAL (DPA) VADINAR", path: "/stakeholders/OFFSHORE_OIL_TERMINAL_DPA_VADINAR.pdf" },
+  { title: "NEW MANGALORE PORT AUTHORITY", path: "/stakeholders/NEW_MANGALORE_PORT_AUTHORITY.pdf" },
+  { title: "NAVARA ENERGY LTD", path: "/stakeholders/NAVARA_ENERGY_LTD.pdf" },
+  { title: "MORMUGAON PORT AUTHORITY 2", path: "/stakeholders/MORMUGAON_PORT_AUTHORITY_2.pdf" },
+  { title: "MRPL", path: "/stakeholders/MRPL.pdf" },
+  { title: "MbPA Level-1, 2 & 3 Qualified stakeholders (2021-2025)", path: "/stakeholders/MbPA_Level-1_2_3_Qualified_stakeholders_2021-2025.pdf" },
+  { title: "KARIKAL PORT PVT", path: "/stakeholders/KARIKAL_PORT_PVT.pdf" },
+  { title: "MS BPCL, KOCHI (1)", path: "/stakeholders/MS_BPCL_KOCHI_1.pdf" },
+  { title: "KAMARAJAR PORT LTD., CHENNAI", path: "/stakeholders/KAMARAJAR_PORT_LTD_CHENNAI.pdf" },
+  { title: "JSW STEEL LIMITED (1)", path: "/stakeholders/JSW_STEEL_LIMITED_1.pdf" },
+  { title: "JSW, DHARAMTAR PORT", path: "/stakeholders/JSW_DHARAMTAR_PORT_2.pdf" },
+  { title: "JSW JAIGARH PORT (1)", path: "/stakeholders/JSW_JAIGARH_PORT_1.pdf" },
+  { title: "INDIVIDUAL", path: "/stakeholders/INDIVIDUAL.pdf" },
+  { title: "INDIAN OIL CORPORATION LIMITED", path: "/stakeholders/INDIAN_OIL_CORPORATION_LIMITED.pdf" },
+  { title: "IMC LTD., ENNORE, CHENNAI", path: "/stakeholders/IMC_LTD_ENNORE_CHENNAI.pdf" },
+  { title: "HMEL MUNDRA", path: "/stakeholders/HMEL_MUNDRA.pdf" },
+  { title: "HDC SMPK", path: "/stakeholders/HDC_SMPK.pdf" },
+  { title: "HAZIRA PORT LTD", path: "/stakeholders/HAZIRA_PORT_LTD.pdf" }
 ];
 
+// Create the navbar stakeholders list from the document titles
+const NAVBAR_STAKEHOLDERS = STAKEHOLDER_DOCUMENTS.map(doc => doc.title);
 
 export default function NavBar() {
   const { route, navigate } = useRoute();
@@ -46,6 +113,7 @@ export default function NavBar() {
   const [openDropdown, setOpenDropdown] = React.useState(null); // 'services' | 'documents' | 'stakeholders' | null
   const [openServicesKey, setOpenServicesKey] = React.useState(null); // which Services sub-group is expanded
   const [openServicesSubKey, setOpenServicesSubKey] = React.useState(null); // for Services > Collaboration > International
+  const [openStakePdf, setOpenStakePdf] = React.useState(null); // { src, title } or null
 
   // ✅ current user from real backend session
   const [currentUser, setCurrentUserState] = React.useState(null);
@@ -166,6 +234,34 @@ export default function NavBar() {
       navTo(ROUTES.LOGIN);
     }
   }
+
+  // Handle stakeholder document click
+  const handleStakeholderClick = async (title) => {
+    try {
+      // Find the document in STAKEHOLDER_DOCUMENTS
+      const doc = STAKEHOLDER_DOCUMENTS.find(d => d.title === title);
+      
+      if (!doc) {
+        console.error('Stakeholder document not found:', title);
+        return;
+      }
+
+      // Convert to absolute URL for browser
+      const resolved = (typeof window !== 'undefined' && window.location && window.location.origin.startsWith('http') && doc.path.startsWith('/'))
+        ? `${window.location.origin}${doc.path}`
+        : doc.path;
+
+      // Open in the modal viewer
+      setOpenStakePdf({ src: resolved, title: doc.title });
+    } catch (err) {
+      console.error('Stakeholder click error:', err);
+    }
+  };
+
+  // Close stakeholder PDF modal
+  const closeStakePdfModal = () => {
+    setOpenStakePdf(null);
+  };
 
   // Shared classes
   const topBg =
@@ -549,16 +645,12 @@ export default function NavBar() {
               <button
                 type="button"
                 onClick={() => toggleDropdown("stakeholders")}
-                className={`${navLinkBase} ${openDropdown === "stakeholders"
-                  ? navLinkActive
-                  : navLinkIdle
-                  }`}
+                className={`${navLinkBase} ${openDropdown === "stakeholders" ? navLinkActive : navLinkIdle}`}
               >
                 <span>Stakeholders</span>
                 <ChevronDown
                   size={14}
-                  className={`transition-transform ${openDropdown === "stakeholders" ? "rotate-180" : ""
-                    }`}
+                  className={`transition-transform ${openDropdown === "stakeholders" ? "rotate-180" : ""}`}
                 />
               </button>
 
@@ -569,24 +661,28 @@ export default function NavBar() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -6 }}
                     transition={{ duration: 0.15 }}
-                    className={`${dropdownPanelBase} w-64`}
+                    className={`${dropdownPanelBase} w-80 max-h-72 overflow-y-auto`}
                   >
                     <p className="mb-2 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-                      Stakeholder · OPRC Levels
+                      Stakeholders · Quick List
                     </p>
-                    <ul className="space-y-1 text-sm">
-                      {STAKEHOLDERS_LIST.map((s) => (
-                        <li key={s.key}>
-                          <button
-                            type="button"
-                            onClick={() => navTo(s.routeKey)}
-                            className="flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-slate-800/70"
-                          >
-                            {s.label}
-                          </button>
-                        </li>
+
+                    <div className="space-y-1 text-sm">
+                      {NAVBAR_STAKEHOLDERS.map((title) => (
+                        <button
+                          key={title}
+                          type="button"
+                          onClick={async (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            await handleStakeholderClick(title);
+                          }}
+                          className="flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-slate-800/70"
+                        >
+                          <span className="truncate">{title}</span>
+                        </button>
                       ))}
-                    </ul>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -762,6 +858,15 @@ export default function NavBar() {
 
       {/* Spacer so content doesn't slide under fixed navbar */}
       <div className="h-16 md:h-16" />
+
+      {/* Stakeholder PDF Modal */}
+      {openStakePdf && (
+        <ModalPdfViewer
+          title={openStakePdf.title}
+          src={openStakePdf.src}
+          onClose={closeStakePdfModal}
+        />
+      )}
     </>
   );
 }
