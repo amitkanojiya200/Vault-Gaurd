@@ -8,13 +8,91 @@
   "permissions": [
     "core:default",
     "log:default",
-    "fs:read-all", 
-    "fs:write-all", 
+    "fs:read-all",
+    "fs:write-all",
     "shell:allow-open",
+    {
+      "identifier": "fs:allow-read",
+      "allow": [
+        {
+          "path": "$RESOURCE/**",
+          "recursive": true
+        }
+      ]
+    },
+    {
+      "identifier": "fs:allow-write",
+      "allow": [
+        {
+          "path": "$RESOURCE/**",
+          "recursive": true
+        }
+      ]
+    },
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [
+        {
+          "path": "$RESOURCE/**",
+          "recursive": true
+        }
+      ]
+    },
+    {
+      "identifier": "fs:allow-copy-file",
+      "allow": [
+        {
+          "path": "$RESOURCE/**",
+          "recursive": true
+        }
+      ]
+    },
+    {
+      "identifier": "fs:allow-read",
+      "allow": [
+        {
+          "path": "$APPDATA/**",
+          "recursive": true
+        }
+      ]
+    },
+    {
+      "identifier": "fs:allow-write",
+      "allow": [
+        {
+          "path": "$APPDATA/**",
+          "recursive": true
+        }
+      ]
+    },
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [
+        {
+          "path": "$APPDATA/**",
+          "recursive": true
+        }
+      ]
+    },
+    {
+      "identifier": "fs:allow-copy-file",
+      "allow": [
+        {
+          "path": "$RESOURCE/**",
+          "recursive": true
+        },
+        {
+          "path": "$APPDATA/**",
+          "recursive": true
+        }
+      ]
+    },
     {
       "identifier": "opener:allow-open-path",
       "allow": [
-        { "path": "**" } 
+        {
+          "path": "**"
+        }
       ]
     }
   ]

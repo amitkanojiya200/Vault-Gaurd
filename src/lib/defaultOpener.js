@@ -1,19 +1,15 @@
 import { openPath } from '@tauri-apps/plugin-opener';
-import { resolveResource } from '@tauri-apps/api/path';
+import { normalize } from '@tauri-apps/api/path'; // Import normalize
 
-export const openBundledPpt = async (fileName) => {
+export const openBundledPpt = async (absoluteFilePath) => {
     try {
-        // The path provided here MUST match the relative path from your project root
-        // as configured in tauri.conf.json > bundle > resources
-        const relativePath = `D-OPRC-Level-1/${fileName}`;
+        // Use Tauri's utility to ensure the path is correctly formatted for the OS
+        const normalizedPath = await normalize(absoluteFilePath);
+        console.log(`[Tauri FS] Normalized Path: ${normalizedPath}`);
 
-        const absoluteFilePath = await resolveResource(relativePath);
-
-        console.log(`[Tauri FS] Resolved Path: ${absoluteFilePath}`);
-
-        await openPath(fileName);
+        await openPath(normalizedPath);
 
     } catch (error) {
-        console.error("[Tauri FS] Failed to open bundled PPT file:", error);
+        console.error("[Tauri FS] Failed to open external file:", error);
     }
 };

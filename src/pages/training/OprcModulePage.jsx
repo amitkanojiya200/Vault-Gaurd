@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { FileText, Presentation, PlayCircle, ChevronLeft, Video, X, ExternalLink } from 'lucide-react';
 import bgImage2 from '@/assets/dbg2.png';
 import ModalPdfViewer from '@/components/ModalPdfViewer';
+import { openBundledPpt } from '@/lib/defaultOpener';
 
 const MODULE_CONFIG = {
     level1: {
@@ -21,38 +22,38 @@ const MODULE_CONFIG = {
         },
         overview: [''],
         coursePpts: [
-            { id: 'l1-1', label: 'L1-01 · Introduction and Orientation', fileName: 'L.1.1 Introduction and Orientation CGPRT(W).pptx', path: "D:/Projects/Coast Guard/vault-guard/public/D-OPRC-Level-1/L.1.1 Introduction and Orientation CGPRT(W).pptx" },
-            { id: 'l1-2', label: 'L1-02 · Fate and Behaviour', fileName: 'L.1.2 Fate and Behaviour  By CGPRT(W).pptx', path: "/D-OPRC-Level-1/L.1.2 Fate and Behaviour  By CGPRT(W).pptx" },
-            { id: 'l1-3', label: 'L1-03 · Impacts of Oil Spill', fileName: 'L.1.3 Impacts of oil spill  By CGPRT(W).pptx', path: "/D-OPRC-Level-1/L.1.3 Impacts of oil spill  By CGPRT(W).pptx" },
-            { id: 'l1-4', label: 'L1-04 · Principles of Incident Management', fileName: 'L.1.4 Principles of Incident Management By CGPRT(W).pptx', path: "/D-OPRC-Level-1/L.1.4 Principles of Incident Management By CGPRT(W).pptx" },
-            { id: 'l1-5', label: 'L1-05 · Health and Safety', fileName: 'L.1.5 Health and Safety CGPRT(W).pptx', path: "/D-OPRC-Level-1/L.1.5 Health and Safety CGPRT(W).pptx" },
-            { id: 'l1-6', label: 'L1-06 · Overview of Oil Spill Response Techniques', fileName: 'L.1.6 Overview of Oil Spill Response Techniques CGPRT(W).pptx', path: "/D-OPRC-Level-1/L.1.6 Overview of Oil Spill Response Techniques CGPRT(W).pptx" },
-            { id: 'l1-7', label: 'L1-07 · Dispersants', fileName: 'L.1.7 Dispersants CGPRT(W).pptx', path: "/D-OPRC-Level-1/L.1.7 Dispersants CGPRT(W).pptx" },
-            { id: 'l1-8', label: 'L1-08 · Booms Containment and Protection', fileName: 'L.1.8 Booms Containment and Protection CGPRT(W).pptx', path: "/D-OPRC-Level-1/L.1.8 Booms Containment and Protection CGPRT(W).pptx" },
-            { id: 'l1-9', label: 'L1-09 · Skimmers', fileName: 'L.1.9 Skimmers CGPRT(W).pptx', path: "/D-OPRC-Level-1/L.1.9 Skimmers CGPRT(W).pptx" },
-            { id: 'l1-10', label: 'L1-10 · Temporary Storage', fileName: 'L.1.10 Temporary Storage CGPRT(W).pptx', path: "/D-OPRC-Level-1/L.1.10 Temporary Storage CGPRT(W).pptx" },
-            { id: 'l1-11', label: 'L1-11 · In Situ Burning', fileName: 'L.1.11 In Situ Burning CGPRT(W).pptx', path: "/D-OPRC-Level-1/L.1.11 In Situ Burning CGPRT(W).pptx" },
-            { id: 'l1-12', label: 'L1-12 · Sorbents', fileName: 'L.1.12 Sorbents CGPRT(W).pptx', path: "/D-OPRC-Level-1/L.1.12 Sorbents CGPRT(W).pptx" },
-            { id: 'l1-13', label: 'L1-13 · Shoreline Assessment and Evaluation', fileName: 'L.1.13 Shoreline Assessment and Evaluation CGPRT(W).pptx', path: "/D-OPRC-Level-1/L.1.13 Shoreline Assessment and Evaluation CGPRT(W).pptx" },
-            { id: 'l1-14', label: 'L1-14 · Shoreline Clean-Up Techniques', fileName: 'L.1.14 Shoreline Clean-Up Techniques CGPRT(W).pptx', path: "/D-OPRC-Level-1/L.1.14 Shoreline Clean-Up Techniques CGPRT(W).pptx" },
-            { id: 'l1-15', label: 'L1-15 · Shoreline Site Set-up', fileName: 'L.1.15 Shoreline Site Set-up CGPRT(W).pptx', path: "/D-OPRC-Level-1/L.1.15 Shoreline Site Set-up CGPRT(W).pptx" },
-            { id: 'l1-16', label: 'L1-16 · Implementing Waste Management', fileName: 'L.1.16 Implementing Waste Management CGPRT(W).pptx', path: "/D-OPRC-Level-1/L.1.16 Implementing Waste Management CGPRT(W).pptx" },
-            { id: 'l1-17', label: 'L1-17 · Post incident operations', fileName: 'L.1.17 Post incident operations CGPRT(W).pptx', path: "/D-OPRC-Level-1/L.1.17 Post incident operations CGPRT(W).pptx" }
+            { id: 'l1-1', label: 'L1-01 · Introduction and Orientation', fileName: 'L.1.1 Introduction and Orientation CGPRT(W).pptx', path: "D:/prabal/D-OPRC-Level1/L.1.1 Introduction and Orientation CGPRT(W).pptx" },
+            { id: 'l1-2', label: 'L1-02 · Fate and Behaviour', fileName: 'L.1.2 Fate and Behaviour  By CGPRT(W).pptx', path: "D:/prabal/D-OPRC-Level1/L.1.2 Fate and Behaviour  By CGPRT(W).pptx" },
+            { id: 'l1-3', label: 'L1-03 · Impacts of Oil Spill', fileName: 'L.1.3 Impacts of oil spill  By CGPRT(W).pptx', path: "D:/prabal/D-OPRC-Level1/L.1.3 Impacts of oil spill  By CGPRT(W).pptx" },
+            { id: 'l1-4', label: 'L1-04 · Principles of Incident Management', fileName: 'L.1.4 Principles of Incident Management By CGPRT(W).pptx', path: "D:/prabal/D-OPRC-Level1/L.1.4 Principles of Incident Management By CGPRT(W).pptx" },
+            { id: 'l1-5', label: 'L1-05 · Health and Safety', fileName: 'L.1.5 Health and Safety CGPRT(W).pptx', path: "D:/prabal/D-OPRC-Level1/L.1.5 Health and Safety CGPRT(W).pptx" },
+            { id: 'l1-6', label: 'L1-06 · Overview of Oil Spill Response Techniques', fileName: 'L.1.6 Overview of Oil Spill Response Techniques CGPRT(W).pptx', path: "D:/prabal/D-OPRC-Level1/L.1.6 Overview of Oil Spill Response Techniques CGPRT(W).pptx" },
+            { id: 'l1-7', label: 'L1-07 · Dispersants', fileName: 'L.1.7 Dispersants CGPRT(W).pptx', path: "D:/prabal/D-OPRC-Level1/L.1.7 Dispersants CGPRT(W).pptx" },
+            { id: 'l1-8', label: 'L1-08 · Booms Containment and Protection', fileName: 'L.1.8 Booms Containment and Protection CGPRT(W).pptx', path: "D:/prabal/D-OPRC-Level1/L.1.8 Booms Containment and Protection CGPRT(W).pptx" },
+            { id: 'l1-9', label: 'L1-09 · Skimmers', fileName: 'L.1.9 Skimmers CGPRT(W).pptx', path: "D:/prabal/D-OPRC-Level1/L.1.9 Skimmers CGPRT(W).pptx" },
+            { id: 'l1-10', label: 'L1-10 · Temporary Storage', fileName: 'L.1.10 Temporary Storage CGPRT(W).pptx', path: "D:/prabal/D-OPRC-Level1/L.1.10 Temporary Storage CGPRT(W).pptx" },
+            { id: 'l1-11', label: 'L1-11 · In Situ Burning', fileName: 'L.1.11 In Situ Burning CGPRT(W).pptx', path: "D:/prabal/D-OPRC-Level1/L.1.11 In Situ Burning CGPRT(W).pptx" },
+            { id: 'l1-12', label: 'L1-12 · Sorbents', fileName: 'L.1.12 Sorbents CGPRT(W).pptx', path: "D:/prabal/D-OPRC-Level1/L.1.12 Sorbents CGPRT(W).pptx" },
+            { id: 'l1-13', label: 'L1-13 · Shoreline Assessment and Evaluation', fileName: 'L.1.13 Shoreline Assessment and Evaluation CGPRT(W).pptx', path: "D:/prabal/D-OPRC-Level1/L.1.13 Shoreline Assessment and Evaluation CGPRT(W).pptx" },
+            { id: 'l1-14', label: 'L1-14 · Shoreline Clean-Up Techniques', fileName: 'L.1.14 Shoreline Clean-Up Techniques CGPRT(W).pptx', path: "D:/prabal/D-OPRC-Level1/L.1.14 Shoreline Clean-Up Techniques CGPRT(W).pptx" },
+            { id: 'l1-15', label: 'L1-15 · Shoreline Site Set-up', fileName: 'L.1.15 Shoreline Site Set-up CGPRT(W).pptx', path: "D:/prabal/D-OPRC-Level1/L.1.15 Shoreline Site Set-up CGPRT(W).pptx" },
+            { id: 'l1-16', label: 'L1-16 · Implementing Waste Management', fileName: 'L.1.16 Implementing Waste Management CGPRT(W).pptx', path: "D:/prabal/D-OPRC-Level1/L.1.16 Implementing Waste Management CGPRT(W).pptx" },
+            { id: 'l1-17', label: 'L1-17 · Post incident operations', fileName: 'L.1.17 Post incident operations CGPRT(W).pptx', path: "D:/prabal/D-OPRC-Level1/L.1.17 Post incident operations CGPRT(W).pptx" }
         ],
         exercises: [
-            { id: 'l1-e1', label: 'Ex 1.1 · Identifying and Mitigating Health and Safety Risks', fileName: 'Ex 1.1 Exercise_Identifying and Mitigating Health and Safety Risks.pdf', path: "/D-OPRC-Level-1/exercise/Ex 1.1 Exercise_Identifying and Mitigating Health and Safety Risks.pdf" },
-            { id: 'l1-e2', label: 'Ex 1.2 · At Sea Response Equipment', fileName: 'Ex 1.2 Exercise_At Sea Response Equipment.pdf', path: "/D-OPRC-Level1/exercise/Ex 1.2 Exercise_At Sea Response Equipment.pdf" },
-            { id: 'l1-e3', label: 'Ex 1.3 · Shoreline Assessment and Evaluation', fileName: 'Ex 1.3 Exercise_Shoreline Assessment and Evaluation.pdf', path: "/D-OPRC-Level1/exercise/Ex 1.3 Exercise_Shoreline Assessment and Evaluation.pdf" },
-            { id: 'l1-e4', label: 'Ex 1.4 · Shoreline Types and Response Techniques', fileName: 'Ex 1.4 Exercise_Shoreline Types and Response Techniques.pdf', path: "/D-OPRC-Level1/exercise/Ex 1.4 Exercise_Shoreline Types and Response Techniques.pdf" },
-            { id: 'l1-e5', label: 'Ex 1.5 · Shoreline Clean-Up Equipment', fileName: 'Ex 1.5 Exercise_Shoreline Clean-Up Equipment.pdf', path: "/D-OPRC-Level1/exercise/Ex 1.5 Exercise_Shoreline Clean-Up Equipment.pdf" },
-            { id: 'l1-e6', label: 'Ex 1.6 · Stockpile Visit', fileName: 'Ex 1.6 Exercise_Stockpile Visit.pdf', path: "/D-OPRC-Level1/exercise/Ex 1.6 Exercise_Stockpile Visit.pdf" },
+            { id: 'l1-e1', label: 'Ex 1.1 · Identifying and Mitigating Health and Safety Risks', fileName: 'Ex 1.1 Exercise_Identifying and Mitigating Health and Safety Risks.ppt', path: "D:/prabal/D-OPRC-Level1/exercise/Ex 1.1 Exercise_Identifying and Mitigating Health and Safety Risks.ppt" },
+            { id: 'l1-e2', label: 'Ex 1.2 · At Sea Response Equipment', fileName: 'Ex 1.2 Exercise_At Sea Response Equipment.ppt', path: "D:/prabal/D-OPRC-Level1/exercise/Ex 1.2 Exercise_At Sea Response Equipment.ppt" },
+            { id: 'l1-e3', label: 'Ex 1.3 · Shoreline Assessment and Evaluation', fileName: 'Ex 1.3 Exercise_Shoreline Assessment and Evaluation.ppt', path: "D:/prabal/D-OPRC-Level1/exercise/Ex 1.3 Exercise_Shoreline Assessment and Evaluation.ppt" },
+            { id: 'l1-e4', label: 'Ex 1.4 · Shoreline Types and Response Techniques', fileName: 'Ex 1.4 Exercise_Shoreline Types and ResponseTechniques.ppt', path: "D:/prabal/D-OPRC-Level1/exercise/Ex 1.4 Exercise_Shoreline Types and ResponseTechniques.ppt" },
+            { id: 'l1-e5', label: 'Ex 1.5 · Shoreline Clean-Up Equipment', fileName: 'Ex 1.5 Exercise_Shoreline Clean-Up Equipment.ppt', path: "D:/prabal/D-OPRC-Level1/exercise/Ex 1.5 Exercise_Shoreline Clean-Up Equipment.ppt" },
+            { id: 'l1-e6', label: 'Ex 1.6 · Stockpile Visit', fileName: 'Ex 1.6 Exercise_Stockpile Visit.ppt', path: "D:/prabal/D-OPRC-Level1/exercise/Ex 1.6 Exercise_Stockpile Visit.ppt" },
         ],
-        videos: [
-            { id: 'l1-v1', label: 'Oil Spill Compensation', fileName: 'oil spill compensation.VOB', path: "/D-OPRC-Level1/videos/oil spill compensation.VOB" },
-            { id: 'l1-v2', label: 'Shoreline Cleanup Waste Management', fileName: 'shoreline cleanup waste management.VOB', path: "/D-OPRC-Level1/videos/shoreline cleanup waste management.VOB" },
-            { id: 'l1-v3', label: 'Waste Management – Environmental Impacts', fileName: 'waste management environmental impacts.VOB', path: "/D-OPRC-Level1/videos/waste management environmental impacts.VOB" },
-            { id: 'l1-v4', label: 'VIDEO_TS', fileName: 'VIDEO_TS.VOB', path: "/D-OPRC-Level1/videos/VIDEO_TS.VOB" },
-            { id: 'l1-v5', label: 'VTS_01_0', fileName: 'VTS_01_0.VOB', path: "/D-OPRC-Level1/videos/VTS_01_0.VOB" },
+        videos: [""
+            // { id: 'l1-v1', label: 'Oil Spill Compensation', fileName: 'oil spill compensation.VOB', path: "D:/prabal/D-OPRC-Level1/videos/oil spill compensation.VOB" },
+            // { id: 'l1-v2', label: 'Shoreline Cleanup Waste Management', fileName: 'shoreline cleanup waste management.VOB', path: "D:/prabal/D-OPRC-Level1/videos/shoreline cleanup waste management.VOB" },
+            // { id: 'l1-v3', label: 'Waste Management – Environmental Impacts', fileName: 'waste management environmental impacts.VOB', path: "D:/prabal/D-OPRC-Level1/videos/waste management environmental impacts.VOB" },
+            // { id: 'l1-v4', label: 'VIDEO_TS', fileName: 'VIDEO_TS.VOB', path: "D:/prabal/D-OPRC-Level1/videos/VIDEO_TS.VOB" },
+            // { id: 'l1-v5', label: 'VTS_01_0', fileName: 'VTS_01_0.VOB', path: "D:/prabal/D-OPRC-Level1/videos/VTS_01_0.VOB" },
         ],
     },
     level2: {
@@ -70,36 +71,39 @@ const MODULE_CONFIG = {
         },
         overview: [''],
         coursePpts: [
-            { id: 'l2-1', label: 'L2-01 · Introduction and Orientation', fileName: 'L.2.1 Introduction and Orientation.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.1 Introduction and Orientation.pptx" },
-            { id: 'l2-2', label: 'L2-02 · Sources and Impacts of Oil Spills', fileName: 'L.2.2 Sources and Impacts of Oil Spills.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.2 Sources and Impacts of Oil Spills.pptx" },
-            { id: 'l2-3', label: 'L2-03 · Overview of Contingency Planning and Preparedness', fileName: 'L.2.3 Overview of Contingency Planning and Preparedness.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.3 Overview of Contingency Planning and Preparedness.pptx" },
-            { id: 'l2-4', label: 'L2-04 · Principles of Incident Management', fileName: 'L.2.4 Principles of Incident Management.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.4 Principles of Incident Management.pptx" },
-            { id: 'l2-5', label: 'L2-05 · Response Tools', fileName: 'L.2.5 Response Tools.ppt', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.5 Response Tools.ppt" },
-            { id: 'l2-6', label: 'L2-06 · Fate and behavior', fileName: 'L.2.6 Fate and behavior.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.6 Fate and behavior.pptx" },
-            { id: 'l2-7', label: 'L2-07 · Observation & Remote Sensing', fileName: 'L.2.7 Observation & Remote Sensing.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.7 Observation & Remote Sensing.pptx" },
-            { id: 'l2-8', label: 'L2-08 · Containment, Recovery and Salvage Considerations', fileName: 'L.2.8 Containment, Recovery and Salvage Considerations.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.8 Containment, Recovery and Salvage Considerations.pptx" },
-            { id: 'l2-9', label: 'L2-09 · Use of Dispersants', fileName: 'L.2.9 Use of Dispersants.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.9 Use of Dispersants.pptx" },
-            { id: 'l2-10', label: 'L2-10 · In-situ Burning', fileName: 'L.2.10 In-situ Burning.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.10 In-situ Burning.pptx" },
-            { id: 'l2-11', label: 'L2-11 · Shoreline Assessment', fileName: 'L.2.11 Shoreline Assessment.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.11 Shoreline Assessment.pptx" },
-            { id: 'l2-12', label: 'L2-12 · Oil Spill Response in Fast Water', fileName: 'L.2.12 Oil Spill Response in Fast Water.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.12 Oil Spill Response in Fast Water.pptx" },
-            { id: 'l2-13', label: 'L2-13 · Oil Spill Response in Ice', fileName: 'L.2.13 Oil Spill Response in Ice.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.13 Oil Spill Response in Ice.pptx" },
-            { id: 'l2-14', label: 'L2-14 · Oiled Wildlife Management', fileName: 'L.2.14 Oiled Wildlife Management.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.14 Oiled Wildlife Management.pptx" },
-            { id: 'l2-15', label: 'L2-15 · Archaeological and Cultural Resources', fileName: 'L.2.15 Archaeological and Cultural Resources.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.15 Archaeological and Cultural Resources.pptx" },
-            { id: 'l2-16', label: 'L2-16 · Health and Safety considerations', fileName: 'L.2.16 Health and Safety considerations.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.16 Health and Safety considerations.pptx" },
-            { id: 'l2-17', label: 'L2-17 · Logistical and decontamination issues', fileName: 'L.2.17 Logisitical and decontamination issues_highlighted.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.17 Logisitical and decontamination issues_highlighted.pptx" },
-            { id: 'l2-18', label: 'L2-18 · Waste management and disposal', fileName: 'L.2.18 Waste management and disposal.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.18 Waste management and disposal.pptx" },
-            { id: 'l2-19', label: 'L2-19 · Communications and Media', fileName: 'L.2.19 Communications and Media.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.19 Communications and Media.pptx" },
-            { id: 'l2-20', label: 'L2-20 · Response termination criteria', fileName: 'L.2.20 Response termination criteria.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.20 Response termination criteria.pptx" },
-            { id: 'l2-21', label: 'L2-21 · Post incident operations', fileName: 'L.2.21 Post incident operations.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.21 Post incident operations.pptx" },
-            { id: 'l2-22', label: 'L2-22 · Administrative issues', fileName: 'L.2.22 Administrative issues.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-2/L.2.22 Administrative issues.pptx" }
+            { id: 'l2-1', label: 'L2-01 · Introduction and Orientation', fileName: 'L.2.1 Introduction and Orientation.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.1 Introduction and Orientation.pptx" },
+            { id: 'l2-2', label: 'L2-02 · Sources and Impacts of Oil Spills', fileName: 'L.2.2 Sources and Impacts of Oil Spills.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.2 Sources and Impacts of Oil Spills.pptx" },
+            { id: 'l2-3', label: 'L2-03 · Overview of Contingency Planning and Preparedness', fileName: 'L.2.3 Overview of Contingency Planning and Preparedness.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.3 Overview of Contingency Planning and Preparedness.pptx" },
+            { id: 'l2-4', label: 'L2-04 · Principles of Incident Management', fileName: 'L.2.4 Principles of Incident Management.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.4 Principles of Incident Management.pptx" },
+            { id: 'l2-5', label: 'L2-05 · Response Tools', fileName: 'L.2.5 Response Tools.ppt', path: "D:/prabal/D-OPRC-Level2/L.2.5 Response Tools.ppt" },
+            { id: 'l2-6', label: 'L2-06 · Fate and behavior', fileName: 'L.2.6 Fate and behavior.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.6 Fate and behavior.pptx" },
+            { id: 'l2-7', label: 'L2-07 · Observation & Remote Sensing', fileName: 'L.2.7 Observation & Remote Sensing.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.7 Observation & Remote Sensing.pptx" },
+            { id: 'l2-8', label: 'L2-08 · Containment, Recovery and Salvage Considerations', fileName: 'L.2.8 Containment, Recovery and Salvage Considerations.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.8 Containment, Recovery and Salvage Considerations.pptx" },
+            { id: 'l2-9', label: 'L2-09 · Use of Dispersants', fileName: 'L.2.9 Use of Dispersants.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.9 Use of Dispersants.pptx" },
+            { id: 'l2-10', label: 'L2-10 · In-situ Burning', fileName: 'L.2.10 In-situ Burning.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.10 In-situ Burning.pptx" },
+            { id: 'l2-11', label: 'L2-11 · Shoreline Assessment', fileName: 'L.2.11 Shoreline Assessment.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.11 Shoreline Assessment.pptx" },
+            { id: 'l2-12', label: 'L2-12 · Oil Spill Response in Fast Water', fileName: 'L.2.12 Oil Spill Response in Fast Water.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.12 Oil Spill Response in Fast Water.pptx" },
+            { id: 'l2-13', label: 'L2-13 · Oil Spill Response in Ice', fileName: 'L.2.13 Oil Spill Response in Ice.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.13 Oil Spill Response in Ice.pptx" },
+            { id: 'l2-14', label: 'L2-14 · Oiled Wildlife Management', fileName: 'L.2.14 Oiled Wildlife Management.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.14 Oiled Wildlife Management.pptx" },
+            { id: 'l2-15', label: 'L2-15 · Archaeological and Cultural Resources', fileName: 'L.2.15 Archaeological and Cultural Resources.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.15 Archaeological and Cultural Resources.pptx" },
+            { id: 'l2-16', label: 'L2-16 · Health and Safety considerations', fileName: 'L.2.16 Health and Safety considerations.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.16 Health and Safety considerations.pptx" },
+            { id: 'l2-17', label: 'L2-17 · Logistical and decontamination issues', fileName: 'L.2.17 Logisitical and decontamination issues_highlighted.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.17 Logisitical and decontamination issues_highlighted.pptx" },
+            { id: 'l2-18', label: 'L2-18 · Waste management and disposal', fileName: 'L.2.18 Waste management and disposal.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.18 Waste management and disposal.pptx" },
+            { id: 'l2-19', label: 'L2-19 · Communications and Media', fileName: 'L.2.19 Communications and Media.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.19 Communications and Media.pptx" },
+            { id: 'l2-20', label: 'L2-20 · Response termination criteria', fileName: 'L.2.20 Response termination criteria.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.20 Response termination criteria.pptx" },
+            { id: 'l2-21', label: 'L2-21 · Post incident operations', fileName: 'L.2.21 Post incident operations.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.21 Post incident operations.pptx" },
+            { id: 'l2-22', label: 'L2-22 · Administrative issues', fileName: 'L.2.22 Administrative issues.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.22 Administrative issues.pptx" }
         ],
         exercises: [
-            { id: 'l2-e1', label: 'Ex 2.1 · Field Drill – Boom Deployment', fileName: 'L2_FieldDrill_Boom_Deployment.pdf', path: "/L2_FieldDrill_Boom_Deployment.pdf" },
-            { id: 'l2-e2', label: 'Ex 2.2 · Case Study – Harbour Spill', fileName: 'L2_CaseStudy_Harbour_Spill.pdf', path: "/L2_CaseStudy_Harbour_Spill.pdf" },
+            { id: 'l2-e1', label: 'Ex 2.1 · Field Drill - Boom Deployment', fileName: 'L2_FieldDrill_Boom_Deployment.pdf', path: "D:/prabal/D-OPRC-Level2/exersice/Ex 2.1 IMS Exercise.ppt" },
+            { id: 'l2-e2', label: 'Ex 2.2 · Case Study - Harbour Spill', fileName: 'L2_CaseStudy_Harbour_Spill.pdf', path: "D:/prabal/D-OPRC-Level2/exersice/Ex 2.2 Aerial Observation Exercise.ppt" },
+            { id: 'l2-e3', label: 'Ex 2.1 · Field Drill - Boom Deployment', fileName: 'L2_FieldDrill_Boom_Deployment.pdf', path: "D:/prabal/D-OPRC-Level2/exersice/Ex 2.3 Implementing Response Strategy (At Sea) Exercise.ppt" },
+            { id: 'l2-e4', label: 'Ex 2.2 · Case Study - Harbour Spill', fileName: 'L2_CaseStudy_Harbour_Spill.pdf', path: "D:/prabal/D-OPRC-Level2/exersice/Ex 2.4 Implementing Response Strategy (Shoreline) Exercise.ppt" },
+            { id: 'l2-e5', label: 'Ex 2.2 · Case Study - Harbour Spill', fileName: 'L2_CaseStudy_Harbour_Spill.pdf', path: "D:/prabal/D-OPRC-Level2/exersice/Ex 2.5 Implementing Response Strategy (On-going and Post-Incident Op) Exercise.ppt" },
         ],
-        videos: [
-            { id: 'l2-v1', label: 'Boom Deployment Techniques', fileName: 'OPRC_Level2_Boom_Deployment.mp4', path: '/videos/level2/boom_deployment.mp4' },
-            { id: 'l2-v2', label: 'Shoreline Cleanup Operations', fileName: 'OPRC_Level2_Shoreline_Cleanup.mp4', path: '/videos/level2/shoreline_cleanup.mp4' },
+        videos: [""
+            // { id: 'l2-v1', label: 'Boom Deployment Techniques', fileName: 'OPRC_Level2_Boom_Deployment.mp4', path: '/videos/level2/boom_deployment.mp4' },
+            // { id: 'l2-v2', label: 'Shoreline Cleanup Operations', fileName: 'OPRC_Level2_Shoreline_Cleanup.mp4', path: '/videos/level2/shoreline_cleanup.mp4' },
         ],
     },
     level3: {
@@ -117,29 +121,45 @@ const MODULE_CONFIG = {
         },
         overview: [''],
         coursePpts: [
-            { id: 'l3-1', label: 'L3-01 · Introduction and Orientation', fileName: 'L.3.1 Introduction and Orientation.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-3/L.3.1 Introduction and Orientation.pptx" },
-            { id: 'l3-2', label: 'L3-02 · The Legal Framework', fileName: 'L.3.2 The Legal Framework.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-3/L.3.2 The Legal Framework.pptx" },
-            { id: 'l3-3', label: 'L3-03 · Oil Spill Response Preparedness', fileName: 'L.3.3 Oil Spill Response Preparedness.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-3/L.3.3 Oil Spill Response Preparedness.pptx" },
-            { id: 'l3-4', label: 'L3-04 · Technical tools for oil spill planning and response', fileName: 'L.3.4 Technical tools for oil spill planning and response.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-3/L.3.4 Technical tools for oil spill planning and response.pptx" },
-            { id: 'l3-5', label: 'L3-05 · Assessment of spill risks', fileName: 'L.3.5 Assessment of spill risks.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-3/L.3.5 Assessment of spill risks.pptx" },
-            { id: 'l3-6', label: 'L3-06 · Impacts of oil spills', fileName: 'L.3.6 Impacts of oil spills.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-3/L.3.6 Impacts of oil spills.pptx" },
-            { id: 'l3-7', label: 'L3-07 · Oil Spill Response Options', fileName: 'L.3.7 Oil Spill Response Options.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-3/L.3.7 Oil Spill Response Options.pptx" },
-            { id: 'l3-8', label: 'L3-08 · Places of Refuge and Salvage Considerations', fileName: 'L.3.8 Places of Refuge and Salvage Considerations.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-3/L.3.8 Places of Refuge and Salvage Considerations.pptx" },
-            { id: 'l3-9', label: 'L3-09 · Planning & Cooperation', fileName: 'L.3.9 Planning & Cooperation.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-3/L.3.9 Planning & Cooperation.pptx" },
-            { id: 'l3-10', label: 'L3-10 · Strategic Directions and Policies', fileName: 'L.3.10 Strategic Directions and Policies.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-3/L.3.10 Strategic Directions and Policies.pptx" },
-            { id: 'l3-11', label: 'L3-11 · Roles and Responsibilities', fileName: 'L.3.11 Roles and Responsibilities.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-3/L.3.11 Roles and Responsibilities.pptx" },
-            { id: 'l3-12', label: 'L3-12 · Leadership during an Emergency', fileName: 'L.3.12 Leadership during an Emergency.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-3/L.3.12 Leadership during an Emergency.pptx" },
-            { id: 'l3-13', label: 'L3-13 · Incident Management Systems (IMS)', fileName: 'L.3.13 Incident Management Systems (IMS).pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-3/L.3.13 Incident Management Systems (IMS).pptx" },
-            { id: 'l3-14', label: 'L3-14 · Termination of Response', fileName: 'L.3.14 Termination of Response.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-3/L.3.14 Termination of Response.pptx" },
-            { id: 'l3-15', label: 'L3-15 · Managing Information', fileName: 'L.3.15 Managing Information.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-3/L.3.15 Managing Information.pptx" },
-            { id: 'l3-16', label: 'L3-16 · Internal Communications Requirements', fileName: 'L.3.16 Internal Communications Requirements.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-3/L.3.16 Internal Communications Requirements.pptx" },
-            { id: 'l3-17', label: 'L3-17 · External Communication Requirements', fileName: 'L.3.17 External Communication Requirements.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-3/L.3.17 External Communication Requirements.pptx" },
-            { id: 'l3-18', label: 'L3-18 · International compensation regime', fileName: 'L.3.18 International compensation regime.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-3/L.3.18 International compensation regime.pptx" },
-            { id: 'l3-19', label: 'L3-19 · Admissible claims', fileName: 'L.3.19 Admissible claims.pptx', path: "D:/Projects/Coast Guard/D-OPRC-Level-3/L.3.19 Admissible claims.pptx" }
+            { id: 'l3-1', label: 'L3-01 · Introduction and Orientation', fileName: 'L.3.1 Introduction and Orientation.pptx', path: "D:/prabal/D-OPRC-Level3/L.3.1 Introduction and Orientation.pptx" },
+            { id: 'l3-2', label: 'L3-02 · The Legal Framework', fileName: 'L.3.2 The Legal Framework.pptx', path: "D:/prabal/D-OPRC-Level3/L.3.2 The Legal Framework.pptx" },
+            { id: 'l3-3', label: 'L3-03 · Oil Spill Response Preparedness', fileName: 'L.3.3 Oil Spill Response Preparedness.pptx', path: "D:/prabal/D-OPRC-Level3/L.3.3 Oil Spill Response Preparedness.pptx" },
+            { id: 'l3-4', label: 'L3-04 · Technical tools for oil spill planning and response', fileName: 'L.3.4 Technical tools for oil spill planning and response.pptx', path: "D:/prabal/D-OPRC-Level3/L.3.4 Technical tools for oil spill planning and response.pptx" },
+            { id: 'l3-5', label: 'L3-05 · Assessment of spill risks', fileName: 'L.3.5 Assessment of spill risks.pptx', path: "D:/prabal/D-OPRC-Level3/L.3.5 Assessment of spill risks.pptx" },
+            { id: 'l3-6', label: 'L3-06 · Impacts of oil spills', fileName: 'L.3.6 Impacts of oil spills.pptx', path: "D:/prabal/D-OPRC-Level3/L.3.6 Impacts of oil spills.pptx" },
+            { id: 'l3-7', label: 'L3-07 · Oil Spill Response Options', fileName: 'L.3.7 Oil Spill Response Options.pptx', path: "D:/prabal/D-OPRC-Level3/L.3.7 Oil Spill Response Options.pptx" },
+            { id: 'l3-8', label: 'L3-08 · Places of Refuge and Salvage Considerations', fileName: 'L.3.8 Places of Refuge and Salvage Considerations.pptx', path: "D:/prabal/D-OPRC-Level3/L.3.8 Places of Refuge and Salvage Considerations.pptx" },
+            { id: 'l3-9', label: 'L3-09 · Planning & Cooperation', fileName: 'L.3.9 Planning & Cooperation.pptx', path: "D:/prabal/D-OPRC-Level3/L.3.9 Planning & Cooperation.pptx" },
+            { id: 'l3-10', label: 'L3-10 · Strategic Directions and Policies', fileName: 'L.3.10 Strategic Directions and Policies.pptx', path: "D:/prabal/D-OPRC-Level3/L.3.10 Strategic Directions and Policies.pptx" },
+            { id: 'l3-11', label: 'L3-11 · Roles and Responsibilities', fileName: 'L.3.11 Roles and Responsibilities.pptx', path: "D:/prabal/D-OPRC-Level3/L.3.11 Roles and Responsibilities.pptx" },
+            { id: 'l3-12', label: 'L3-12 · Leadership during an Emergency', fileName: 'L.3.12 Leadership during an Emergency.pptx', path: "D:/prabal/D-OPRC-Level3/L.3.12 Leadership during an Emergency.pptx" },
+            { id: 'l3-13', label: 'L3-13 · Incident Management Systems (IMS)', fileName: 'L.3.13 Incident Management Systems (IMS).pptx', path: "D:/prabal/D-OPRC-Level3/L.3.13 Incident Management Systems (IMS).pptx" },
+            { id: 'l3-14', label: 'L3-14 · Termination of Response', fileName: 'L.3.14 Termination of Response.pptx', path: "D:/prabal/D-OPRC-Level3/L.3.14 Termination of Response.pptx" },
+            { id: 'l3-15', label: 'L3-15 · Managing Information', fileName: 'L.3.15 Managing Information.pptx', path: "D:/prabal/D-OPRC-Level3/L.3.15 Managing Information.pptx" },
+            { id: 'l3-16', label: 'L3-16 · Internal Communications Requirements', fileName: 'L.3.16 Internal Communications Requirements.pptx', path: "D:/prabal/D-OPRC-Level3/L.3.16 Internal Communications Requirements.pptx" },
+            { id: 'l3-17', label: 'L3-17 · External Communication Requirements', fileName: 'L.3.17 External Communication Requirements.pptx', path: "D:/prabal/D-OPRC-Level3/L.3.17 External Communication Requirements.pptx" },
+            { id: 'l3-18', label: 'L3-18 · International compensation regime', fileName: 'L.3.18 International compensation regime.pptx', path: "D:/prabal/D-OPRC-Level3/L.3.18 International compensation regime.pptx" },
+            { id: 'l3-19', label: 'L3-19 · Admissible claims', fileName: 'L.3.19 Admissible claims.pptx', path: "D:/prabal/D-OPRC-Level3/L.3.19 Admissible claims.pptx" }
         ],
         exercises: [
-            { id: 'l3-e1', label: 'Ex 3.1 · Command-Post Exercise – Offshore Spill', fileName: 'L3_CPX_Offshore_Spill.pdf', path: "/L3_CPX_Offshore_Spill.pdf" },
-            { id: 'l3-e2', label: 'Ex 3.2 · Strategic Drill – Multi-Agency Response', fileName: 'L3_Strategic_Drill_MultiAgency.pdf', path: "/L3_Strategic_Drill_MultiAgency.pdf" },
+            { id: 'l3-e1', label: 'Ex.3.1 Preparedness Review Exercise', fileName: 'Ex.3.1 Preparedness Review Exercise.ppt', path: "D:/prabal/D-OPRC-Level3/exercise3/Ex.3.1 Preparedness Review Exercise.ppt" },
+            { id: 'l3-e2', label: 'Ex.3.2 Places of Refuge Exercise', fileName: 'Ex.3.2 Places of Refuge Exercise.ppt', path: "D:/prabal/D-OPRC-Level3/exercise3/Ex.3.2 Places of Refuge Exercise.ppt" },
+            { id: 'l3-e3', label: 'Ex.3.3 Exercise Response Strategies', fileName: 'Ex.3.3 Exercise Response Strategies.ppt', path: "D:/prabal/D-OPRC-Level3/exercise3/Ex.3.3 Exercise Response Strategies.ppt" },
+            { id: 'l3-e4', label: 'Ex.3.4 Roles and Responsibilities', fileName: 'Ex.3.4 Roles and Responsibilities.ppt', path: "D:/prabal/D-OPRC-Level3/exercise3/Ex.3.4 Roles and Responsibilities.ppt" },
+            { id: 'l3-e5', label: 'Ex.3.5 Exercise IMS', fileName: 'Ex.3.5 Exercise IMS.ppt', path: "D:/prabal/D-OPRC-Level3/exercise3/Ex.3.5 Exercise IMS.ppt" },
+            { id: 'l3-e6', label: 'Ex.3.6 Communications Exercise', fileName: 'Ex.3.6 Communications Exercise.ppt', path: "D:/prabal/D-OPRC-Level3/exercise3/Ex.3.6 Communications Exercise.ppt" },
+            { id: 'l3-e7', label: 'Ex.3.7 Exercise Claims and compensation', fileName: 'Ex.3.7 Exercise Claims and compensation.ppt', path: "D:/prabal/D-OPRC-Level3/exercise3/Ex.3.7 Exercise Claims and compensation.ppt" },
+            { id: 'l3-e8', label: 'Ex.3.8 Strategy Exercise', fileName: 'Ex.3.8 Strategy Exercise.ppt', path: "D:/prabal/D-OPRC-Level3/exercise3/Ex.3.8 Strategy Exercise.ppt" },
+            { id: 'l3-e9', label: 'Ex.3.9. Preparedness Review', fileName: 'Ex.3.9. Preparedness Review.ppt', path: "D:/prabal/D-OPRC-Level3/exercise3/Ex.3.9. Preparedness Review.ppt" },
+            { id: 'l3-e10', label: 'Exercise Area Chart - 1', fileName: 'Exercise Area Chart - 1.ppt', path: "D:/prabal/D-OPRC-Level3/exercise3/Exercise Area Chart - 1.ppt" },
+            { id: 'l3-e11', label: 'Exercise Area Chart - 2', fileName: 'Exercise Area Chart - 2.pptx', path: "D:/prabal/D-OPRC-Level3/exercise3/Exercise Area Chart - 2.pptx" },
+            { id: 'l3-e12', label: 'Information Sheet - General', fileName: 'Information Sheet - General.pdf', path: "D:/prabal/D-OPRC-Level3/exercise3/Information Sheet - General.pdf" },
+            { id: 'l3-e13', label: 'Palmalfi Information Sheet', fileName: 'Palmalfi Information Sheet.pdf', path: "D:/prabal/D-OPRC-Level3/exercise3/Palmalfi Information Sheet.pdf" },
+            { id: 'l3-e14', label: 'Vessel Description - NEPTUNE TRIDENT & ONWARD MARINER', fileName: 'Vessel Description - NEPTUNE TRIDENT & ONWARD MARINER.pdf', path: "D:/prabal/D-OPRC-Level3/exercise3/Vessel Description - NEPTUNE TRIDENT & ONWARD MARINER.pdf" },
+            { id: 'l3-e15', label: 'Area Key', fileName: 'Area Key', path: "D:/prabal/D-OPRC-Level3/exercise3/Area Key.ppt" },
+            { id: 'l3-e16', label: 'Ex 3.6 Inject 1', fileName: 'Ex 3.6 Inject 1.pdf', path: "D:/prabal/D-OPRC-Level3/exercise3/Ex 3.6 Inject 1.pdf" },
+            { id: 'l3-e17', label: 'Ex 3.6 Inject 2', fileName: 'Ex 3.6 Inject 2.pdf', path: "D:/prabal/D-OPRC-Level3/exercise3/Ex 3.6 Inject 2.pdf" },
+            { id: 'l3-e18', label: 'Ex. 3.9.1 - Areas to be Re-assessed', fileName: 'Ex. 3.9.1 - Areas to be Re-assessed.pdf', path: "D:/prabal/D-OPRC-Level3/exercise3/Ex. 3.9.1 - Areas to be Re-assessed.pdf" },
         ],
         videos: [], // No videos for Level-3
     },
@@ -158,20 +178,18 @@ const MODULE_CONFIG = {
         },
         overview: [''],
         coursePpts: [
-            { id: 'pr-1', label: 'PR-01 · Overview of Oil Spill Response Techniques', fileName: 'L.1.1 Overview of Oil Spill Response Techniques CGPRT(W).pptx', path: "D:/Projects/Coast Guard/D-PR-Capsule/L.1.1 Overview of Oil Spill Response Techniques CGPRT(W).pptx" },
-            { id: 'pr-2', label: 'PR-02 · Impacts of oil spill', fileName: 'L.1.2 Impacts of oil spill  By CGPRT(W).pptx', path: "D:/Projects/Coast Guard/D-PR-Capsule/L.1.2 Impacts of oil spill  By CGPRT(W).pptx" },
-            { id: 'pr-3', label: 'PR-03 · Fate and Behaviour', fileName: 'L.1.3 Fate and Behaviour  By CGPRT(W).pptx', path: "D:/Projects/Coast Guard/D-PR-Capsule/L.1.3 Fate and Behaviour  By CGPRT(W).pptx" },
-            { id: 'pr-4', label: 'PR-04 · Booms Containment and Protection', fileName: 'L.1.4 Booms Containment and Protection CGPRT(W).pptx', path: "D:/Projects/Coast Guard/D-PR-Capsule/L.1.4 Booms Containment and Protection CGPRT(W).pptx" },
-            { id: 'pr-5', label: 'PR-05 · Skimmers', fileName: 'L.1.5 Skimmers CGPRT(W).pptx', path: "D:/Projects/Coast Guard/D-PR-Capsule/L.1.5 Skimmers CGPRT(W).pptx" },
-            { id: 'pr-6', label: 'PR-06 · Shoreline Clean-Up Techniques', fileName: 'L.1.6 Shoreline Clean-Up Techniques CGPRT(W).pptx', path: "D:/Projects/Coast Guard/D-PR-Capsule/L.1.6 Shoreline Clean-Up Techniques CGPRT(W).pptx" },
-            { id: 'pr-7', label: 'PR-07 · Dispersants', fileName: 'L.1.7 Dispersants CGPRT(W).pptx', path: "D:/Projects/Coast Guard/D-PR-Capsule/L.1.7 Dispersants CGPRT(W).pptx" },
-            { id: 'pr-8', label: 'PR-08 · Sorbents', fileName: 'L.1.8 Sorbents CGPRT(W).pptx', path: "D:/Projects/Coast Guard/D-PR-Capsule/L.1.8 Sorbents CGPRT(W).pptx" },
-            { id: 'pr-9', label: 'PR-09 · Temporary Storage', fileName: 'L.1.9 Temporary Storage CGPRT(W).pptx', path: "D:/Projects/Coast Guard/D-PR-Capsule/L.1.9 Temporary Storage CGPRT(W).pptx" },
-            { id: 'pr-10', label: 'PR-10 · Cleaning, Maintenance & Storage of Equipment', fileName: 'L.1.10 Cleaning, Maintenance & Storage of Equipment.ppt', path: "D:/Projects/Coast Guard/D-PR-Capsule/L.1.10 Cleaning, Maintenance & Storage of Equipment.ppt" }
+            { id: 'pr-1', label: 'L.1.1 Overview of Oil Spill Response Techniques CGPRT(W)', fileName: 'L.1.1 Overview of Oil Spill Response Techniques CGPRT(W).pptx', path: "D:/prabal/D-PR-Capsule/L.1.1 Overview of Oil Spill Response Techniques CGPRT(W).pptx" },
+            { id: 'pr-2', label: 'PR-02 · Impacts of oil spill', fileName: 'L.1.2 Impacts of oil spill  By CGPRT(W).pptx', path: "D:/prabal/D-PR-Capsule/L.1.2 Impacts of oil spill  By CGPRT(W).pptx" },
+            { id: 'pr-3', label: 'PR-03 · Fate and Behaviour', fileName: 'L.1.3 Fate and Behaviour  By CGPRT(W).pptx', path: "D:/prabal/D-PR-Capsule/L.1.3 Fate and Behaviour  By CGPRT(W).pptx" },
+            { id: 'pr-4', label: 'PR-04 · Booms Containment and Protection', fileName: 'L.1.4 Booms Containment and Protection CGPRT(W).pptx', path: "D:/prabal/D-PR-Capsule/L.1.4 Booms Containment and Protection CGPRT(W).pptx" },
+            { id: 'pr-5', label: 'PR-05 · Skimmers', fileName: 'L.1.5 Skimmers CGPRT(W).pptx', path: "D:/prabal/D-PR-Capsule/L.1.5 Skimmers CGPRT(W).pptx" },
+            { id: 'pr-6', label: 'PR-06 · Shoreline Clean-Up Techniques', fileName: 'L.1.6 Shoreline Clean-Up Techniques CGPRT(W).pptx', path: "D:/prabal/D-PR-Capsule/L.1.6 Shoreline Clean-Up Techniques CGPRT(W).pptx" },
+            { id: 'pr-7', label: 'PR-07 · Dispersants', fileName: 'L.1.7 Dispersants CGPRT(W).pptx', path: "D:/prabal/D-PR-Capsule/L.1.7 Dispersants CGPRT(W).pptx" },
+            { id: 'pr-8', label: 'PR-08 · Sorbents', fileName: 'L.1.8 Sorbents CGPRT(W).pptx', path: "D:/prabal/D-PR-Capsule/L.1.8 Sorbents CGPRT(W).pptx" },
+            { id: 'pr-9', label: 'PR-09 · Temporary Storage', fileName: 'L.1.9 Temporary Storage CGPRT(W).pptx', path: "D:/prabal/D-PR-Capsule/L.1.9 Temporary Storage CGPRT(W).pptx" },
+            { id: 'pr-10', label: 'PR-10 · Cleaning, Maintenance & Storage of Equipment', fileName: 'L.1.10 Cleaning, Maintenance & Storage of Equipment.ppt', path: "D:/prabal/D-PR-Capsule/L.1.10 Cleaning, Maintenance & Storage of Equipment.ppt" }
         ],
         exercises: [
-            { id: 'pr-e1', label: 'Ex PR-1 · Press Conference Simulation', fileName: 'PR_Exercise_Press_Conference.pdf', path: "/PR_Exercise_Press_Conference.pdf" },
-            { id: 'pr-e2', label: 'Ex PR-2 · Press Note Drafting Drill', fileName: 'PR_Exercise_Press_Note.pdf', path: "/PR_Exercise_Press_Note.pdf" },
         ],
         videos: [
             { id: 'pr-v1', label: 'Media Handling Best Practices', fileName: 'OPRC_PR_Media_Handling.mp4', path: '/videos/pr/media_handling.mp4' },
@@ -314,22 +332,28 @@ export default function OprcModulePage({ variant, routes, onNavigate }) {
 
         // Open PDFs in ModalPdfViewer (read mode)
         if (ext === "pdf") {
-            setActiveFile({
-                type: "pdf",
-                title: item.label,
-                url
-            });
-            return;
+            // Call the imported Tauri logic function
+            openBundledPpt(item.path)
+                .then(() => {
+                    console.log(`Successfully requested open for ${item.fileName}. Check your default viewer.`);
+                })
+                .catch((error) => {
+                    console.log(`Failed to open file: ${error.message}`);
+                });
         }
 
-        // Open PPTs in PptViewer (with option to open in PowerPoint)
-        if (ext === "ppt" || ext === "pptx") {
-            setActiveFile({
-                type: "ppt",
-                title: item.label,
-                url
-            });
-            return;
+        // PPT / PPTX / DOC / XLS → OS default app
+        if (['ppt', 'pptx', 'doc', 'docx', 'xls', 'xlsx'].includes(ext)) {
+            console.log('INPUT PATH:', item.path);
+
+            // Call the imported Tauri logic function
+            openBundledPpt(item.path)
+                .then(() => {
+                    console.log(`Successfully requested open for ${item.fileName}. Check your default viewer.`);
+                })
+                .catch((error) => {
+                    console.log(`Failed to open file: ${error.message}`);
+                });
         }
 
         // Play videos in embedded player
@@ -347,10 +371,6 @@ export default function OprcModulePage({ variant, routes, onNavigate }) {
     }
 
     function handleOpenFile(item) {
-        openCourseFile(item);
-    }
-
-    function handleOpenVideo(item) {
         openCourseFile(item);
     }
 
@@ -460,7 +480,7 @@ export default function OprcModulePage({ variant, routes, onNavigate }) {
                     </motion.div>
                 )}
 
-                {/* Three sections: Course PPT + Exercise + Videos (conditionally) */}
+                {/* Three sections: Course PPT + Exercise*/}
                 <motion.div
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}

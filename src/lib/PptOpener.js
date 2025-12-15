@@ -1,6 +1,5 @@
 import { openPath } from '@tauri-apps/plugin-opener';
 import { path } from '@tauri-apps/api/path';
-import { BaseDirectory } from '@tauri-apps/plugin-fs'; // You might need BaseDirectory for joins
 
 /**
  * Opens a file located in the application's public/resource directory.

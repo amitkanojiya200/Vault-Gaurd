@@ -20,87 +20,75 @@ import * as userClient from "@/lib/userClient";
 import * as authClient from "@/lib/authClient";
 import ModalPdfViewer from '@/components/ModalPdfViewer';
 
-// --- Stakeholder documents with exact names and paths ---
+// --- Cleaned Stakeholder list without duplicates ---
 const STAKEHOLDER_DOCUMENTS = [
-  { title: "HALDIA DOCK CO-OP SMPK", path: "/stakeholders/HALDIA_DOCK_CO-OP_SMPK.pdf" },
-  { title: "FINOLEX, RATNAGIRI", path: "/stakeholders/FINOLEX_RATNAGIRI.pdf" },
-  { title: "GAIL (INDIA) LTD, KOCHI (1)", path: "/stakeholders/GAIL_INDIA_LTD_KOCHI_1.pdf" },
-  { title: "ESSAR BULK TERMINAL SALAYA LTD", path: "/stakeholders/ESSAR_BULK_TERMINAL_SALAYA_LTD.pdf" },
-  { title: "DIRECTORATE OF FISHERIES GOA (2)", path: "/stakeholders/DIRECTORATE_OF_FISHERIES_GOA_2.pdf" },
-  { title: "DIRECTORATE OF FISHERIES GOA (1)", path: "/stakeholders/DIRECTORATE_OF_FISHERIES_GOA_1.pdf" },
-  { title: "DEENDAYAL PORT AUTHORITY", path: "/stakeholders/DEENDAYAL_PORT_AUTHORITY.pdf" },
-  { title: "DGS. GOVT. OF INDIA (1)", path: "/stakeholders/DGS_GOVT_OF_INDIA_1.pdf" },
-  { title: "DEENDAYAL PORT AUTHORITY 2", path: "/stakeholders/DEENDAYAL_PORT_AUTHORITY_2.pdf" },
-  { title: "CAPTAIN OF PORT GOA", path: "/stakeholders/CAPTAIN_OF_PORT_GOA.pdf" },
-  { title: "CHENNAI PRT TRUST", path: "/stakeholders/CHENNAI_PRT_TRUST.pdf" },
-  { title: "CARNIVAL PORT AUTHORITY", path: "/stakeholders/CARNIVAL_PORT_AUTHORITY.pdf" },
-  { title: "CAIRN VEDANTA OIL & GAS", path: "/stakeholders/CAIRN_VEDANTA_OIL_GAS.pdf" },
-  { title: "BP CORPORATION LTD (1)", path: "/stakeholders/BP_CORPORATION_LTD_1.pdf" },
-  { title: "BHARAT PETROLEUM", path: "/stakeholders/BHARAT_PETROLEUM.pdf" },
-  { title: "ANGRE PORT PVT LTD (1)", path: "/stakeholders/ANGRE_PORT_PVT_LTD_1.pdf" },
-  { title: "APM TERMINAL, MUMBAI", path: "/stakeholders/APM_TERMINAL_MUMBAI.pdf" },
-  { title: "AEGIS LOGISTICS LIMITED", path: "/stakeholders/AEGIS_LOGISTICS_LIMITED.pdf" },
-  { title: "ADANI PORT", path: "/stakeholders/ADANI_PORT.pdf" },
-  { title: "ADANI MUNDRA PORT LTD", path: "/stakeholders/ADANI_MUNDRA_PORT_LTD.pdf" },
-  { title: "ONGC Mumbai Level-1 Qualified stakeholders (2021-2025)", path: "/stakeholders/ONGC_Mumbai_Level-1_Qualified_stakeholders_2021-2025.pdf" },
-  { title: "MS MANGALORE REFINERY AND PETROCHEMICALS LTD", path: "/stakeholders/MS_MANGALORE_REFINERY_AND_PETROCHEMICALS_LTD.pdf" },
-  { title: "MS IOCL, MANGALORE", path: "/stakeholders/MS_IOCL_MANGALORE.pdf" },
-  { title: "MS KONKAN LNG LTD", path: "/stakeholders/MS_KONKAN_LNG_LTD.pdf" },
-  { title: "MS HPCL VISAKH REFINERY", path: "/stakeholders/MS_HPCL_VISAKH_REFINERY.pdf" },
-  { title: "MS FINOLEX INDUSTRIES LTD, RATNAGIRI", path: "/stakeholders/MS_FINOLEX_INDUSTRIES_LTD_RATNAGIRI.pdf" },
-  { title: "MS AMBUJA CEMENTS LTD", path: "/stakeholders/MS_AMBUJA_CEMENTS_LTD.pdf" },
-  { title: "MS CAPTAIN OF PORT GOA", path: "/stakeholders/MS_CAPTAIN_OF_PORT_GOA.pdf" },
-  { title: "MbPA Level-1 Qualified stakeholders (2021-2025)", path: "/stakeholders/MbPA_Level-1_Qualified_stakeholders_2021-2025.pdf" },
-  { title: "MORMUGAO PORT AUTHORITY", path: "/stakeholders/MORMUGAO_PORT_AUTHORITY.pdf" },
-  { title: "MPA GOA", path: "/stakeholders/MPA_GOA.pdf" },
-  { title: "MS ADANI ELECTRICITY MUMBAI LTD DAHANU PORT", path: "/stakeholders/MS_ADANI_ELECTRICITY_MUMBAI_LTD_DAHANU_PORT.pdf" },
-  { title: "MS BPCL, KOCHI", path: "/stakeholders/MS_BPCL_KOCHI.pdf" },
-  { title: "JSW JAIGARH PORT", path: "/stakeholders/JSW_JAIGARH_PORT.pdf" },
-  { title: "JSW STEEL LIMITED", path: "/stakeholders/JSW_STEEL_LIMITED.pdf" },
-  { title: "JSW DHARAMTAR PORT", path: "/stakeholders/JSW_DHARAMTAR_PORT.pdf" },
-  { title: "JNPA NAVI MUMBAI", path: "/stakeholders/JNPA_NAVI_MUMBAI.pdf" },
-  { title: "GAIL (INDIA) LTD, KOCHI", path: "/stakeholders/GAIL_INDIA_LTD_KOCHI.pdf" },
-  { title: "DGS. GOVT. OF INDIA", path: "/stakeholders/DGS_GOVT_OF_INDIA.pdf" },
-  { title: "DIRECTORATE OF FISHERIES GOA", path: "/stakeholders/DIRECTORATE_OF_FISHERIES_GOA.pdf" },
-  { title: "COCHIN PORT AUTHORITY", path: "/stakeholders/COCHIN_PORT_AUTHORITY.pdf" },
-  { title: "BP CORPORATION LTD", path: "/stakeholders/BP_CORPORATION_LTD.pdf" },
-  { title: "ANGRE PORT PVT LTD", path: "/stakeholders/ANGRE_PORT_PVT_LTD.pdf" },
-  { title: "BHARAT PETROLEUM", path: "/stakeholders/BHARAT_PETROLEUM_2.pdf" }, // Note: duplicate name, different file
-  { title: "ULTRATECH CEMENT", path: "/stakeholders/ULTRATECH_CEMENT.pdf" },
-  { title: "SPTL (RELIANCE) JAMNAGAR", path: "/stakeholders/SPTL_RELIANCE_JAMNAGAR.pdf" },
-  { title: "VEDANTA LIMITED", path: "/stakeholders/VEDANTA_LIMITED.pdf" },
-  { title: "VISAKHAPATNAM Port Authority", path: "/stakeholders/VISAKHAPATNAM_Port_Authority.pdf" },
-  { title: "HPCL – VISAKH REFINERY", path: "/stakeholders/HPCL_VISAKH_REFINERY.pdf" },
-  { title: "SIKKA PORTS & TERMINAL LTD", path: "/stakeholders/SIKKA_PORTS_TERMINAL_LTD.pdf" },
-  { title: "SHYAMA PRASAD MUKHERJI PORT AUTHORITY", path: "/stakeholders/SHYAMA_PRASAD_MUKHERJI_PORT_AUTHORITY.pdf" },
-  { title: "SADHAV SHIPPING LTD", path: "/stakeholders/SADHAV_SHIPPING_LTD.pdf" },
-  { title: "KONKAN LNG LTD", path: "/stakeholders/KONKAN_LNG_LTD.pdf" },
-  { title: "JAWAHARLAL NEHRU PORT AUTHORITY", path: "/stakeholders/JAWAHARLAL_NEHRU_PORT_AUTHORITY.pdf" },
-  { title: "COCHIN PORT AUTHORITY (1)", path: "/stakeholders/COCHIN_PORT_AUTHORITY_1.pdf" },
-  { title: "AMBUJA CEMENTS LTD", path: "/stakeholders/AMBUJA_CEMENTS_LTD.pdf" },
-  { title: "PIPAVAV PORT LTD", path: "/stakeholders/PIPAVAV_PORT_LTD.pdf" },
-  { title: "PARADIP PORT AUTHORITY", path: "/stakeholders/PARADIP_PORT_AUTHORITY.pdf" },
-  { title: "OSCT LLM INDIA LTD. MUMBAI", path: "/stakeholders/OSCT_LLM_INDIA_LTD_MUMBAI.pdf" },
-  { title: "ONGC Mumbai Level-1 & 2 Qualified stakeholders (2021-2025)", path: "/stakeholders/ONGC_Mumbai_Level-1_2_Qualified_stakeholders_2021-2025.pdf" },
-  { title: "OIL AND NATURAL GAS CORPORATION", path: "/stakeholders/OIL_AND_NATURAL_GAS_CORPORATION.pdf" },
-  { title: "OFFSHORE OIL TERMINAL (DPA) VADINAR", path: "/stakeholders/OFFSHORE_OIL_TERMINAL_DPA_VADINAR.pdf" },
-  { title: "NEW MANGALORE PORT AUTHORITY", path: "/stakeholders/NEW_MANGALORE_PORT_AUTHORITY.pdf" },
-  { title: "NAVARA ENERGY LTD", path: "/stakeholders/NAVARA_ENERGY_LTD.pdf" },
-  { title: "MORMUGAON PORT AUTHORITY 2", path: "/stakeholders/MORMUGAON_PORT_AUTHORITY_2.pdf" },
+  { title: "HALDIA DOCK CO-OP SMPK", path: "/stakeholders/HALDIA DOCK CO-OP SMPK.pdf" },
+  { title: "FINOLEX, RATNAGIRI", path: "/stakeholders/FINOLEX, RATNAGIRI.pdf" },
+  { title: "GAIL (INDIA) LTD, KOCHI", path: "/stakeholders/GAIL (INDIA) LTD, KOCHI.pdf" },
+  { title: "ESSAR BULK TERMINAL SALAYA LTD", path: "/stakeholders/ESSAR BULK TERMINAL SALAYA LTD.pdf" },
+  { title: "DIRECTORATE OF FISHERIES GOA", path: "/stakeholders/DIRECTORATE OF FISHERIES GOA.pdf" },
+  { title: "DEENDAYAL PORT AUTHORITY", path: "/stakeholders/DEENDAYAL PORT AUTHORITY.pdf" },
+  { title: "DEENDAYAL PORT AUTHORITY 2", path: "/stakeholders/DEENDAYAL PORT AUTHORITY 2.pdf" },
+  { title: "DGS. GOVT. OF INDIA", path: "/stakeholders/DGS. GOVT. OF INDIA.pdf" },
+  { title: "CAPTAIN OF PORT GOA", path: "/stakeholders/CAPTAIN OF PORT GOA.pdf" },
+  { title: "CHENNAI PRT TRUST", path: "/stakeholders/CHENNAI PRT TRUST.pdf" },
+  { title: "CARNIVAL PORT AUTHORITY", path: "/stakeholders/CARNIVAL PORT AUTHORITY.pdf" },
+  { title: "CAIRN VEDANTA OIL & GAS", path: "/stakeholders/CAIRN VEDANTA OIL & GAS.pdf" },
+  { title: "BP CORPORATION LTD", path: "/stakeholders/BP CORPORATION LTD.pdf" },
+  { title: "BHARAT PETROLEUM", path: "/stakeholders/BHARAT PETROLEUM.pdf" },
+  { title: "ANGRE PORT PVT LTD", path: "/stakeholders/ANGRE PORT PVT LTD.pdf" },
+  { title: "APM TERMINAL, MUMBAI", path: "/stakeholders/APM TERMINAL, MUMBAI.pdf" },
+  { title: "AEGIS LOGISTICS LIMITED", path: "/stakeholders/AEGIS LOGISTICS LIMITED.pdf" },
+  { title: "ADANI PORT", path: "/stakeholders/ADANI PORT.pdf" },
+  { title: "ADANI MUNDRA PORT LTD", path: "/stakeholders/ADANI MUNDRA PORT LTD.pdf" },
+  { title: "ONGC Mumbai Level-1 Qualified stakeholders (2021-2025)", path: "/stakeholders/ONGC Mumbai Level-1 Qualified stakeholders 2021-2025.pdf" },
+  { title: "MS MANGALORE REFINERY AND PETROCHEMICALS LTD", path: "/stakeholders/MS MANGALORE REFINERY AND PETROCHEMICALS LTD.pdf" },
+  { title: "MS IOCL, MANGALORE", path: "/stakeholders/MS IOCL MANGALORE.pdf" },
+  { title: "MS KONKAN LNG LTD", path: "/stakeholders/MS KONKAN LNG LTD.pdf" },
+  { title: "MS HPCL VISAKH REFINERY", path: "/stakeholders/MS HPCL VISAKH REFINERY.pdf" },
+  { title: "MS FINOLEX INDUSTRIES LTD, RATNAGIRI", path: "/stakeholders/MS FINOLEX INDUSTRIES LTD RATNAGIRI.pdf" },
+  { title: "MS AMBUJA CEMENTS LTD", path: "/stakeholders/MS AMBUJA CEMENTS LTD.pdf" },
+  { title: "MS CAPTAIN OF PORT GOA", path: "/stakeholders/MS CAPTAIN OF PORT GOA.pdf" },
+  { title: "MbPA Level-1 Qualified stakeholders (2021-2025)", path: "/stakeholders/MbPA Level-1 Qualified stakeholders (2021-2025).pdf" },
+  { title: "MORMUGAO PORT AUTHORITY", path: "/stakeholders/MORMUGAO PORT AUTHORITY.pdf" },
+  { title: "MORMUGAO PORT AUTHORITY 2", path: "/stakeholders/MORMUGAO PORT AUTHORITY 2.pdf" },
+  { title: "MPA GOA", path: "/stakeholders/MPA GOA.pdf" },
+  { title: "MS ADANI ELECTRICITY MUMBAI LTD DAHANU PORT", path: "/stakeholders/MS ADANI ELECTRICITY MUMBAI LTD DAHANU PORT.pdf" },
+  { title: "MS BPCL, KOCHI", path: "/stakeholders/MS BPCL, KOCHI.pdf" },
+  { title: "JSW JAIGARH PORT", path: "/stakeholders/JSW JAIGARH PORT.pdf" },
+  { title: "JSW STEEL LIMITED", path: "/stakeholders/JSW STEEL LIMITED.pdf" },
+  { title: "JSW DHARAMTAR PORT", path: "/stakeholders/JSW, DHARAMTAR PORT.pdf" },
+  { title: "JNPA NAVI MUMBAI", path: "/stakeholders/JNPA NAVI MUMBAI.pdf" },
+  { title: "COCHIN PORT AUTHORITY", path: "/stakeholders/COCHIN PORT AUTHORITY.pdf" },
+  { title: "ULTRATECH CEMENT", path: "/stakeholders/ULTRATECH CEMENT.pdf" },
+  { title: "SPTL (RELIANCE) JAMNAGAR", path: "/stakeholders/SPTL (RELIANCE) JAMNAGAR.pdf" },
+  { title: "VEDANTA LIMITED", path: "/stakeholders/VEDANTA LIMITED.pdf" },
+  { title: "VISAKHAPATNAM Port Authority", path: "/stakeholders/VISAKHAPATNAM Port Authority.pdf" },
+  { title: "HPCL VISAKH REFINERY", path: "/stakeholders/HPCL VISAKH REFINERY.pdf" },
+  { title: "SIKKA PORTS & TERMINAL LTD", path: "/stakeholders/SIKKA PORTS TERMINAL LTD.pdf" },
+  { title: "SHYAMA PRASAD MUKHERJI PORT AUTHORITY", path: "/stakeholders/SHYAMA PRASAD MUKHERJI PORT AUTHORITY.pdf" },
+  { title: "SADHAV SHIPPING LTD", path: "/stakeholders/SADHAV SHIPPING LTD.pdf" },
+  { title: "KONKAN LNG LTD", path: "/stakeholders/KONKAN LNG LTD.pdf" },
+  { title: "JAWAHARLAL NEHRU PORT AUTHORITY", path: "/stakeholders/JAWAHARLAL NEHRU PORT AUTHORITY.pdf" },
+  { title: "AMBUJA CEMENTS LTD", path: "/stakeholders/AMBUJA CEMENTS LTD.pdf" },
+  { title: "PIPAVAV PORT LTD", path: "/stakeholders/PIPAVAV PORT LTD.pdf" },
+  { title: "PARADIP PORT AUTHORITY", path: "/stakeholders/PARADIP PORT AUTHORITY.pdf" },
+  { title: "OSCT LLM INDIA LTD. MUMBAI", path: "/stakeholders/OSCT LLM INDIA LTD MUMBAI.pdf" },
+  { title: "ONGC Mumbai Level-1 & 2 Qualified stakeholders (2021-2025)", path: "/stakeholders/ONGC Mumbai Level-1 2 Qualified stakeholders 2021-2025.pdf" },
+  { title: "OIL AND NATURAL GAS CORPORATION", path: "/stakeholders/OIL AND NATURAL GAS CORPORATION.pdf" },
+  { title: "OFFSHORE OIL TERMINAL (DPA) VADINAR", path: "/stakeholders/OFFSHORE OIL TERMINAL (DPA) VADINAR.pdf" },
+  { title: "NEW MANGALORE PORT AUTHORITY", path: "/stakeholders/NEW MANGALORE PORT AUTHORITY.pdf" },
+  { title: "NAVARA ENERGY LTD", path: "/stakeholders/NAVARA ENERGY LTD.pdf" },
   { title: "MRPL", path: "/stakeholders/MRPL.pdf" },
-  { title: "MbPA Level-1, 2 & 3 Qualified stakeholders (2021-2025)", path: "/stakeholders/MbPA_Level-1_2_3_Qualified_stakeholders_2021-2025.pdf" },
-  { title: "KARIKAL PORT PVT", path: "/stakeholders/KARIKAL_PORT_PVT.pdf" },
-  { title: "MS BPCL, KOCHI (1)", path: "/stakeholders/MS_BPCL_KOCHI_1.pdf" },
-  { title: "KAMARAJAR PORT LTD., CHENNAI", path: "/stakeholders/KAMARAJAR_PORT_LTD_CHENNAI.pdf" },
-  { title: "JSW STEEL LIMITED (1)", path: "/stakeholders/JSW_STEEL_LIMITED_1.pdf" },
-  { title: "JSW, DHARAMTAR PORT", path: "/stakeholders/JSW_DHARAMTAR_PORT_2.pdf" },
-  { title: "JSW JAIGARH PORT (1)", path: "/stakeholders/JSW_JAIGARH_PORT_1.pdf" },
+  { title: "MbPA Level-1, 2 & 3 Qualified stakeholders (2021-2025)", path: "/stakeholders/MbPA Level-1 2 3 Qualified stakeholders 2021-2025.pdf" },
+  { title: "KARIKAL PORT PVT", path: "/stakeholders/KARIKAL PORT PVT.pdf" },
+  { title: "KAMARAJAR PORT LTD., CHENNAI", path: "/stakeholders/KAMARAJAR PORT LTD., CHENNAI.pdf" },
   { title: "INDIVIDUAL", path: "/stakeholders/INDIVIDUAL.pdf" },
-  { title: "INDIAN OIL CORPORATION LIMITED", path: "/stakeholders/INDIAN_OIL_CORPORATION_LIMITED.pdf" },
-  { title: "IMC LTD., ENNORE, CHENNAI", path: "/stakeholders/IMC_LTD_ENNORE_CHENNAI.pdf" },
-  { title: "HMEL MUNDRA", path: "/stakeholders/HMEL_MUNDRA.pdf" },
-  { title: "HDC SMPK", path: "/stakeholders/HDC_SMPK.pdf" },
-  { title: "HAZIRA PORT LTD", path: "/stakeholders/HAZIRA_PORT_LTD.pdf" }
+  { title: "INDIAN OIL CORPORATION LIMITED", path: "/stakeholders/INDIAN OIL CORPORATION LIMITED.pdf" },
+  { title: "IMC LTD., ENNORE, CHENNAI", path: "/stakeholders/IMC LTD., ENNORE, CHENNAI.pdf" },
+  { title: "HMEL MUNDRA", path: "/stakeholders/HMEL MUNDRA.pdf" },
+  { title: "HDC SMPK", path: "/stakeholders/HDC SMPK.pdf" },
+  { title: "HAZIRA PORT LTD", path: "/stakeholders/HAZIRA PORT LTD .pdf" }
 ];
 
 // Create the navbar stakeholders list from the document titles
@@ -240,7 +228,7 @@ export default function NavBar() {
     try {
       // Find the document in STAKEHOLDER_DOCUMENTS
       const doc = STAKEHOLDER_DOCUMENTS.find(d => d.title === title);
-      
+
       if (!doc) {
         console.error('Stakeholder document not found:', title);
         return;
@@ -697,7 +685,7 @@ export default function NavBar() {
                 <button
                   type="button"
                   onClick={() => navTo(ROUTES.DASHBOARD)}
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-(--orange500) px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-(--orange400) dark:bg-(--orange500)dark:text-slate-950"
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-sky-500 dark:bg-sky-500 dark:text-slate-950"
                 >
                   <LayoutDashboard size={15} /> Dashboard
                 </button>
@@ -827,7 +815,7 @@ export default function NavBar() {
                   <button
                     type="button"
                     onClick={() => navTo(ROUTES.DASHBOARD)}
-                    className="flex-1 rounded-md bg-(--orange500) px-3 py-1.5 text-xs font-semibold text-white hover:bg-(--orange400) dark:bg-(--orange500) dark:text-slate-950"
+                    className="flex-1 rounded-md bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-sky-500 dark:bg-sky-500 dark:text-slate-950"
                   >
                     Dashboard
                   </button>
