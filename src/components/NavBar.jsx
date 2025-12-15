@@ -288,7 +288,7 @@ export default function NavBar() {
                 PRABAL
               </div>
               <div className="text-[0.7rem] text-slate-500 dark:text-slate-400">
-                Indian Coast Guard · Local Intel Vault
+                Pollution Response Abate and Library
               </div>
             </div>
           </button>

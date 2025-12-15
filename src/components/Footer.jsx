@@ -118,7 +118,7 @@ export default function Footer() {
                 PRABAL
               </h3>
               <p className="text-sm text-[var(--navy-muted)] dark:text-[var(--soft-white-muted)]">
-                Secure offline file search & access • Coast Guard edition
+                Pollution Response Abate and Library • Secure offline file search & access
               </p>
             </div>
           </motion.div>

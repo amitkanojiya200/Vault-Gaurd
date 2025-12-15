@@ -5,6 +5,9 @@ import { FileText, Presentation, PlayCircle, ChevronLeft, Download, Video, X } f
 import bgImage2 from '@/assets/dbg2.png';
 import ModalPdfViewer from '@/components/ModalPdfViewer';
 
+import vidoprc21 from '@/assets/videos/1Response to Marine Oil Spills_ Aerial surveillance.mp4';
+import vidoprc22 from '@/assets/videos/2Response to Marine Oil Spills_ At-sea response.mp4';
+import vidoprc23 from '@/assets/videos/3Response to Marine Oil Spills_ Environmental impacts.mp4';
 // import vid1 from '/videos/level2'
 
 const MODULE_CONFIG = {
@@ -97,13 +100,9 @@ const MODULE_CONFIG = {
             { id: 'l2-e2', label: 'Case Study – Harbour Spill', fileName: 'L2_CaseStudy_Harbour_Spill.docx' },
         ],
         videos: [
-            { id: 'l2-v1', label: 'Response to Marine Oil Spills_ Oil spill compensation', fileName: 'OPRC_Level2_Boom_Deployment.mp4', path: '/videos/level2/Response to Marine Oil Spills_ Aerial surveillance.mp4' },
-            { id: 'l2-v2', label: 'Response to Marine Oil Spills_ Waste management', fileName: 'OPRC_Level2_Shoreline_Cleanup.mp4', path: '/videos/level2/Response to Marine Oil Spills_ Waste management.mp4' },
-            { id: 'l2-v3', label: 'Response to Marine Oil Spills_ Environmental impacts', fileName: 'OPRC_Level2_Boom_Deployment.mp4', path: '/videos/level2/Response to Marine Oil Spills_ Environmental impacts.mp4' },
-            { id: 'l2-v4', label: 'Response to Marine Oil Spills_ Shoreline clean-up', fileName: 'OPRC_Level2_Shoreline_Cleanup.mp4', path: '/videos/level2/Response to Marine Oil Spills_ Shoreline clean-up.mp4' },
-            { id: 'l2-v5', label: 'Response to Marine Oil Spills_ Aerial surveillance', fileName: 'OPRC_Level2_Boom_Deployment.mp4', path: '/videos/level2/Response to Marine Oil Spills_ Aerial surveillance.mp4' },
-            { id: 'l2-v6', label: 'Response to Marine Oil Spills_ At-sea response', fileName: 'OPRC_Level2_Shoreline_Cleanup.mp4', path: '/videos/level2/Response to Marine Oil Spills_ At-sea response.mp4' },
-            { id: 'l2-v7', label: 'Response to Marine Oil Spills_ Introduction to oil spills', fileName: 'OPRC_Level2_Shoreline_Cleanup.mp4', path: '/videos/level2/Response to Marine Oil Spills_ Introduction to oil spills.mp4' },
+            { id: 'l2-v1', label: 'Response to Marine Oil Spills_ Aerial surveillance', fileName: '1Response to Marine Oil Spills_ Aerial surveillance.mp4', path: vidoprc21 },
+            { id: 'l2-v2', label: 'Response to Marine Oil Spills_ At-sea response', fileName: '2Response to Marine Oil Spills_ At-sea response.mp4', path: vidoprc22 },
+            { id: 'l2-v3', label: 'Response to Marine Oil Spills_ Environmental impacts', fileName: '3Response to Marine Oil Spills_ Environmental impacts.mp4', path: vidoprc23 },
         ],
     },
     level3: {
@@ -569,24 +568,6 @@ export default function OprcModulePage2({ variant, routes, onNavigate }) {
                         )}
                     </>
                 )}
-
-                {/* Overview Section */}
-                {/* <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mb-4 rounded-2xl border border-slate-200 bg-white/90 p-4 text-xs shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/85 dark:shadow-black/40"
-                >
-                    <div className="space-y-2">
-                        {config.overview.map((para, idx) => (
-                            <p
-                                key={idx}
-                                className="text-[0.75rem] leading-relaxed text-slate-700 dark:text-slate-200"
-                            >
-                                {para}
-                            </p>
-                        ))}
-                    </div>
-                </motion.div> */}
 
                 {/* Three sections: Course PPT + Exercise + Videos (conditionally) */}
                 <motion.div

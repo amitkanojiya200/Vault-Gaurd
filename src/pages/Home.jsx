@@ -39,12 +39,9 @@ import oImage7 from '../assets/images/homepage/operational/oimg7.jpg';
 import oImage8 from '../assets/images/homepage/operational/oimg8.jpg';
 
 // Video Gallery
-import vid1 from '@/assets/images/homepage/operational/oimg8.jpg';
-import vid2 from '@/assets/images/homepage/operational/oimg8.jpg';
-import vid3 from '@/assets/images/homepage/operational/oimg8.jpg';
-// import vid1 from '@/assets/videos/vid1.mp4';
-// import vid2 from '@/assets/videos/vid2.mp4';
-// import vid3 from '@/assets/videos/vid3.mp4';
+import vid1 from '@/assets/videos/vid1.mp4';
+import vid2 from '@/assets/videos/vid2.mp4';
+// import vid3 from '@/assets/images/homepage/operational/oimg8.jpg';
 
 import bgImage2 from '../assets/dbg2.png';
 import icgEmblem from '../assets/icg.png';

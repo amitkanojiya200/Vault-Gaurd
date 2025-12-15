@@ -28,8 +28,8 @@ export default function WatchlistBlockedModal({
       >
         <div className="mb-3 flex items-center justify-between gap-3">
           <div>
-            <h3 className="text-lg font-semibold text-sky-300">
-              Watchlist Users · Blocked Operations ({timeLabel})
+            <h3 className="text-lg font-semibold text-(--orange400)">
+              Watchlist Users · Blocked Operations
             </h3>
             <p className="text-[0.7rem] text-slate-400">
               Attempts by read-only users to delete, move, rename or copy
@@ -75,7 +75,7 @@ export default function WatchlistBlockedModal({
 
           <p className="mt-3 text-[0.7rem] text-slate-400">
             Tauri: query a policy log via{' '}
-            <span className="font-mono text-sky-300">
+            <span className="font-mono text-(--orange400)">
               get_watchlist_blocked_attempts({`{ window: "24h" | "48h" | "1w" | "1m" | "1y" }`})
             </span>
             . Use a dropdown in the Dashboard to change{' '}

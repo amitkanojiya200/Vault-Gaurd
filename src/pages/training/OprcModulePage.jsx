@@ -95,15 +95,16 @@ const MODULE_CONFIG = {
             { id: 'l2-22', label: 'L2-22 · Administrative issues', fileName: 'L.2.22 Administrative issues.pptx', path: "D:/prabal/D-OPRC-Level2/L.2.22 Administrative issues.pptx" }
         ],
         exercises: [
-            { id: 'l2-e1', label: 'Ex 2.1 · Field Drill - Boom Deployment', fileName: 'L2_FieldDrill_Boom_Deployment.pdf', path: "D:/prabal/D-OPRC-Level2/exersice/Ex 2.1 IMS Exercise.ppt" },
-            { id: 'l2-e2', label: 'Ex 2.2 · Case Study - Harbour Spill', fileName: 'L2_CaseStudy_Harbour_Spill.pdf', path: "D:/prabal/D-OPRC-Level2/exersice/Ex 2.2 Aerial Observation Exercise.ppt" },
-            { id: 'l2-e3', label: 'Ex 2.1 · Field Drill - Boom Deployment', fileName: 'L2_FieldDrill_Boom_Deployment.pdf', path: "D:/prabal/D-OPRC-Level2/exersice/Ex 2.3 Implementing Response Strategy (At Sea) Exercise.ppt" },
-            { id: 'l2-e4', label: 'Ex 2.2 · Case Study - Harbour Spill', fileName: 'L2_CaseStudy_Harbour_Spill.pdf', path: "D:/prabal/D-OPRC-Level2/exersice/Ex 2.4 Implementing Response Strategy (Shoreline) Exercise.ppt" },
-            { id: 'l2-e5', label: 'Ex 2.2 · Case Study - Harbour Spill', fileName: 'L2_CaseStudy_Harbour_Spill.pdf', path: "D:/prabal/D-OPRC-Level2/exersice/Ex 2.5 Implementing Response Strategy (On-going and Post-Incident Op) Exercise.ppt" },
+            { id: 'l2-e1', label: 'Ex 2.1 IMS Exercise', fileName: 'Ex 2.1 IMS Exercise.ppt', path: "D:/prabal/D-OPRC-Level2/exersice/Ex 2.1 IMS Exercise.ppt" },
+            { id: 'l2-e2', label: 'Ex 2.2 Aerial Observation Exercise', fileName: 'Ex 2.2 Aerial Observation Exercise.ppt', path: "D:/prabal/D-OPRC-Level2/exersice/Ex 2.2 Aerial Observation Exercise.ppt" },
+            { id: 'l2-e3', label: 'Ex 2.3 Implementing Response Strategy (At Sea) Exercise', fileName: 'Ex 2.3 Implementing Response Strategy (At Sea) Exercise.ppt', path: "D:/prabal/D-OPRC-Level2/exersice/Ex 2.3 Implementing Response Strategy (At Sea) Exercise.ppt" },
+            { id: 'l2-e4', label: 'Ex 2.4 Implementing Response Strategy (Shoreline) Exercise', fileName: 'Ex 2.4 Implementing Response Strategy (Shoreline) Exercise.ppt', path: "D:/prabal/D-OPRC-Level2/exersice/Ex 2.4 Implementing Response Strategy (Shoreline) Exercise.ppt" },
+            { id: 'l2-e5', label: 'Ex 2.5 Implementing Response Strategy (On-going and Post-Incident Op) Exercise', fileName: 'Ex 2.5 Implementing Response Strategy (On-going and Post-Incident Op) Exercise.ppt', path: "D:/prabal/D-OPRC-Level2/exersice/Ex 2.5 Implementing Response Strategy (On-going and Post-Incident Op) Exercise.ppt" },
         ],
-        videos: [""
-            // { id: 'l2-v1', label: 'Boom Deployment Techniques', fileName: 'OPRC_Level2_Boom_Deployment.mp4', path: '/videos/level2/boom_deployment.mp4' },
-            // { id: 'l2-v2', label: 'Shoreline Cleanup Operations', fileName: 'OPRC_Level2_Shoreline_Cleanup.mp4', path: '/videos/level2/shoreline_cleanup.mp4' },
+        videos: [
+            { id: 'l2-v1', label: 'Response to Marine Oil Spills_ Aerial surveillance', fileName: '1Response to Marine Oil Spills_ Aerial surveillance.mp4', path: "../../assets/videos/1Response to Marine Oil Spills_ Aerial surveillance.mp4" },
+            { id: 'l2-v2', label: '2Response to Marine Oil Spills_ At-sea response', fileName: '2Response to Marine Oil Spills_ At-sea response.mp4', path: '/videos/2Response to Marine Oil Spills_ At-sea response.mp4' },
+            { id: 'l2-v3', label: '3Response to Marine Oil Spills_ Environmental impacts', fileName: '3Response to Marine Oil Spills_ Environmental impacts.mp4', path: '/videos/3Response to Marine Oil Spills_ Environmental impacts.mp4' },
         ],
     },
     level3: {
@@ -156,7 +157,7 @@ const MODULE_CONFIG = {
             { id: 'l3-e12', label: 'Information Sheet - General', fileName: 'Information Sheet - General.pdf', path: "D:/prabal/D-OPRC-Level3/exercise3/Information Sheet - General.pdf" },
             { id: 'l3-e13', label: 'Palmalfi Information Sheet', fileName: 'Palmalfi Information Sheet.pdf', path: "D:/prabal/D-OPRC-Level3/exercise3/Palmalfi Information Sheet.pdf" },
             { id: 'l3-e14', label: 'Vessel Description - NEPTUNE TRIDENT & ONWARD MARINER', fileName: 'Vessel Description - NEPTUNE TRIDENT & ONWARD MARINER.pdf', path: "D:/prabal/D-OPRC-Level3/exercise3/Vessel Description - NEPTUNE TRIDENT & ONWARD MARINER.pdf" },
-            { id: 'l3-e15', label: 'Area Key', fileName: 'Area Key', path: "D:/prabal/D-OPRC-Level3/exercise3/Area Key.ppt" },
+            { id: 'l3-e15', label: 'Area Key', fileName: 'Area Key.ppt', path: "D:/prabal/D-OPRC-Level3/exercise3/Area Key.ppt" },
             { id: 'l3-e16', label: 'Ex 3.6 Inject 1', fileName: 'Ex 3.6 Inject 1.pdf', path: "D:/prabal/D-OPRC-Level3/exercise3/Ex 3.6 Inject 1.pdf" },
             { id: 'l3-e17', label: 'Ex 3.6 Inject 2', fileName: 'Ex 3.6 Inject 2.pdf', path: "D:/prabal/D-OPRC-Level3/exercise3/Ex 3.6 Inject 2.pdf" },
             { id: 'l3-e18', label: 'Ex. 3.9.1 - Areas to be Re-assessed', fileName: 'Ex. 3.9.1 - Areas to be Re-assessed.pdf', path: "D:/prabal/D-OPRC-Level3/exercise3/Ex. 3.9.1 - Areas to be Re-assessed.pdf" },
@@ -192,7 +193,6 @@ const MODULE_CONFIG = {
         exercises: [
         ],
         videos: [
-            { id: 'pr-v1', label: 'Media Handling Best Practices', fileName: 'OPRC_PR_Media_Handling.mp4', path: '/videos/pr/media_handling.mp4' },
         ],
     },
 };
@@ -496,13 +496,15 @@ export default function OprcModulePage({ variant, routes, onNavigate }) {
                                 items={config.coursePpts}
                                 onOpen={handleOpenFile}
                             />
-                            <SectionCard
-                                icon={<PlayCircle className="h-3.5 w-3.5" />}
-                                title="Exercise"
-                                description="Tabletop / field / communication drills."
-                                items={config.exercises}
-                                onOpen={handleOpenFile}
-                            />
+                            {config.exercises.length > 0 && (
+                                <SectionCard
+                                    icon={<PlayCircle className="h-3.5 w-3.5" />}
+                                    title="Exercise"
+                                    description="Tabletop / field / communication drills."
+                                    items={config.exercises}
+                                    onOpen={handleOpenFile}
+                                />
+                            )}
                         </div>
                     </div>
 
