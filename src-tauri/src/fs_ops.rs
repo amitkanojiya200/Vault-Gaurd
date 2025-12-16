@@ -259,108 +259,132 @@ pub fn index_all_drives_start(session_token: String) -> Result<String, String> {
     let job_clone = job_id.clone();
     let roots_clone = roots.clone();
 
+    fn fail_job(job_id: &str, message: String) {
+        if let Ok(mut m) = INDEX_JOBS.lock() {
+            m.insert(job_id.to_string(), IndexJobState::Failed { message });
+        }
+    }
+
+    // Spawn background thread (uses its own DB connection)
     // Spawn background thread (uses its own DB connection)
     std::thread::spawn(move || {
-        match crate::db::open_connection() {
-            Ok(conn2) => {
-                if let Err(e) = ensure_files_index_tables(&conn2) {
-                    let mut m = INDEX_JOBS.lock().unwrap();
-                    m.insert(job_clone.clone(), IndexJobState::Failed { message: e });
-                    return;
-                }
-
-                let mut processed: usize = 0usize;
-                let now = Utc::now().timestamp();
-
-                // Use a stack seeded with all roots (walk each)
-                let mut stack: Vec<PathBuf> = Vec::new();
-                for r in roots_clone {
-                    stack.push(r);
-                }
-
-                while let Some(p) = stack.pop() {
-                    // update last_path
-                    {
-                        let mut m = INDEX_JOBS.lock().unwrap();
-                        m.insert(
-                            job_clone.clone(),
-                            IndexJobState::Running {
-                                processed,
-                                last_path: Some(p.to_string_lossy().to_string()),
-                            },
-                        );
-                    }
-
-                    // attempt read_dir, skip if can't
-                    let read = match std::fs::read_dir(&p) {
-                        Ok(r) => r,
-                        Err(_) => continue,
-                    };
-
-                    for entry in read.flatten() {
-                        // get path and metadata from the entry
-                        let path_buf = entry.path();
-                        let meta = match entry.metadata() {
-                            Ok(m) => m,
-                            Err(_) => continue,
-                        };
-                        let is_dir = meta.is_dir();
-                        let size_opt = if is_dir {
-                            None
-                        } else {
-                            Some(meta.len() as i64)
-                        };
-
-                        // canonicalize path best-effort (fallback to original path_buf clone)
-                        let canonical_buf =
-                            std::fs::canonicalize(&path_buf).unwrap_or(path_buf.clone());
-                        let path_str = canonical_buf.to_string_lossy().to_string();
-
-                        // name from entry (safe)
-                        let name = entry.file_name().to_string_lossy().to_string();
-
-                        // types
-                        let file_type = if is_dir { "dir" } else { "file" }.to_string();
-                        let doc_type = doc_type_for_path(&path_str, is_dir);
-                        let drive_val = normalize_drive_for_storage(&path_str);
-
-                        // Insert or update (conn2 is the worker connection)
-                        let _ = conn2.execute(
-        "INSERT INTO files_index (path, name, file_type, doc_type, size, indexed_at, drive)
-         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)
-         ON CONFLICT(path)
-         DO UPDATE SET
-           name=excluded.name,
-           file_type=excluded.file_type,
-           doc_type=excluded.doc_type,
-           size=excluded.size,
-           indexed_at=excluded.indexed_at,
-           drive=excluded.drive",
-        params![path_str, name, file_type, doc_type, size_opt, now, drive_val],
-    );
-
-                        processed += 1;
-
-                        // push directories to stack using canonical path to avoid duplicates
-                        if is_dir && !is_excluded_path(&path_str) {
-                            stack.push(canonical_buf);
-                        }
-                    }
-                }
-
-                // mark finished
-                let mut m = INDEX_JOBS.lock().unwrap();
-                m.insert(job_clone.clone(), IndexJobState::Finished { processed });
-            }
+        let conn2 = match crate::db::open_connection() {
+            Ok(c) => c,
             Err(e) => {
-                let mut m = INDEX_JOBS.lock().unwrap();
-                m.insert(
-                    job_clone.clone(),
-                    IndexJobState::Failed {
-                        message: format!("db open error in worker: {}", e),
-                    },
-                );
+                fail_job(&job_clone, format!("worker db open failed: {}", e));
+                return;
             }
+        };
+
+        if let Err(e) = ensure_files_index_tables(&conn2) {
+            fail_job(&job_clone, format!("ensure tables failed: {}", e));
+            return;
+        }
+
+        let mut processed: usize = 0;
+        let now = Utc::now().timestamp();
+        let mut stack: Vec<PathBuf> = roots_clone;
+
+        while let Some(p) = stack.pop() {
+            // update last_path
+            {
+                if let Ok(mut m) = INDEX_JOBS.lock() {
+                    m.insert(
+                        job_clone.clone(),
+                        IndexJobState::Running {
+                            processed,
+                            last_path: Some(p.to_string_lossy().to_string()),
+                        },
+                    );
+                }
+            }
+
+            let read_dir = match std::fs::read_dir(&p) {
+                Ok(r) => r,
+                Err(e) => {
+                    // Non-fatal but logged
+                    eprintln!("[index] read_dir failed at {}: {}", p.display(), e);
+                    continue;
+                }
+            };
+
+            for entry_res in read_dir {
+                let entry = match entry_res {
+                    Ok(e) => e,
+                    Err(e) => {
+                        eprintln!("[index] dir entry read error in {}: {}", p.display(), e);
+                        continue;
+                    }
+                };
+
+                let path_buf = entry.path();
+
+                let meta = match entry.metadata() {
+                    Ok(m) => m,
+                    Err(e) => {
+                        eprintln!("[index] metadata failed for {}: {}", path_buf.display(), e);
+                        continue;
+                    }
+                };
+
+                let is_dir = meta.is_dir();
+                let size_opt = if is_dir {
+                    None
+                } else {
+                    Some(meta.len() as i64)
+                };
+
+                // ⚠️ Canonicalize with error visibility
+                let canonical_buf = match std::fs::canonicalize(&path_buf) {
+                    Ok(c) => c,
+                    Err(e) => {
+                        eprintln!(
+                            "[index] canonicalize failed for {}: {}",
+                            path_buf.display(),
+                            e
+                        );
+                        path_buf.clone()
+                    }
+                };
+
+                let path_str = canonical_buf.to_string_lossy().to_string();
+                let name = entry.file_name().to_string_lossy().to_string();
+                let file_type = if is_dir { "dir" } else { "file" }.to_string();
+                let doc_type = doc_type_for_path(&path_str, is_dir);
+                let drive_val = normalize_drive_for_storage(&path_str);
+
+                if let Err(e) = conn2.execute(
+                "INSERT INTO files_index (path, name, file_type, doc_type, size, indexed_at, drive)
+                 VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)
+                 ON CONFLICT(path)
+                 DO UPDATE SET
+                   name=excluded.name,
+                   file_type=excluded.file_type,
+                   doc_type=excluded.doc_type,
+                   size=excluded.size,
+                   indexed_at=excluded.indexed_at,
+                   drive=excluded.drive",
+                params![path_str, name, file_type, doc_type, size_opt, now, drive_val],
+            ) {
+                // ⚠️ DB error = fatal (surface it)
+                fail_job(
+                    &job_clone,
+                    format!("db insert failed at {}: {}", canonical_buf.display(), e),
+                );
+                return;
+            }
+
+                processed += 1;
+
+                if is_dir && !is_excluded_path(&path_str) {
+                    stack.push(canonical_buf);
+                }
+            }
+        }
+
+        // mark finished
+        if let Ok(mut m) = INDEX_JOBS.lock() {
+            m.insert(job_clone.clone(), IndexJobState::Finished { processed });
         }
     });
 

@@ -221,7 +221,10 @@ const SECTION_CONFIG = {
   [ROUTES.DOC_OSD_POLICY]: {
     title: 'OSD Policy',
     subtitle: 'Offshore Security / Spill Defence policy notes.',
-    body: ['Summarise the OSD Policy and attach references later.'],
+    body: ['Summarise the OSD Policy and attach references.'],
+    pdfFiles: [
+      { name: 'CGO_04_2025', path: '/Incident-Reports/CGO_04_2025 (2).pdf' },
+    ],
   },
   [ROUTES.DOC_INCIDENT_REPORTS]: {
     title: 'Incident Reports',
@@ -244,7 +247,6 @@ const SECTION_CONFIG = {
       { name: 'Appendix N - Length of boom deployed at Mauritius', path: '/Incident-Reports/Appendix  N- Length of boom deployed at Mauritius.pdf' },
       { name: 'Appendix Q - Experts from different countries', path: '/Incident-Reports/Appendix  Q - Experts from different countries.pdf' },
       { name: 'Appendix S - Fact data sheet of Grade C oil', path: '/Incident-Reports/Appendix  S- Fact data sheet of Grade C oil.pdf' },
-      { name: 'CGO_04_2025', path: '/Incident-Reports/CGO_04_2025 (2).pdf' },
     ],
   },
 

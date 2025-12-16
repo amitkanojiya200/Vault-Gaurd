@@ -269,12 +269,12 @@ export default function NavBar() {
     <>
       {/* fixed top nav */}
       <header ref={navRef} className={`z-40 -mb-15 ${topBg}`}>
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5">
+        <div className="mx-auto flex w-full items-center justify-between px-2 py-3.5">
           {/* Left: logo + text */}
           <button
             type="button"
             onClick={() => navTo(ROUTES.HOME)}
-            className="flex items-center gap-3 rounded focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-950"
+            className="flex items-center justify-left gap-3 rounded focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-950"
           >
             <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900">
               <img
@@ -685,7 +685,7 @@ export default function NavBar() {
                 <button
                   type="button"
                   onClick={() => navTo(ROUTES.DASHBOARD)}
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-sky-500 dark:bg-sky-500 dark:text-slate-950"
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-(--orange500) px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-(--orange400) dark:bg-(--orange500) dark:text-slate-950"
                 >
                   <LayoutDashboard size={15} /> Dashboard
                 </button>
