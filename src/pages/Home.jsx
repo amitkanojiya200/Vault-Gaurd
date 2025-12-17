@@ -252,7 +252,7 @@ const handleDocClick = (item, e) => {
               transition={{ duration: 0.5 }}
               className="text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl"
             >
-              An overview for{' '}
+              An overview of{' '}
               <span className="text-orange-500 dark:text-orange-500">
                 Coast Guard Pollution Response Team (West)
               </span>{' '}
@@ -356,9 +356,10 @@ const handleDocClick = (item, e) => {
               <p className="mb-2 text-2xl font-semibold text-(--orange500) dark:text-(--orange500)">
                 About Us
               </p>
-              <p className="text-lg text-slate-600 dark:text-slate-300 text-justify leading-relaxed break-words">
+              <p className="text-[15px] text-slate-600 dark:text-slate-300 text-justify leading-relaxed break-words">
                 The Coast Guard Pollution Response Team (W), Mumbai was initially established as Pollution Control Cell in the 80s at Naval Dockyard, Mumbai. However, the unit was activated on 15 Apr 1989 as Coast Guard Pollution Response Cell within the premises of Mumbai Port Authority for responding to marine oil spills on the West coast of India. Prior to accord of Govt. sanction, the appointment of Officers and dedicated Staff was commenced w.e.f. 06 Jun 94 and Government sanction for establishing Pollution Response Team (West) was accorded vide Ministry of Defence sanction letter CS/0116/CG/403/DO/D (N-II) dated 25 Mar 96. On 15 Apr 89, the Unit was shifted to MbPT Shed No. 3, New Ferry Wharf and again shifted to present Loco/ Boiler Shed, MbPT Workshop at Mazgaon on 09 Jul 2017.
               </p>
+              <img src={tImage11} className='mt-10 cover' alt="about image" />
             </div>
           </div>
         </section>

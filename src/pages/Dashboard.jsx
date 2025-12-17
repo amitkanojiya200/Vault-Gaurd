@@ -68,11 +68,6 @@ const MOCK = {
   roleCounts: { admins: 0, users: 0 },
 };
 // --------------------- HELPER -----------------
-function handleCallError(name, err) {
-  console.error(`[Dashboard] ${name} failed:`, err);
-  return null;
-}
-
 // helper for time window filtering
 function withinRange(epochSeconds, rangeKey) {
   if (!epochSeconds) return false;
@@ -92,6 +87,8 @@ export default function Dashboard() {
   const [drives, setDrives] = useState(MOCK.drives);
   const [storageDrives, setStorageDrives] = useState([]);
   const [users, setUsers] = useState(MOCK.users);
+  const [uiError, setUiError] = useState(null);
+  const [indexingError, setIndexingError] = useState(null);
 
   // persistent ref to indicate we've loaded real drives already
   const initialDrivesLoadedRef = useRef(false);
@@ -99,16 +96,26 @@ export default function Dashboard() {
   async function handleIndexAllDrivesClick() {
     try {
       setIndexingProgress({ state: 'starting' });
+      setIndexingError(null);
+
       const token = await sessionClient.getSessionToken();
       const res = await fsClient.indexAllDrives(token, (s) => {
         setIndexingProgress(s);
+        if (s?.state === 'failed') {
+          setIndexingError(s.message || 'Indexing failed');
+        }
       });
+      if (res?.error) {
+        setIndexingError(res.error);
+      }
       // update UI store with res.filesPerDrive / res.indexingByDrive
       if (res.filesPerDrive) setFilesPerDrive(res.filesPerDrive);
       if (res.indexingByDrive) setIndexingByDriveAndType(res.indexingByDrive);
     } catch (err) {
+      const msg = err?.message || String(err);
       console.error(err);
-      setIndexingProgress({ state: 'failed', message: String(err) });
+      setIndexingError(msg);
+      setIndexingProgress({ state: 'failed', message: msg });
     }
   }
   // raw events with timestamps
@@ -148,6 +155,13 @@ export default function Dashboard() {
         return 'Last 24 hours';
     }
   }, [timeRange]);
+
+  function handleCallError(name, err) {
+    const msg = `[${name}] ${err?.message || err}`;
+    console.error(msg);
+    setUiError(msg);
+    return null;
+  }
 
   // ---------------------------------------- test ----------------------------------
   // (async () => {
@@ -624,6 +638,48 @@ export default function Dashboard() {
       window.removeEventListener('session-updated', onSessionUpdated);
     };
   }, []);
+  // ---------------------------------------------------------
+  // Auto background indexing on app startup (admin only)
+  // ---------------------------------------------------------
+  useEffect(() => {
+    let cancelled = false;
+
+    async function autoIndexOnStartup() {
+      try {
+        // wait until session + user are ready
+        if (!currentUser) return;
+
+        if (currentUser.role?.toLowerCase() !== 'admin') return;
+
+        const token = await sessionClient.getSessionToken();
+        if (!token) return;
+
+        // fire-and-forget background indexing
+        fsClient.indexAllDrives(token, (s) => {
+          if (cancelled) return;
+
+          setIndexingProgress(s);
+
+          if (s?.state === 'failed') {
+            setIndexingError(s.message || 'Indexing failed');
+          }
+        }).catch((e) => {
+          if (!cancelled) {
+            setIndexingError(e?.message || String(e));
+          }
+        });
+      } catch (e) {
+        console.error('[autoIndexOnStartup] failed:', e);
+        setIndexingError(e?.message || String(e));
+      }
+    }
+
+    autoIndexOnStartup();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [currentUser]);
 
   // ---------------- Derived, time-filtered data ----------------
   const portalActivityFiltered = useMemo(
@@ -762,7 +818,6 @@ export default function Dashboard() {
       },
     },
   };
-
 
   const [indexingSummary, setIndexingSummary] = useState({
     perDriveRows: [],
@@ -1091,7 +1146,11 @@ export default function Dashboard() {
             </div>
           </div>
         </motion.header>
-
+        {uiError && (
+          <div className="mb-3 rounded-xl bg-red-500/10 border border-red-400/30 px-3 py-2 text-sm text-red-600 dark:text-red-400">
+            {uiError}
+          </div>
+        )}
         {/* Top summary row */}
         <motion.section
           initial={{ opacity: 0, y: -8 }}
@@ -1158,6 +1217,11 @@ export default function Dashboard() {
           {indexingProgress && indexingProgress.state === 'running' && (
             <div className="text-sm">
               Indexing: {indexingProgress.processed ?? 0} files — last: {indexingProgress.lastPath ?? '...'}
+            </div>
+          )}
+          {indexingError && (
+            <div className="mt-2 rounded-lg border border-red-400/40 bg-red-500/10 px-3 py-2 text-sm text-red-600 dark:text-red-400">
+              <strong>Indexing error:</strong> {indexingError}
             </div>
           )}
 

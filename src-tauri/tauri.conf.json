@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "prabal",
-  "version": "0.2.1",
+  "version": "0.2.3",
   "identifier": "com.uru.prabal",
   "build": {
     "frontendDist": "../dist",
@@ -47,7 +47,7 @@
         "https://github.com/amitkanojiya200/Vault-Gaurd/releases/latest/download/updater.json"
       ],
       "dialog": true,
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDMyMzdGNEQ2QkJEQjVDM0QKUldROVhOdTcxdlEzTWlKNkd0TnhwdDU3SWU2bldlK0J2UmZkUUpMRTBXTmFWK3JwZGI0WGRnWFkK",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEMyMjkyRUVBNUQyMDc1M0EKUldRNmRTQmQ2aTRwd3ZXL29SS0tYZHNGRXVZT3lIdlN5S1lOb1VMREk5TFZkWFR3THVrK1Rwd2UK",
       "target": "updater.json"
     }
   }

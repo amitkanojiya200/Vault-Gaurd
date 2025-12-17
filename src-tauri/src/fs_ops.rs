@@ -106,50 +106,57 @@ fn is_excluded_path(path: &str) -> bool {
     // Normalize to lowercase for comparisons
     let lower = path.to_lowercase();
 
-    // Common windows system / protected paths (very conservative)
+    // ---------------- Windows-specific exclusions ----------------
     if cfg!(target_os = "windows") {
-        // Windows dir
+        // Windows directory
         if lower.contains("\\windows\\") || lower.ends_with("\\windows") {
             return true;
         }
+
         // Program Files (both flavours)
         if lower.contains("\\program files\\") || lower.contains("\\program files (x86)\\") {
             return true;
         }
-        // Program Files (both flavours)
+
+        // PerfLogs
         if lower.contains("\\perflogs\\") {
             return true;
         }
-        // Program Files (both flavours)
-        if lower.contains("\\program files\\") || lower.contains("\\program files (x86)\\") {
+
+        // Recycle Bin
+        if lower.contains("\\$recycle.bin\\") || lower.contains("\\recycle.bin\\") {
             return true;
         }
-        // Recycle bin
-        // if lower.contains("\\$recycle.bin\\") || lower.contains("\\recycle.bin\\") {
-        //     return true;
-        // }
+
         // System Volume Information
         if lower.contains("\\system volume information") {
             return true;
         }
+
         // Hibernation / pagefile (files)
         if lower.ends_with("\\pagefile.sys") || lower.ends_with("\\hiberfil.sys") {
             return true;
         }
+
         // Windows Installer / WinSxS
         if lower.contains("\\windows\\winsxs") || lower.contains("\\windows\\installer") {
             return true;
         }
-        // ProgramData and Program Files (optional - many apps store config here)
+
+        // ProgramData
         if lower.contains("\\programdata\\") {
             return true;
         }
     }
 
-    // Cross-platform: common noisy / heavy folders you generally don't want indexed
+    // ---------------- Cross-platform exclusions ----------------
+
+    // Node / JS ecosystems
     if lower.contains("node_modules") {
         return true;
     }
+
+    // Git metadata
     if lower.contains("/.git/")
         || lower.contains("\\.git\\")
         || lower.ends_with("/.git")
@@ -158,13 +165,12 @@ fn is_excluded_path(path: &str) -> bool {
         return true;
     }
 
-    // Some editors / caches
+    // Cache directories
     if lower.contains("\\.cache\\") || lower.contains("/.cache/") {
         return true;
     }
 
-    // Add any user-defined patterns (you can make this configurable later)
-    // Example: skip hidden OS-specific roots (macOS .Spotlight-V100 etc.)
+    // macOS system metadata
     if lower.contains(".spotlight-v100") || lower.contains(".fseventsd") {
         return true;
     }

@@ -49,7 +49,7 @@ const STAKEHOLDER_DOCUMENTS = [
   { title: "MS FINOLEX INDUSTRIES LTD, RATNAGIRI", path: "/stakeholders/MS FINOLEX INDUSTRIES LTD RATNAGIRI.pdf" },
   { title: "MS AMBUJA CEMENTS LTD", path: "/stakeholders/MS AMBUJA CEMENTS LTD.pdf" },
   { title: "MS CAPTAIN OF PORT GOA", path: "/stakeholders/MS CAPTAIN OF PORT GOA.pdf" },
-  { title: "MbPA Level-1 Qualified stakeholders (2021-2025)", path: "/stakeholders/MbPA Level-1 Qualified stakeholders (2021-2025).pdf" },
+  { title: "MbPA Level-1 Qualified stakeholders (2021-2025)", path: "/stakeholders/MbPA Level-1 Qualified stakeholders 2021-2025.pdf" },
   { title: "MORMUGAO PORT AUTHORITY", path: "/stakeholders/MORMUGAO PORT AUTHORITY.pdf" },
   { title: "MORMUGAO PORT AUTHORITY 2", path: "/stakeholders/MORMUGAO PORT AUTHORITY 2.pdf" },
   { title: "MPA GOA", path: "/stakeholders/MPA GOA.pdf" },
@@ -78,7 +78,7 @@ const STAKEHOLDER_DOCUMENTS = [
   { title: "OIL AND NATURAL GAS CORPORATION", path: "/stakeholders/OIL AND NATURAL GAS CORPORATION.pdf" },
   { title: "OFFSHORE OIL TERMINAL (DPA) VADINAR", path: "/stakeholders/OFFSHORE OIL TERMINAL (DPA) VADINAR.pdf" },
   { title: "NEW MANGALORE PORT AUTHORITY", path: "/stakeholders/NEW MANGALORE PORT AUTHORITY.pdf" },
-  { title: "NAVARA ENERGY LTD", path: "/stakeholders/NAVARA ENERGY LTD.pdf" },
+  { title: "NAVARA ENERGY LTD", path: "/stakeholders/NAYARA ENERGY LTD.pdf" },
   { title: "MRPL", path: "/stakeholders/MRPL.pdf" },
   { title: "MbPA Level-1, 2 & 3 Qualified stakeholders (2021-2025)", path: "/stakeholders/MbPA Level-1 2 3 Qualified stakeholders 2021-2025.pdf" },
   { title: "KARIKAL PORT PVT", path: "/stakeholders/KARIKAL PORT PVT.pdf" },
@@ -88,7 +88,7 @@ const STAKEHOLDER_DOCUMENTS = [
   { title: "IMC LTD., ENNORE, CHENNAI", path: "/stakeholders/IMC LTD., ENNORE, CHENNAI.pdf" },
   { title: "HMEL MUNDRA", path: "/stakeholders/HMEL MUNDRA.pdf" },
   { title: "HDC SMPK", path: "/stakeholders/HDC SMPK.pdf" },
-  { title: "HAZIRA PORT LTD", path: "/stakeholders/HAZIRA PORT LTD .pdf" }
+  { title: "HAZIRA PORT LTD", path: "/stakeholders/HAZIRA PORT LTD.pdf" }
 ];
 
 // Create the navbar stakeholders list from the document titles
