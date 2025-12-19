@@ -516,7 +516,7 @@ export default function Dashboard() {
       }
       // 6) indexing & files-per-drive (optional endpoints)
       try {
-        const idxRaw = (await userClient.get_indexing_by_drive_and_type?.()) || null;
+        const idxRaw = (await fsClient.get_indexing_by_drive_and_type?.()) || null;
 
         try {
           if (mounted && idxRaw) {
@@ -610,7 +610,7 @@ export default function Dashboard() {
               setDrives(fallbackDrives);
             } else {
               // 3) final fallback -> indexing info (files per drive by type) if present
-              const idxRaw = (await userClient.get_indexing_by_drive_and_type?.()) || null;
+              const idxRaw = (await fsClient.get_indexing_by_drive_and_type?.()) || null;
               if (mounted && Array.isArray(idxRaw) && idxRaw.length > 0) {
                 const aggregated = {};
                 for (const r of idxRaw) {
