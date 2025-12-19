@@ -52,7 +52,6 @@ export default function WatchlistBlockedModal({
                 <th className="py-1 text-left">User</th>
                 <th className="py-1 text-left">Operation</th>
                 <th className="py-1 text-left">File / Path</th>
-                <th className="py-1 text-left">Reason</th>
               </tr>
             </thead>
             <tbody>
@@ -64,9 +63,6 @@ export default function WatchlistBlockedModal({
                   <td className="py-1 text-slate-300">{e.time}</td>
                   <td className="py-1 text-sky-300">{e.user}</td>
                   <td className="py-1 text-red-300">{e.op}</td>
-                  <td className="py-1 max-w-xs truncate text-slate-200">
-                    {e.path}
-                  </td>
                   <td className="py-1 text-slate-400">{e.reason}</td>
                 </tr>
               ))}

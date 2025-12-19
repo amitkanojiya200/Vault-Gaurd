@@ -11,6 +11,7 @@ import {
   BarElement,
 } from 'chart.js';
 import { Doughnut, Bar } from 'react-chartjs-2';
+import { listen } from '@tauri-apps/api/event';
 
 import bgImage2 from '../assets/dbg2.png';
 import icgEmblem from '../assets/icg-logo.png';
@@ -118,6 +119,49 @@ export default function Dashboard() {
       setIndexingProgress({ state: 'failed', message: msg });
     }
   }
+  // ----------------------------------------
+  // Live FS change listener (STEP 2: debounced)
+  // ----------------------------------------
+  useEffect(() => {
+    let unlisten = null;
+    let debounceTimer = null;
+
+    async function startListening() {
+      unlisten = await listen('fs:changed', (event) => {
+        console.log('[fs:changed]', event.payload);
+
+        // Clear previous timer
+        if (debounceTimer) {
+          clearTimeout(debounceTimer);
+        }
+
+        // Debounce refresh (wait 500ms after last event)
+        debounceTimer = setTimeout(() => {
+          console.log('[fs:changed] debounced refresh');
+
+          fsClient.getFilesPerDrive()
+            .then(setFilesPerDrive)
+            .catch(() => { });
+
+          fsClient.getIndexingByDriveAndType()
+            .then(setIndexingByDriveAndType)
+            .catch(() => { });
+        }, 1000);
+      });
+    }
+
+    startListening();
+
+    return () => {
+      if (debounceTimer) {
+        clearTimeout(debounceTimer);
+      }
+      if (unlisten) {
+        unlisten();
+      }
+    };
+  }, []);
+
   // raw events with timestamps
   const [portalActivity, setPortalActivity] = useState(MOCK.portalActivity);
   const [adminOps, setAdminOps] = useState(MOCK.adminOps);
@@ -391,7 +435,16 @@ export default function Dashboard() {
           // portalRows: [{ id, time, user, event, page, client, details }]
           const mappedPortal = Array.isArray(portalRows) ? portalRows.map(r => ({
             id: r.id,
-            epoch: Number(r.time) || (r.ts || 0), // support both names
+            epoch:
+              typeof r.time === 'number'
+                ? r.time
+                : typeof r.ts === 'number'
+                  ? r.ts
+                  : Number(r.time) > 0
+                    ? Number(r.time)
+                    : Number(r.ts) > 0
+                      ? Number(r.ts)
+                      : 0,            // support both names
             time: (Number(r.time) ? new Date(Number(r.time) * 1000).toLocaleString() : (r.time ? String(r.time) : '')),
             user: r.user || r.actor_username || 'system',
             event: r.event || r.action || '',
@@ -408,7 +461,16 @@ export default function Dashboard() {
           const watchRows = await adminClient.getWatchlistBlockedAttempts(token, { window: timeRange, limit: 500 });
           const mappedWatch = Array.isArray(watchRows) ? watchRows.map(r => ({
             id: r.id,
-            epoch: Number(r.time) || (r.ts || 0),
+            epoch:
+              typeof r.time === 'number'
+                ? r.time
+                : typeof r.ts === 'number'
+                  ? r.ts
+                  : Number(r.time) > 0
+                    ? Number(r.time)
+                    : Number(r.ts) > 0
+                      ? Number(r.ts)
+                      : 0,
             time: (Number(r.time) ? new Date(Number(r.time) * 1000).toLocaleString() : (r.time ? String(r.time) : '')),
             user: r.user || r.actor_username || 'system',
             op: r.op || r.action || '',
@@ -638,48 +700,6 @@ export default function Dashboard() {
       window.removeEventListener('session-updated', onSessionUpdated);
     };
   }, []);
-  // ---------------------------------------------------------
-  // Auto background indexing on app startup (admin only)
-  // ---------------------------------------------------------
-  useEffect(() => {
-    let cancelled = false;
-
-    async function autoIndexOnStartup() {
-      try {
-        // wait until session + user are ready
-        if (!currentUser) return;
-
-        if (currentUser.role?.toLowerCase() !== 'admin') return;
-
-        const token = await sessionClient.getSessionToken();
-        if (!token) return;
-
-        // fire-and-forget background indexing
-        fsClient.indexAllDrives(token, (s) => {
-          if (cancelled) return;
-
-          setIndexingProgress(s);
-
-          if (s?.state === 'failed') {
-            setIndexingError(s.message || 'Indexing failed');
-          }
-        }).catch((e) => {
-          if (!cancelled) {
-            setIndexingError(e?.message || String(e));
-          }
-        });
-      } catch (e) {
-        console.error('[autoIndexOnStartup] failed:', e);
-        setIndexingError(e?.message || String(e));
-      }
-    }
-
-    autoIndexOnStartup();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [currentUser]);
 
   // ---------------- Derived, time-filtered data ----------------
   const portalActivityFiltered = useMemo(
@@ -735,38 +755,6 @@ export default function Dashboard() {
     };
   }, [drives]);
 
-  const storageDonutData = useMemo(() => {
-    // use numeric GB values (fall back to 0)
-    const used = Number.isFinite(totalStorage.usedGB) ? totalStorage.usedGB : 0;
-    const free = Number.isFinite(totalStorage.freeGB) ? totalStorage.freeGB : 0;
-
-    return {
-      labels: ['Used (GB)', 'Free (GB)'],
-      datasets: [
-        {
-          data: [used, free],
-          // keep your backgroundColor array as before
-          backgroundColor: [palette.sky, 'rgba(148,163,184,0.4)'],
-          borderWidth: 0,
-        },
-      ],
-    };
-  }, [totalStorage]);
-
-  const storageDonutOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    cutout: '70%',
-    plugins: {
-      legend: { display: false },
-      tooltip: {
-        backgroundColor: '#020617',
-        borderColor: '#22d3ee33',
-        borderWidth: 1,
-      },
-    },
-  };
-
   const drivePercentData = useMemo(() => {
     const labels = drives.map((d) => d.drive || d.id || d.label || 'drive');
     const data = drives.map((d) => {
@@ -788,7 +776,6 @@ export default function Dashboard() {
       ],
     };
   }, [drives]);
-
 
   useEffect(() => {
     console.log('drives state changed:', drives);
@@ -954,6 +941,78 @@ export default function Dashboard() {
     loadSummary();
     return () => { mounted = false; };
   }, [indexingByDriveAndType]); // refresh when indexingByDriveAndType updates
+  useEffect(() => {
+    let mounted = true;
+
+    async function loadAudit() {
+      if (!currentToken) return;
+
+      try {
+        setLoading((s) => ({ ...s, audit: true }));
+
+        const portalRows = await adminClient.getPortalAuditLogs(
+          currentToken,
+          { window: timeRange, limit: 500 }
+        );
+
+        const mappedPortal = Array.isArray(portalRows)
+          ? portalRows.map(r => ({
+            id: r.id,
+            epoch:
+              typeof r.time === 'number'
+                ? r.time
+                : Number(r.time) || Number(r.ts) || 0,
+            time: new Date(
+              (typeof r.time === 'number' ? r.time : Number(r.time)) * 1000
+            ).toLocaleString(),
+            user: r.user || r.actor_username || 'system',
+            event: r.event || r.action || '',
+            page: r.page || '',
+            client: r.client || '',
+            details: r.details || null,
+          }))
+          : [];
+
+        if (mounted) setPortalActivity(mappedPortal);
+
+        const watchRows = await adminClient.getWatchlistBlockedAttempts(
+          currentToken,
+          { window: timeRange, limit: 500 }
+        );
+
+        const mappedWatch = Array.isArray(watchRows)
+          ? watchRows.map(r => ({
+            id: r.id,
+            epoch:
+              typeof r.time === 'number'
+                ? r.time
+                : Number(r.time) || Number(r.ts) || 0,
+            time: new Date(
+              (typeof r.time === 'number' ? r.time : Number(r.time)) * 1000
+            ).toLocaleString(),
+            user: r.user || 'system',
+            op: r.op || r.action || '',
+            path: r.path || '',
+            reason: r.reason || '',
+          }))
+          : [];
+
+        if (mounted) setWatchlistEvents(mappedWatch);
+
+      } catch (err) {
+        console.error('[Dashboard] audit reload failed:', err);
+        if (mounted) {
+          setPortalActivity([]);
+          setWatchlistEvents([]);
+        }
+      } finally {
+        if (mounted) setLoading((s) => ({ ...s, audit: false }));
+      }
+    }
+
+    loadAudit();
+    return () => { mounted = false; };
+  }, [timeRange, currentToken]); // ✅ KEY FIX
 
   // Build doughnut source with stable order, readable numbers and tooltip with raw counts
   const docIndexingDoughnutData = useMemo(() => {
@@ -1283,7 +1342,7 @@ export default function Dashboard() {
                     }
                     className="text-[0.7rem] text-slate-500 hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-300"
                   >
-                    View full timeline
+                    View all ({timeRangeLabel})
                   </button>
                 </div>
                 <div className="space-y-1 text-[0.75rem]">
@@ -1315,60 +1374,6 @@ export default function Dashboard() {
                   ))}
                 </div>
               </div>
-
-              {/* Admin Add/Delete/Modify */}
-              {/* <div className="rounded-2xl border border-slate-200 bg-white/85 p-3 shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/80 dark:shadow-black/40">
-                <div className="mb-2 flex items-center justify-between text-xs">
-                  <p className="font-semibold text-sky-700 dark:text-sky-300">
-                    Addition/Deletion/Modification by Admin
-                  </p>
-                  <button
-                    onClick={() =>
-                      setModal({ type: 'adminOps', payload: null })
-                    }
-                    className="text-[0.7rem] text-slate-500 hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-300"
-                  >
-                    View detailed log
-                  </button>
-                </div>
-                <div className="space-y-1 text-[0.75rem]">
-                  {adminOpsFiltered.slice(0, 4).map((op) => (
-                    <div
-                      key={op.id}
-                      className="rounded-xl bg-slate-50 px-2 py-1.5 dark:bg-slate-950/60"
-                    >
-                      <div className="flex items-center justify-between">
-                        <p className="text-[0.7rem] text-slate-500 dark:text-slate-400">
-                          {op.time} ·{' '}
-                          <span className="text-sky-700 dark:text-sky-300">
-                            {op.admin}
-                          </span>
-                        </p>
-                        <span
-                          className={`rounded-full px-2 py-0.5 text-[0.6rem] ${op.op === 'DELETE'
-                            ? 'bg-red-500/10 text-red-500'
-                            : op.op === 'COPY' || op.op === 'MOVE'
-                              ? 'bg-amber-500/10 text-amber-500'
-                              : op.op === 'RENAME'
-                                ? 'bg-sky-500/10 text-sky-400'
-                                : 'bg-emerald-500/10 text-emerald-400'
-                            }`}
-                        >
-                          {op.op}
-                        </span>
-                      </div>
-                      <p className="mt-0.5 max-w-full truncate text-[0.7rem] text-slate-800 dark:text-slate-100">
-                        {op.srcPath}
-                      </p>
-                      {op.destPath && (
-                        <p className="text-[0.65rem] text-slate-500 dark:text-slate-400">
-                          → {op.destPath}
-                        </p>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div> */}
 
             </div>
 

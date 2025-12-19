@@ -4,7 +4,7 @@ PRAGMA foreign_keys = ON;
 CREATE TABLE IF NOT EXISTS files_index (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   drive TEXT,
-  path TEXT NOT NULL,
+  path TEXT NOT NULL UNIQUE,
   file_type TEXT,
   size INTEGER,
   indexed_at INTEGER

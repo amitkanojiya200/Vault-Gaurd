@@ -81,48 +81,6 @@ async function invokeAny(commandCandidates = [], payload = {}) {
     throw err;
 }
 
-function buildPayloadForSearch(sessionToken, query, opts = {}) {
-    const windowVal = opts.window || '24h';
-    const limitVal = opts.limit ?? 500;
-    const offsetVal = opts.offset ?? 0;
-
-    return {
-        session_token: sessionToken,
-        sessionToken: sessionToken,
-        q: query,
-        query: query,
-        q_string: query,
-        window: windowVal,
-        time_window: windowVal,
-        limit: limitVal,
-        max: limitVal,
-        count: limitVal,
-        offset: offsetVal,
-    };
-}
-
-function buildPayloadForFileOp(sessionToken, params = {}) {
-    const p = {
-        session_token: sessionToken,
-        sessionToken: sessionToken,
-        path: params.path,
-        src: params.src,
-        src_path: params.src_path,
-        source: params.source,
-        old_path: params.old_path,
-        oldPath: params.oldPath,
-        dest: params.dest,
-        dest_path: params.dest_path,
-        destPath: params.destPath,
-        target: params.target,
-        tag: params.tag,
-        tags: params.tags,
-        recursive: params.recursive,
-    };
-    Object.keys(p).forEach(k => p[k] === undefined && delete p[k]);
-    return p;
-}
-
 // ---------------------------------------------------------------------
 // FileExplorer Component
 // ---------------------------------------------------------------------
@@ -159,6 +117,10 @@ export default function FileExplorer() {
     // Tag operation loading map: { "<tagId>": true }
     const [tagOpLoading, setTagOpLoading] = useState({});
 
+    const PAGE_SIZE = 200;
+    const [searchOffset, setSearchOffset] = useState(0);
+    const [hasMoreResults, setHasMoreResults] = useState(true);
+
     // breadcrumb segments
     const pathSegments = useMemo(() => {
         if (!currentPath) return [];
@@ -183,12 +145,6 @@ export default function FileExplorer() {
                 const tags = itemTagsMap[key] || [];
                 return tags.includes(activeTagId);
             });
-        }
-
-        // Folder search by query
-        if (query.trim()) {
-            const q = query.toLowerCase();
-            return folderItems.filter((item) => item.name.toLowerCase().includes(q));
         }
 
         // Default: show current folder items
@@ -317,6 +273,8 @@ export default function FileExplorer() {
         setActiveTagId(null);
         setSearchMode(false);
         setViewTab('folder');
+        setSearchOffset(0);
+        setHasMoreResults(true);
         setGlobalSearchResults([]);
 
         const norm = normalizeDirPath(path);
@@ -446,7 +404,7 @@ export default function FileExplorer() {
         const token = await sessionClient.getSessionToken().catch(() => null);
 
         try {
-            const results = await fsClient.searchFiles(token || null, query.trim(), 1000, 0);
+            const results = await fsClient.searchFiles(token || null, query.trim(), PAGE_SIZE, 0);
             const mapped = (results || []).map((r) => ({
                 name: r.name,
                 isDir: !!r.is_dir,
@@ -456,10 +414,47 @@ export default function FileExplorer() {
                 raw: r,
             })).filter(it => it.path);
             setGlobalSearchResults(mapped);
+            setSearchOffset(mapped.length);
+            setHasMoreResults(mapped.length === PAGE_SIZE);
             setViewTab('global');
         } catch (err) {
             console.error('[FileExplorer] global search failed:', err);
             setGlobalSearchResults([]);
+        } finally {
+            setGlobalSearchLoading(false);
+        }
+    }
+
+    async function loadMoreGlobalResults() {
+        if (!query.trim() || !hasMoreResults || globalSearchLoading) return;
+
+        setGlobalSearchLoading(true);
+        const token = await sessionClient.getSessionToken().catch(() => null);
+
+        try {
+            const more = await fsClient.searchFiles(
+                token || null,
+                query.trim(),
+                PAGE_SIZE,
+                searchOffset
+            );
+
+            const mapped = (more || []).map((r) => ({
+                name: r.name,
+                isDir: !!r.is_dir,
+                size: r.size ?? null,
+                modified: r.modified
+                    ? new Date(r.modified * 1000).toISOString().replace('T', ' ').slice(0, 19)
+                    : null,
+                path: r.path,
+                raw: r,
+            }));
+
+            setGlobalSearchResults(prev => [...prev, ...mapped]);
+            setSearchOffset(prev => prev + mapped.length);
+            setHasMoreResults(mapped.length === PAGE_SIZE);
+        } catch (e) {
+            console.error('load more failed', e);
         } finally {
             setGlobalSearchLoading(false);
         }
@@ -632,66 +627,6 @@ export default function FileExplorer() {
         }
     }
 
-    // Note: `dialog.open` is the canonical Tauri API, but it may be unavailable depending on allowlist.
-    // improved pickDirectory helper
-    // pickDirectory: choose destination directory (directory picker)
-    // async function pickDirectory(promptMessage = 'Select destination folder') {
-    //     // try Tauri dialog first
-    //     try {
-    //         // options: directory: true to choose folder only
-    //         const selected = await tauriDialogOpen({
-    //             directory: true,
-    //             multiple: false,
-    //             title: promptMessage,
-    //         });
-    //         // selected will be null if cancelled, or string path if chosen
-    //         if (!selected) {
-    //             console.log('destination selection cancelled');
-    //             return null;
-    //         }
-    //         // If dialog returns an array (depends on platform/options), pick first
-    //         if (Array.isArray(selected)) return selected[0] || null;
-    //         return selected;
-    //     } catch (err) {
-    //         console.warn('Tauri dialog not available or failed:', err);
-    //         // fallback: prompt user to paste a destination path (last resort)
-    //         const fallback = window.prompt('Choose destination folder (paste full path):');
-    //         if (!fallback) {
-    //             console.log('destination selection cancelled (fallback)');
-    //             return null;
-    //         }
-    //         return String(fallback);
-    //     }
-    // }
-
-    // action: 'move' or 'copy' ; srcPath = full source path; srcIsDir boolean
-    // ensure you have path utilities available. If you don't have path-browserify, you can compute basename with this small helper:
-    function basename(p) {
-        if (!p) return p;
-        // normalize slashes for extraction
-        const s = String(p).replace(/\\/g, '/').replace(/\/+$/, '');
-        const idx = s.lastIndexOf('/');
-        return idx === -1 ? s : s.slice(idx + 1);
-    }
-
-    function joinPath(a, b) {
-        if (!a) return b;
-        const A = String(a).replace(/[\\/]+$/, '');
-        const B = String(b).replace(/^[\\/]+/, '');
-        // Use backslashes on Windows if A contains backslash; otherwise use forward
-        const sep = A.includes('\\') ? '\\' : '/';
-        return `${A}${sep}${B}`;
-    }
-
-    // action: 'move' or 'copy', srcPath is absolute path string, srcIsDir boolean
-    // normalize error helper (reuse from fsClient or copy small one)
-    function normalizeErrorLocal(err) {
-        if (!err) return 'Unknown error';
-        if (err?.message) return err.message;
-        if (typeof err === 'string') return err;
-        try { return JSON.stringify(err); } catch { return String(err); }
-    }
-
     // Helper: try several common places for the sessionToken and selected paths
     // ----------------- Replace resolveSessionTokenMaybe -----------------
     async function resolveSessionTokenMaybe() {
@@ -726,337 +661,6 @@ export default function FileExplorer() {
         return [];
     }
 
-    // ----------------- Replace pickDirectory implementation -----------------
-    // improved pickDirectory helper (uses openDialog imported as openDialog)
-    // improved pickDirectory helper: tries plugin APIs then falls back to interactive prompt-driven chooser
-    async function pickDirectory(promptMessage = 'Select destination folder') {
-        // Helper: small absolute-path checker
-        function looksAbsolute(p) {
-            if (!p) return false;
-            const s = String(p);
-            // Windows drive-letter or UNC
-            if (/^[A-Za-z]:[\\/]/.test(s) || s.startsWith('\\\\')) return true;
-            // POSIX
-            if (s.startsWith('/')) return true;
-            return false;
-        }
-
-        // 1) Try plugin-dialog if available (two common import styles)
-        try {
-            // try the imported openDialog (you had `import { open as openDialog } from '@tauri-apps/plugin-dialog';`)
-            if (typeof openDialog === 'function') {
-                const res = await openDialog({ directory: true, multiple: false, title: promptMessage });
-                if (res) {
-                    const picked = Array.isArray(res) ? res[0] : res;
-                    let cand = String(picked);
-                    if (cand.startsWith('\\\\?\\')) cand = cand.slice(4);
-                    if (looksAbsolute(cand)) return cand;
-                    // If plugin returned something weird, keep falling back
-                }
-            }
-        } catch (e) {
-            console.debug('openDialog/plugin-dialog not available or failed:', e);
-        }
-
-        // 2) Try the newer API package dynamically: @tauri-apps/api/dialog (some apps use this)
-        try {
-            // dynamic import so code won't crash if package missing
-            // eslint-disable-next-line no-undef
-            const mod = await import('@tauri-apps/plugin-dialog').catch(() => null);
-            if (mod && typeof mod.open === 'function') {
-                const res = await mod.open({ directory: true, multiple: false, title: promptMessage });
-                if (res) {
-                    const picked = Array.isArray(res) ? res[0] : res;
-                    let cand = String(picked);
-                    if (cand.startsWith('\\\\?\\')) cand = cand.slice(4);
-                    if (looksAbsolute(cand)) return cand;
-                }
-            }
-        } catch (e) {
-            console.debug('@tauri-apps/api/dialog not available or failed:', e);
-        }
-
-        // 3) Try browser-native directory picker (rare in desktop apps)
-        try {
-            if (window && typeof window.showDirectoryPicker === 'function') {
-                try {
-                    const handle = await window.showDirectoryPicker();
-                    // Not all browsers expose a full path; ask user to confirm / paste if missing
-                    if (handle) {
-                        // best-effort: some environments provide .name but not path. Ask user to paste full path.
-                        const maybe = window.prompt('Directory picked. Paste full absolute path for that directory (or Cancel):', handle.name || '');
-                        if (maybe && looksAbsolute(maybe)) return maybe;
-                    }
-                } catch (e) {
-                    // user's environment might deny permission or it isn't supported
-                }
-            }
-        } catch (e) {
-            // ignore
-        }
-
-        // 4) FALLBACK: interactive chooser using backend listing (no plugin dependency).
-        // This will let user choose a drive, then drill down directories with numbered choices.
-        try {
-            let token = null;
-            try { token = await sessionClient.getSessionToken(); } catch (e) { token = null; }
-
-            // Get drives (if available)
-            let drives = [];
-            try {
-                drives = await fsClient.listDrives(token).catch(() => []);
-            } catch (e) {
-                drives = [];
-            }
-
-            // If we have no drives info, ask user to paste an absolute path directly
-            if (!drives || drives.length === 0) {
-                const pasted = window.prompt(`${promptMessage}\n\nNo drives available via backend. Paste the absolute destination folder path:`);
-                if (!pasted) return null;
-                if (!looksAbsolute(pasted)) {
-                    alert('That does not look like an absolute path. Try again.');
-                    return null;
-                }
-                return pasted;
-            }
-
-            // interactive navigation helpers
-            async function listDirsAt(p) {
-                try {
-                    const tokenLocal = token;
-                    const entries = await fsClient.listDir(tokenLocal, p).catch(() => []);
-                    // Return only directories and normalize path
-                    return (entries || []).filter(it => it.isDir).map(it => ({ name: it.name, path: it.path }));
-                } catch (e) {
-                    return [];
-                }
-            }
-
-            // Step 1: choose a drive or paste path
-            const driveChoices = drives.map((d, i) => `${i + 1}) ${d.mount_point || d.id || d.label || d.drive}`);
-            driveChoices.push('P) Paste an absolute path');
-            driveChoices.push('C) Cancel');
-
-            let selectedPath = null;
-            let choice = window.prompt(`${promptMessage}\n\nChoose a drive by number or paste path:\n\n${driveChoices.join('\n')}\n\nEnter number, 'P' or 'C' (Cancel):`);
-            if (!choice) return null;
-            choice = String(choice).trim();
-
-            if (/^p$/i.test(choice)) {
-                const pasted = window.prompt('Paste an absolute folder path (e.g. C:\\\\Users\\\\You\\\\Documents or /home/you/Documents):');
-                if (!pasted) return null;
-                if (!looksAbsolute(pasted)) {
-                    alert('Not an absolute path. Cancelled.');
-                    return null;
-                }
-                selectedPath = pasted;
-                return selectedPath;
-            }
-            if (/^c$/i.test(choice)) return null;
-
-            const idx = parseInt(choice, 10);
-            if (Number.isFinite(idx) && idx >= 1 && idx <= drives.length) {
-                selectedPath = drives[idx - 1].mount_point || drives[idx - 1].id || drives[idx - 1].label;
-            } else {
-                // if user typed an absolute path directly
-                if (looksAbsolute(choice)) {
-                    selectedPath = choice;
-                } else {
-                    alert('Invalid selection. Cancelled.');
-                    return null;
-                }
-            }
-
-            // Now drill down interactively until user confirms this folder
-            while (true) {
-                // normalize long path prefix for readability
-                let displayPath = String(selectedPath);
-                if (displayPath.startsWith('\\\\?\\')) displayPath = displayPath.slice(4);
-
-                // show current and ask what to do
-                const confirmMsg = `Current: ${displayPath}\n\nOptions:\n - OK => choose this folder\n - L => list subfolders (to enter)\n - U => go up one level\n - P => paste an absolute path instead\n - C => cancel`;
-                const action = window.prompt(confirmMsg + `\n\nEnter OK / L / U / P / C:`);
-
-                if (!action) return null;
-                const a = String(action).trim().toLowerCase();
-
-                if (a === 'ok' || a === 'o') {
-                    // final sanity: ensure absolute
-                    if (!looksAbsolute(selectedPath)) {
-                        alert('Selected path is not absolute. Cancelled.');
-                        return null;
-                    }
-                    return selectedPath;
-                }
-
-                if (a === 'c') return null;
-                if (a === 'p') {
-                    const pasted = window.prompt('Paste an absolute folder path:');
-                    if (!pasted) return null;
-                    if (!looksAbsolute(pasted)) {
-                        alert('Not an absolute path. Cancelled.');
-                        return null;
-                    }
-                    selectedPath = pasted;
-                    continue;
-                }
-
-                if (a === 'u') {
-                    // go up one level
-                    // simple parent calculation
-                    let s = String(selectedPath).replace(/[\\/]+$/, '');
-                    const sepIdx = Math.max(s.lastIndexOf('\\'), s.lastIndexOf('/'));
-                    if (sepIdx > 0) {
-                        selectedPath = s.slice(0, sepIdx);
-                    } else {
-                        alert('Cannot go up further.');
-                    }
-                    continue;
-                }
-
-                if (a === 'l') {
-                    // list subdirectories
-                    const subs = await listDirsAt(selectedPath);
-                    if (!subs || subs.length === 0) {
-                        alert('No subfolders visible (or permission denied). You can paste path or choose OK to pick the current folder.');
-                        continue;
-                    }
-                    // Build numbered list
-                    const lines = subs.slice(0, 200).map((s, i) => `${i + 1}) ${s.name}`);
-                    lines.push('B) Back / Cancel listing');
-                    const pick = window.prompt(`Subfolders of ${displayPath}:\n\n${lines.join('\n')}\n\nEnter number to enter that folder or B to go back:`);
-                    if (!pick) continue;
-                    if (/^b$/i.test(pick)) continue;
-                    const pickIdx = parseInt(pick, 10);
-                    if (Number.isFinite(pickIdx) && pickIdx >= 1 && pickIdx <= subs.length) {
-                        selectedPath = subs[pickIdx - 1].path;
-                        continue;
-                    } else {
-                        alert('Invalid choice.');
-                        continue;
-                    }
-                }
-
-                alert('Unknown option. Enter OK, L, U, P, or C.');
-            }
-        } catch (err) {
-            console.error('pickDirectory fallback failed:', err);
-            const fallback = window.prompt(`${promptMessage}\n\nFallback: paste absolute folder path:`);
-            if (!fallback) return null;
-            return fallback;
-        }
-    }
-
-    // ----------------- Replace deleteItem -----------------
-    async function deleteItem(pathArg = null) {
-        try {
-            const sessionTok = await resolveSessionTokenMaybe();
-            if (!sessionTok) {
-                alert('No session token available — please login again.');
-                return;
-            }
-
-            // Determine path(s)
-            let pathsToDelete = [];
-            if (pathArg) pathsToDelete = [pathArg];
-            else pathsToDelete = resolveSelectedPathsFallback();
-
-            if (!pathsToDelete || pathsToDelete.length === 0) {
-                alert('No item selected to delete.');
-                return;
-            }
-
-            const ok = confirm(`Delete ${pathsToDelete.length} item(s)? This cannot be undone.`);
-            if (!ok) return;
-
-            const results = [];
-            for (const p of pathsToDelete) {
-                try {
-                    await fsClient.deleteItemBySession(sessionTok, p);
-                    results.push({ path: p, ok: true });
-                } catch (err) {
-                    console.error('delete failed for', p, err);
-                    results.push({ path: p, ok: false, error: err?.message || String(err) });
-                }
-            }
-
-            // Refresh listing (safe no-op if these helpers don't exist)
-            try { if (typeof reloadCurrentDir === 'function') reloadCurrentDir(); } catch { }
-            try { if (typeof refreshListing === 'function') refreshListing(); } catch { }
-
-            const failed = results.filter(r => !r.ok);
-            if (failed.length === 0) {
-                alert(`Deleted ${results.length} item(s).`);
-            } else {
-                alert(`Delete completed with ${failed.length} failure(s). See console for details.`);
-            }
-            return results;
-        } catch (e) {
-            console.error('deleteItem error', e);
-            alert('Unexpected error: ' + (e?.message || String(e)));
-        }
-    }
-
-    // ----------------- Replace moveOrCopyItem -----------------
-    async function moveOrCopyItem(action = 'move', pathsArg = null) {
-        try {
-            if (action !== 'move' && action !== 'copy') throw new Error('invalid action');
-
-            const sessionTok = await resolveSessionTokenMaybe();
-            if (!sessionTok) {
-                alert('No session token available — please login again.');
-                return;
-            }
-
-            // Determine source items
-            const selected = resolveSelectedPathsFallback(pathsArg);
-            if (!selected || selected.length === 0) {
-                alert('No item selected to move/copy.');
-                return;
-            }
-
-            // ask user for destination folder
-            const destDir = await pickDirectory(`Select destination folder to ${action}`);
-            if (!destDir) {
-                console.log('destination selection cancelled');
-                return;
-            }
-
-            const results = [];
-            for (const src of selected) {
-                const base = String(src).split(/[/\\]/).pop();
-                const dst = joinPath(destDir, base);
-
-                try {
-                    if (action === 'move') {
-                        await fsClient.moveItemBySession(sessionTok, src, dst);
-                    } else {
-                        await fsClient.copyItemBySession(sessionTok, src, dst);
-                    }
-                    results.push({ src, dst, ok: true });
-                } catch (err) {
-                    console.error(`${action} failed for ${src} -> ${dst}`, err);
-                    results.push({ src, dst, ok: false, error: err?.message || String(err) });
-                }
-            }
-
-            // Refresh listing
-            try { if (typeof reloadCurrentDir === 'function') reloadCurrentDir(); } catch { }
-            try { if (typeof refreshListing === 'function') refreshListing(); } catch { }
-
-            const failed = results.filter(r => !r.ok);
-            if (failed.length === 0) {
-                alert(`${action.charAt(0).toUpperCase() + action.slice(1)} succeeded for ${results.length} item(s).`);
-            } else {
-                alert(`${action} completed with ${failed.length} failed. Check console for details.`);
-            }
-            return results;
-        } catch (e) {
-            console.error('moveOrCopyItem error', e);
-            alert('Unexpected error: ' + (e?.message || String(e)));
-            return;
-        }
-    }
     // ---------------------------
     // Render
     // ---------------------------
@@ -1332,6 +936,17 @@ export default function FileExplorer() {
                                 </ul>
                             )}
                         </div>
+                        {viewTab === 'global' && hasMoreResults && (
+                            <div className="mt-3 text-center">
+                                <button
+                                    onClick={loadMoreGlobalResults}
+                                    className="rounded-lg bg-sky-600 px-4 py-1.5 text-xs text-white hover:bg-sky-500"
+                                    disabled={globalSearchLoading}
+                                >
+                                    {globalSearchLoading ? 'Loading…' : 'Load more'}
+                                </button>
+                            </div>
+                        )}
 
                         {/* Bottom tab */}
                         <div className="mt-3 flex items-center justify-between border-t pt-3 text-xs text-slate-500 dark:text-slate-400">

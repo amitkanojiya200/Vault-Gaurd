@@ -1,3 +1,4 @@
+// src/lib/fsClient.js
 /* eslint-disable no-console */
 import { invoke } from '@tauri-apps/api/core';
 import { open as tauriOpen } from "@tauri-apps/plugin-shell";
@@ -44,7 +45,6 @@ export async function getIndexingByDriveAndType(limit = 200) {
   return tryCandidates([
     () => invoke('get_indexing_by_drive_and_type', { limit }),
     () => invoke('get_indexing_by_drive_and_type', { Limit: limit }),
-    () => invoke('getIndexingByDriveAndType', { limit }),
   ], 'getIndexingByDriveAndType');
 }
 
@@ -77,8 +77,6 @@ export async function listDrives(sessionToken) {
     return tryCandidates([
       () => invoke('list_drives', camel),
       () => invoke('list_drives', snake),
-      () => invoke('listDrives', camel),
-      () => invoke('listDrives', snake),
     ], 'listDrives');
   }
 
@@ -103,18 +101,6 @@ function buildParamVariants(obj) {
     return acc;
   }, {});
   return [snake, camel];
-}
-
-async function invokeWithParamVariants(cmdName, paramsObj) {
-  const [snake, camel] = buildParamVariants(paramsObj);
-  const candidates = [
-    () => invoke(cmdName, snake),
-    () => invoke(cmdName, camel),
-  ];
-  if (!paramsObj || Object.keys(paramsObj).length === 0) {
-    candidates.push(() => invoke(cmdName));
-  }
-  return tryCandidates(candidates, cmdName);
 }
 
 function toCamelCaseObj(obj) {
@@ -151,15 +137,6 @@ export async function tagItemBySession(sessionToken, path, tagId) {
     path,
     tagId,
   });
-}
-
-function normalizePathForCall(p) {
-  if (!p) return p;
-  let s = String(p);
-  if (s.startsWith('\\\\?\\')) s = s.slice(4);
-  s = s.replace(/\//g, '\\');
-  s = s.replace(/[\\\/]+$/, '');
-  return s;
 }
 
 export async function listTagsBySession(sessionTokenOrNull, path) {
@@ -306,7 +283,6 @@ export async function renameItemBySession(sessionToken, oldPath, newPath) {
   }
 }
 
-
 // --- robust delete wrapper ---
 export async function deleteItemBySession(sessionToken, path) {
   if (!sessionToken) throw new Error('sessionToken required');
@@ -324,7 +300,6 @@ export async function deleteItemBySession(sessionToken, path) {
 
   return tryCandidates(candidates, 'deleteItemBySession');
 }
-
 
 export async function copyItemBySession(sessionToken, srcPath, dstPath) {
   if (!sessionToken) throw new Error('sessionToken required');
@@ -467,7 +442,6 @@ export async function indexAllDrivesStart(sessionToken) {
   return tryCandidates([
     () => invoke('index_all_drives_start', { session_token: sessionToken }),
     () => invoke('index_all_drives_start', { sessionToken }),
-    () => invoke('indexAllDrivesStart', { session_token: sessionToken }),
     () => invoke('index_all_drives_start', { sessionToken: sessionToken }),
   ], 'indexAllDrivesStart');
 }
@@ -523,10 +497,7 @@ export async function indexAllDrives(sessionToken, onStatus = null, pollInterval
 export async function getIndexStatus(jobId) {
   if (!jobId) throw new Error('jobId required');
   return tryCandidates([
-    () => invoke('get_index_status', { job_id: jobId }),
     () => invoke('get_index_status', { jobId }),
-    () => invoke('getIndexStatus', { job_id: jobId }),
-    () => invoke('getIndexStatus', { jobId }),
   ], 'getIndexStatus');
 }
 

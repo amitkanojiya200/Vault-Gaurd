@@ -50,8 +50,6 @@ export default function PortalActivityModal({
                 <th className="py-1 text-left">Time</th>
                 <th className="py-1 text-left">User</th>
                 <th className="py-1 text-left">Event</th>
-                <th className="py-1 text-left">Action</th>
-                {/* <th className="py-1 text-left">Client</th> */}
               </tr>
             </thead>
             <tbody>
@@ -63,13 +61,12 @@ export default function PortalActivityModal({
                   <td className="py-1 text-slate-300">{log.time}</td>
                   <td className="py-1 text-sky-300">{log.user}</td>
                   <td className="py-1">{log.event}</td>
-                  <td className="py-1 text-slate-300">{log.page}</td>
-                  {/* <td className="py-1 text-slate-400">{log.client}</td> */}
                 </tr>
               ))}
             </tbody>
           </table>
 
+        </div>
           <p className="mt-3 text-[0.7rem] text-slate-400">
             Tauri: connect to a local audit DB via{' '}
             <span className="font-mono text-sky-300">
@@ -78,7 +75,6 @@ export default function PortalActivityModal({
             and pass the selected window from the Dashboard (24h, 2 days, week,
             month, year).
           </p>
-        </div>
       </motion.div>
     </motion.div>
   );

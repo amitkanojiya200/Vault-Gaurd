@@ -8,7 +8,6 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::os::windows::prelude::OpenOptionsExt;
 use std::process::Command;
-use std::result::Result as StdResult;
 use std::sync::Mutex;
 use std::time::UNIX_EPOCH;
 use std::{
@@ -56,7 +55,7 @@ fn format_system_time(st: SystemTime) -> Option<String> {
 }
 
 /// Normalize drive string for storing in `files_index.drive`.
-fn normalize_drive_for_storage(path: &str) -> String {
+pub(crate) fn normalize_drive_for_storage(path: &str) -> String {
     #[cfg(target_os = "windows")]
     {
         // Ensure we handle Windows long-path: prefix is "\\?\"
@@ -178,7 +177,7 @@ fn is_excluded_path(path: &str) -> bool {
     false
 }
 
-fn doc_type_for_path(path: &str, is_dir: bool) -> String {
+pub(crate) fn doc_type_for_path(path: &str, is_dir: bool) -> String {
     if is_dir {
         return "dir".to_string();
     }
@@ -206,7 +205,10 @@ fn doc_type_for_path(path: &str, is_dir: bool) -> String {
 /// Start indexing ALL mounted drives + home directory in a background thread and return a job UUID.
 /// Only admins may start indexing.
 #[tauri::command]
-pub fn index_all_drives_start(session_token: String) -> Result<String, String> {
+pub fn index_all_drives_start(
+    app: tauri::AppHandle,
+    session_token: String,
+) -> Result<String, String> {
     // validate session + admin (outer conn only for auth + audit)
     let conn = crate::db::open_connection().map_err(|e| format!("db open: {}", e))?;
     let maybe_uid = crate::session::validate_session(&conn, &session_token)
@@ -263,7 +265,8 @@ pub fn index_all_drives_start(session_token: String) -> Result<String, String> {
 
     // clone values for thread
     let job_clone = job_id.clone();
-    let roots_clone = roots.clone();
+    let roots_for_indexer = roots.clone();
+    let roots_for_watcher = roots.clone();
 
     fn fail_job(job_id: &str, message: String) {
         if let Ok(mut m) = INDEX_JOBS.lock() {
@@ -289,7 +292,7 @@ pub fn index_all_drives_start(session_token: String) -> Result<String, String> {
 
         let mut processed: usize = 0;
         let now = Utc::now().timestamp();
-        let mut stack: Vec<PathBuf> = roots_clone;
+        let mut stack: Vec<PathBuf> = roots_for_indexer;
 
         while let Some(p) = stack.pop() {
             // update last_path
@@ -392,6 +395,26 @@ pub fn index_all_drives_start(session_token: String) -> Result<String, String> {
         if let Ok(mut m) = INDEX_JOBS.lock() {
             m.insert(job_clone.clone(), IndexJobState::Finished { processed });
         }
+
+        // START FS WATCHER AFTER INDEXING
+        let db_path = match crate::db::get_db_path() {
+            Ok(p) => p,
+            Err(e) => {
+                eprintln!("[watcher] db path error: {}", e);
+                return;
+            }
+        };
+
+        let app_for_watcher = app.clone();
+        let roots_for_watcher = roots_for_watcher.clone();
+
+        std::thread::spawn(move || {
+            if let Err(e) =
+                crate::fs_watch::start_fs_watcher(roots_for_watcher, db_path, app_for_watcher)
+            {
+                eprintln!("[fs_watch] error: {}", e);
+            }
+        });
     });
 
     // audit (outer conn)
@@ -405,6 +428,33 @@ pub fn index_all_drives_start(session_token: String) -> Result<String, String> {
     );
 
     Ok(job_id)
+}
+
+/// Remove indexed files that no longer exist on disk
+pub fn reconcile_missing_files(conn: &rusqlite::Connection) -> Result<u64, String> {
+    let mut stmt = conn
+        .prepare("SELECT path FROM files_index")
+        .map_err(|e| e.to_string())?;
+
+    let paths = stmt
+        .query_map([], |row| row.get::<_, String>(0))
+        .map_err(|e| e.to_string())?;
+
+    let mut removed = 0;
+
+    for p in paths {
+        let path = p.map_err(|e| e.to_string())?;
+        if !std::path::Path::new(&path).exists() {
+            conn.execute(
+                "DELETE FROM files_index WHERE path = ?1",
+                rusqlite::params![path],
+            )
+            .map_err(|e| e.to_string())?;
+            removed += 1;
+        }
+    }
+
+    Ok(removed)
 }
 
 /// Very simple Windows-style drive detection: C:\ .. Z:\ if path exists.
