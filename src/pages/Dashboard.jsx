@@ -1382,7 +1382,7 @@ export default function Dashboard() {
               <div className="rounded-2xl col-span-2 border border-slate-200 bg-white/85 p-3 shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/80 dark:shadow-black/40">
                 <div className="mb-2 flex items-center justify-between text-xs">
                   <p className="font-semibold text-sky-700 dark:text-sky-300">
-                    Watchlist Users · Blocked Attempts
+                    Watchlist Users & File Operations
                   </p>
                   <button
                     onClick={() =>
@@ -1445,7 +1445,7 @@ export default function Dashboard() {
             </div>
 
             {/* Files per drive */}
-            <div className="rounded-2xl border border-slate-200 bg-white/85 p-3 shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/80 dark:shadow-black/40">
+            {/* <div className="rounded-2xl border border-slate-200 bg-white/85 p-3 shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/80 dark:shadow-black/40">
               <p className="mb-2 text-xs font-semibold text-sky-700 dark:text-sky-300">
                 Files in Drives (Indexed Count)
               </p>
@@ -1455,7 +1455,7 @@ export default function Dashboard() {
               <p className="mt-1 text-[0.7rem] text-slate-500 dark:text-slate-400">
                 Each bar shows total indexed files per drive (in thousands).
               </p>
-            </div>
+            </div> */}
 
             {/* Doc Indexing by type */}
             <div className="rounded-2xl border border-slate-200 bg-white/85 p-3 shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/80 dark:shadow-black/40">

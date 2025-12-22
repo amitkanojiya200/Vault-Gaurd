@@ -36,7 +36,6 @@ export async function getFilesPerDrive(limit = 50) {
     return await tryCandidates([
       () => invoke('get_files_per_drive', { limit }),
       () => invoke('get_files_per_drive', { Limit: limit }),
-      () => invoke('getFilesPerDrive', { limit }),
     ], 'getFilesPerDrive');
   } catch (e) { throw e; }
 }
