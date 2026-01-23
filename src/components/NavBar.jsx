@@ -339,14 +339,74 @@ export default function NavBar() {
                     </p>
 
                     <div className="space-y-1 text-sm">
-                      {/* Operations (no nested) */}
-                      <button
-                        type="button"
-                        onClick={() => navTo(ROUTES.SERVICES_OPERATIONS)}
-                        className="flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-slate-800/70"
-                      >
-                        <span>Operations</span>
-                      </button>
+                      {/* Operations (accordion) */}
+                      <div className="rounded-lg bg-slate-50/70 p-2 dark:bg-slate-900/60">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            toggleServicesGroup("services-operations")
+                          }
+                          className="flex w-full items-center justify-between rounded-md px-1 py-1 text-left text-slate-800 hover:bg-slate-100 dark:text-slate-50 dark:hover:bg-slate-800/80"
+                        >
+                          <span>Operations</span>
+                          <ChevronDown
+                            size={14}
+                            className={`transition-transform ${openServicesKey === "services-operations"
+                              ? "rotate-180"
+                              : ""
+                              }`}
+                          />
+                        </button>
+
+                        <AnimatePresence>
+                          {openServicesKey === "services-operations" && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              transition={{ duration: 0.16 }}
+                              className="mt-1 space-y-1 pl-2 text-[0.8rem]"
+                            >
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  navTo(ROUTES.SERVICES_OPERATIONS_OPS)
+                                }
+                                className="flex w-full items-center justify-between rounded-md px-1 py-1 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/80"
+                              >
+                                OPS
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  navTo(ROUTES.SERVICES_OPERATIONS_EXERCISE)
+                                }
+                                className="flex w-full items-center justify-between rounded-md px-1 py-1 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/80"
+                              >
+                                Exercise
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  navTo(ROUTES.SERVICES_OPERATIONS_JOININSPECTION)
+                                }
+                                className="flex w-full items-center justify-between rounded-md px-1 py-1 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/80"
+                              >
+                                Joint Inspection
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  navTo(ROUTES.SERVICES_OPERATIONS_CASESTUDY)
+                                }
+                                className="flex w-full items-center justify-between rounded-md px-1 py-1 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/80"
+                              >
+                                Case Study
+                              </button>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
 
                       {/* Training (accordion) */}
                       <div className="rounded-lg bg-slate-50/70 p-2 dark:bg-slate-900/60">
@@ -675,6 +735,77 @@ export default function NavBar() {
                         </button>
                       ))}
                     </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Technical */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => toggleDropdown("technical")}
+                className={`${navLinkBase} ${openDropdown === "technical" ? navLinkActive : navLinkIdle
+                  }`}
+              >
+                <span>Technical</span>
+                <ChevronDown
+                  size={14}
+                  className={`transition-transform ${openDropdown === "technical" ? "rotate-180" : ""
+                    }`}
+                />
+              </button>
+
+              <AnimatePresence>
+                {openDropdown === "technical" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.15 }}
+                    className={`${dropdownPanelBase} max-h-72 overflow-y-auto`}
+                  >
+                    <p className="mb-2 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+                      Technical
+                    </p>
+                    <ul className="space-y-1 text-sm">
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => navTo(ROUTES.DOC_OPRC_11)}
+                          className="flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-slate-800/70"
+                        >
+                          PRT EQUP Inventory
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => navTo(ROUTES.DOC_OPRC_22)}
+                          className="flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-slate-800/70"
+                        >
+                          DHQ Inventory
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => navTo(ROUTES.DOC_OPRC_33)}
+                          className="flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-slate-800/70"
+                        >
+                          Stakeholder Inventory
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => navTo(ROUTES.DOC_OPRC_PRR)}
+                          className="flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-slate-800/70"
+                        >
+                          EQUP Video
+                        </button>
+                      </li>
+                    </ul>
                   </motion.div>
                 )}
               </AnimatePresence>

@@ -29,9 +29,15 @@ import OprcModulePage2 from '@/pages/training/OprcModulePage2';
 import OprcStakeholderLevel1 from '@/pages/stakeholders/OprcStakeholderLevel1';
 import OprcStakeholderLevel2 from '@/pages/stakeholders/OprcStakeholderLevel2';
 import OprcStakeholderLevel3 from '@/pages/stakeholders/OprcStakeholderLevel3';
+// Operations
+import Operations from '@/pages/operations/Operations';
+import OperationsOps from '@/pages/operations/OperationsOps';
+import OperationsExercise from '@/pages/operations/OperationsExercise';
+import OperationsJoinInspection from '@/pages/operations/OperationsJoinInspection';
+import OperationsCaseStudy from '@/pages/operations/OperationsCaseStudy';
+
 import CollabSacep from '@/pages/services/CollabSacep';
 import CollabColombo from '@/pages/services/CollabColombo';
-import Operations from '@/pages/operations/Operations';
 import NationalCollaboration from '@/pages/collab/NationalCollaboration';
 
 // NEW: real session helpers
@@ -50,6 +56,10 @@ export const ROUTES = {
 
   // Services
   SERVICES_OPERATIONS: 'services-operations',
+  SERVICES_OPERATIONS_OPS: 'services-operations-ops',
+  SERVICES_OPERATIONS_EXERCISE: 'services-operations-exercise',
+  SERVICES_OPERATIONS_JOININSPECTION: 'services-operations-joininspection',
+  SERVICES_OPERATIONS_CASESTUDY: 'services-operations-casestudy',
   SERVICES_TRAINING_NATIONAL: 'services-training-national',
   SERVICES_TRAINING_INTERNATIONAL: 'services-training-international',
   SERVICES_COLLAB_NATIONAL: 'services-collab-national',
@@ -447,6 +457,10 @@ export function RouteProvider({ children }) {
         ROUTES.SEARCH,
         ROUTES.EXPLORER,
         ROUTES.SERVICES_OPERATIONS,
+        ROUTES.SERVICES_OPERATIONS_OPS,
+        ROUTES.SERVICES_OPERATIONS_EXERCISE,
+        ROUTES.SERVICES_OPERATIONS_JOININSPECTION,
+        ROUTES.SERVICES_OPERATIONS_CASESTUDY,
         ROUTES.SERVICES_TRAINING_NATIONAL,
         ROUTES.SERVICES_TRAINING_INTERNATIONAL,
         ROUTES.DOC_OPRC_1,
@@ -567,9 +581,41 @@ export function RouterView() {
     return <OprcStakeholderLevel3 />;
   }
   // Operations
-  if (route === ROUTES.SERVICES_OPERATIONS) {
+  // if (route === ROUTES.SERVICES_OPERATIONS) {
+  //   return (
+  //     <Operations
+  //       routes={ROUTES}
+  //       onNavigate={navigate}
+  //     />
+  //   );
+  // }
+  if (route === ROUTES.SERVICES_OPERATIONS_OPS) {
     return (
-      <Operations
+      <OperationsOps
+        routes={ROUTES}
+        onNavigate={navigate}
+      />
+    );
+  }
+  if (route === ROUTES.SERVICES_OPERATIONS_EXERCISE) {
+    return (
+      <OperationsExercise
+        routes={ROUTES}
+        onNavigate={navigate}
+      />
+    );
+  }
+  if (route === ROUTES.SERVICES_OPERATIONS_JOININSPECTION) {
+    return (
+      <OperationsJoinInspection
+        routes={ROUTES}
+        onNavigate={navigate}
+      />
+    );
+  }
+  if (route === ROUTES.SERVICES_OPERATIONS_CASESTUDY) {
+    return (
+      <OperationsCaseStudy
         routes={ROUTES}
         onNavigate={navigate}
       />

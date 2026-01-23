@@ -40,25 +40,25 @@ const TableRow = ({ serNo, title, coursesICG, coursesStakeholders, traineesICG, 
 export default function TrainingNationalLevel({ routes, onNavigate }) {
     const OPRC_TABS = [
         {
-            id: routes.DOC_OPRC_1,
+            id: routes.DOC_OPRC_11,
             label: 'OPRC Level-1',
             code: 'Level-1',
             blurb: 'Introductory oil pollution preparedness & basic response skills.',
         },
         {
-            id: routes.DOC_OPRC_2,
+            id: routes.DOC_OPRC_22,
             label: 'OPRC Level-2',
             code: 'Level-2',
             blurb: 'Intermediate response, equipment handling and deployment drills.',
         },
         {
-            id: routes.DOC_OPRC_3,
+            id: routes.DOC_OPRC_33,
             label: 'OPRC Level-3',
             code: 'Level-3',
             blurb: 'National / international tier-3 coordination and escalation.',
         },
         {
-            id: routes.DOC_OPRC_PR,
+            id: routes.DOC_OPRC_PRR,
             label: 'OPRC PR Capsule',
             code: 'PR',
             blurb: 'Awareness, public relations and communication capsule.',

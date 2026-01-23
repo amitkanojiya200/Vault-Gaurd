@@ -2,11 +2,9 @@
 use chrono::Utc;
 use once_cell::sync::Lazy;
 use rusqlite::params; // params! macro
-use rusqlite::Connection;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::fs::OpenOptions;
-use std::os::windows::prelude::OpenOptionsExt;
 use std::process::Command;
 use std::sync::Mutex;
 use std::time::UNIX_EPOCH;
@@ -1322,82 +1320,6 @@ LIMIT ?2 OFFSET ?3
 // -----------------------------
 // Additional file/folder CRUD commands
 // -----------------------------
-/// Helper: enforce basic allowlist like other commands (returns canonical PathBuf)
-fn canonical_and_allow(path: &str) -> Result<std::path::PathBuf, String> {
-    let canonical = std::fs::canonicalize(path)
-        .map_err(|e| format!("cannot canonicalize path '{}' : {}", path, e))?;
-    // Basic allowlist: allow if under home or any discovered disk mount (same logic as read_dir)
-    let mut sys = System::new_all();
-    sys.refresh_disks_list();
-    sys.refresh_disks();
-
-    let canonical_str = canonical.to_string_lossy().to_string();
-    let mut normalized = canonical_str.clone();
-    #[cfg(target_os = "windows")]
-    {
-        if normalized.to_lowercase().starts_with("\\\\?\\") {
-            normalized = normalized.trim_start_matches("\\\\?\\").to_string();
-        }
-        if normalized.to_lowercase().starts_with("unc\\") {
-            normalized = normalized
-                .trim_start_matches(|c| c == '\\' || c == '/')
-                .to_string();
-            normalized = format!("\\\\{}", normalized);
-        }
-    }
-    let normalized_lower = normalized.to_lowercase();
-
-    let mut allowed_mounts: Vec<String> = Vec::new();
-    for disk in sys.disks() {
-        let mount = disk.mount_point().to_string_lossy().to_string();
-        if !mount.is_empty() {
-            let mount_norm = mount
-                .trim_end_matches(|c| c == '/' || c == '\\')
-                .to_string()
-                .to_lowercase();
-            if !allowed_mounts.contains(&mount_norm) {
-                allowed_mounts.push(mount_norm);
-            }
-        }
-    }
-    if let Some(home) = dirs::home_dir() {
-        let home_norm = home
-            .to_string_lossy()
-            .to_string()
-            .trim_end_matches(|c| c == '/' || c == '\\')
-            .to_string()
-            .to_lowercase();
-        if !allowed_mounts.contains(&home_norm) {
-            allowed_mounts.push(home_norm);
-        }
-    }
-
-    // Windows drive-letter/UNC quick acceptance
-    #[cfg(target_os = "windows")]
-    {
-        let chars: Vec<char> = normalized.chars().collect();
-        if let Some(idx) = chars.iter().position(|c| *c != '\\' && *c != '/') {
-            if idx + 1 < chars.len() && chars[idx + 1] == ':' {
-                return Ok(canonical);
-            }
-        }
-        if normalized.starts_with("\\\\") {
-            return Ok(canonical);
-        }
-    }
-
-    // Otherwise match discovered mounts
-    let mut allowed = allowed_mounts.iter().any(|m| {
-        let m_with_sep = format!("{}{}", m, std::path::MAIN_SEPARATOR);
-        normalized_lower.starts_with(m) || normalized_lower.starts_with(&m_with_sep)
-    });
-
-    if allowed {
-        Ok(canonical)
-    } else {
-        Err("path is outside allowed locations".to_string())
-    }
-}
 
 // Move / Rename (exposed as fs_move_by_session)
 #[tauri::command]
@@ -1746,7 +1668,6 @@ pub fn fs_create_file_by_session(
 
 #[tauri::command]
 pub fn fs_delete_by_session(session_token: String, path: String) -> Result<(), String> {
-    use std::path::PathBuf;
 
     let conn = crate::db::open_connection().map_err(|e| format!("db open: {}", e))?;
     let maybe_uid = crate::session::validate_session(&conn, &session_token)
