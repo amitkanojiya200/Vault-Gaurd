@@ -601,33 +601,6 @@ export default function OprcModulePage2({ variant, routes, onNavigate }) {
                     </div>
                 </motion.div>
 
-                {/* File Viewer Section - Conditionally Rendered */}
-                {activeFile && (
-                    <>
-                        {/* Use ModalPdfViewer for PDFs and PPTs */}
-                        {(activeFile.type === 'pdf' || activeFile.type === 'ppt' || activeFile.type === 'pptx') ? (
-                            <ModalPdfViewer
-                                title={activeFile.title}
-                                src={activeFile.path}
-                                onClose={handleCloseFile}
-                            />
-                        ) : (
-                            <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="mb-4"
-                            >
-                                <FileViewer
-                                    filePath={activeFile.path}
-                                    title={activeFile.title}
-                                    fileType={activeFile.type}
-                                    onClose={handleCloseFile}
-                                />
-                            </motion.div>
-                        )}
-                    </>
-                )}
-
                 {/* Three sections: Course PPT + Exercise + Videos (conditionally) */}
                 <motion.div
                     initial={{ opacity: 0, y: 12 }}
@@ -655,9 +628,39 @@ export default function OprcModulePage2({ variant, routes, onNavigate }) {
                             )}
                         </div>
                     </div>
+                </motion.div>
+
+                
+                {/* File Viewer Section - Conditionally Rendered */}
+                {activeFile && (
+                    <>
+                        {/* Use ModalPdfViewer for PDFs and PPTs */}
+                        {(activeFile.type === 'pdf' || activeFile.type === 'ppt' || activeFile.type === 'pptx') ? (
+                            <ModalPdfViewer
+                                title={activeFile.title}
+                                src={activeFile.path}
+                                onClose={handleCloseFile}
+                            />
+                        ) : (
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="mb-4"
+                            >
+                                <FileViewer
+                                    filePath={activeFile.path}
+                                    title={activeFile.title}
+                                    fileType={activeFile.type}
+                                    onClose={handleCloseFile}
+                                />
+                            </motion.div>
+                        )}
+                    </>
+                )}
+
                     {/* Videos Section - Conditionally Rendered */}
                     {hasVideos && (
-                        <div className="lg:flex-1">
+                        <div className="lg:flex-1 mt-10">
                             <VideoSectionCard
                                 icon={<Video className="h-3.5 w-3.5" />}
                                 title="Training Videos"
@@ -667,7 +670,6 @@ export default function OprcModulePage2({ variant, routes, onNavigate }) {
                             />
                         </div>
                     )}
-                </motion.div>
             </div>
         </div>
     );

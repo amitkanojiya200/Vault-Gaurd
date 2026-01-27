@@ -9,16 +9,16 @@ import { openBundledPpt } from '@/lib/defaultOpener';
 const DOCUMENTS = [
     {
         id: 'doc-1',
-        label: 'Joint Inspection',
-        fileName: 'Joint Inspection.pdf',
-        path: '/servicesOprDocs/Joint Inspection.pdf',
+        label: 'Contengency Plan',
+        fileName: 'Contengency Plan.pdf',
+        path: '/servicesOprDocs/Contengency Plan.pdf',
     },
 ];
 
 /* =========================================================
    STANDALONE PAGE
 ========================================================= */
-export default function OperationsJoinInspection({ onBack }) {
+export default function OperationsContingency({ onBack }) {
     const [activePdf, setActivePdf] = useState(null);
 
     function handleOpenFile(item) {
@@ -55,7 +55,7 @@ export default function OperationsJoinInspection({ onBack }) {
             {/* Header */}
             <div className="mb-4">
                 <h1 className="text-2xl font-semibold dark:text-slate-50">
-                    Seminar, Exercise, Workshp and mockdrill
+                    Contengency Plan
                 </h1>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
                     Click a document to view or open

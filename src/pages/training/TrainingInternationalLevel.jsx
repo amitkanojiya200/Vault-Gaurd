@@ -40,13 +40,13 @@ const TableRow = ({ serNo, title, coursesICG, coursesStakeholders, traineesICG, 
 export default function TrainingInternationalLevel({ routes, onNavigate }) {
   const OPRC_TABS = [
     {
-      id: routes.DOC_OPRC_1,
+      id: routes.DOC_OPRC_11,
       label: 'OPRC Level-1',
       code: 'Level-1',
       blurb: 'Baseline awareness for international / regional OPRC responders.',
     },
     {
-      id: routes.DOC_OPRC_2,
+      id: routes.DOC_OPRC_22,
       label: 'OPRC Level-2',
       code: 'Level-2',
       blurb: 'Practical equipment handling and deployment for joint exercises.',

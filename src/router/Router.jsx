@@ -43,6 +43,7 @@ import NationalCollaboration from '@/pages/collab/NationalCollaboration';
 // NEW: real session helpers
 import sessionClient from '@/lib/sessionClient';
 import * as userClient from '@/lib/userClient';
+import OperationsContingency from '@/pages/operations/OperationsContingency';
 
 // -------- Route keys (so NavBar / others can reuse) --------
 export const ROUTES = {
@@ -57,6 +58,7 @@ export const ROUTES = {
   // Services
   SERVICES_OPERATIONS: 'services-operations',
   SERVICES_OPERATIONS_OPS: 'services-operations-ops',
+  SERVICES_OPERATIONS_CONTI: 'services-operations-conti',
   SERVICES_OPERATIONS_EXERCISE: 'services-operations-exercise',
   SERVICES_OPERATIONS_JOININSPECTION: 'services-operations-joininspection',
   SERVICES_OPERATIONS_CASESTUDY: 'services-operations-casestudy',
@@ -458,6 +460,7 @@ export function RouteProvider({ children }) {
         ROUTES.EXPLORER,
         ROUTES.SERVICES_OPERATIONS,
         ROUTES.SERVICES_OPERATIONS_OPS,
+        ROUTES.SERVICES_OPERATIONS_CONTI,
         ROUTES.SERVICES_OPERATIONS_EXERCISE,
         ROUTES.SERVICES_OPERATIONS_JOININSPECTION,
         ROUTES.SERVICES_OPERATIONS_CASESTUDY,
@@ -597,6 +600,14 @@ export function RouterView() {
       />
     );
   }
+  if (route === ROUTES.SERVICES_OPERATIONS_CONTI) {
+    return (
+      <OperationsContingency
+        routes={ROUTES}
+        onNavigate={navigate}
+      />
+    );
+  }
   if (route === ROUTES.SERVICES_OPERATIONS_EXERCISE) {
     return (
       <OperationsExercise
@@ -643,7 +654,7 @@ export function RouterView() {
   if (route === ROUTES.DOC_OPRC_1) {
     return (
       <OprcModulePage
-        variant="level1"
+        variant="prt"
         routes={ROUTES}
         onNavigate={navigate}
       />
@@ -652,7 +663,7 @@ export function RouterView() {
   if (route === ROUTES.DOC_OPRC_2) {
     return (
       <OprcModulePage
-        variant="level2"
+        variant="dhq"
         routes={ROUTES}
         onNavigate={navigate}
       />
@@ -661,7 +672,7 @@ export function RouterView() {
   if (route === ROUTES.DOC_OPRC_3) {
     return (
       <OprcModulePage
-        variant="level3"
+        variant="stkinv"
         routes={ROUTES}
         onNavigate={navigate}
       />
@@ -670,7 +681,7 @@ export function RouterView() {
   if (route === ROUTES.DOC_OPRC_PR) {
     return (
       <OprcModulePage
-        variant="pr"
+        variant="mnschedule"
         routes={ROUTES}
         onNavigate={navigate}
       />
