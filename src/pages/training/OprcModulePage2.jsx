@@ -5,6 +5,8 @@ import { FileText, Presentation, PlayCircle, ChevronLeft, Download, Video, X } f
 import bgImage2 from '@/assets/dbg2.png';
 import ModalPdfViewer from '@/components/ModalPdfViewer';
 
+import DocumentFolder from '@/components/DocumentFolder';
+
 import vidoprc21 from '@/assets/videos/1Response to Marine Oil Spills_ Aerial surveillance.mp4';
 import vidoprc22 from '@/assets/videos/2Response to Marine Oil Spills_ At-sea response.mp4';
 import vidoprc23 from '@/assets/videos/3Response to Marine Oil Spills_ Environmental impacts.mp4';
@@ -479,6 +481,7 @@ export default function OprcModulePage2({ variant, routes, onNavigate }) {
     const [activeFile, setActiveFile] = useState(null); // { path: string, title: string, type: string }
 
     function handleOpenFile(item) {
+        console.log('Opening file:', item.path);
         setActiveFile({
             path: item.path,
             title: item.label,
@@ -560,6 +563,11 @@ export default function OprcModulePage2({ variant, routes, onNavigate }) {
                     )}
                 </div>
 
+                <DocumentFolder
+                    folderKey="OPRC_LEVEL_1"
+                    title="OPRC Level-1 Training Documents"
+                />
+
                 {/* Manuals Section - Instructor and Participant */}
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
@@ -630,7 +638,7 @@ export default function OprcModulePage2({ variant, routes, onNavigate }) {
                     </div>
                 </motion.div>
 
-                
+
                 {/* File Viewer Section - Conditionally Rendered */}
                 {activeFile && (
                     <>
@@ -658,19 +666,20 @@ export default function OprcModulePage2({ variant, routes, onNavigate }) {
                     </>
                 )}
 
-                    {/* Videos Section - Conditionally Rendered */}
-                    {hasVideos && (
-                        <div className="lg:flex-1 mt-10">
-                            <VideoSectionCard
-                                icon={<Video className="h-3.5 w-3.5" />}
-                                title="Training Videos"
-                                description="Instructional videos and demonstrations."
-                                items={config.videos}
-                                onOpen={handleOpenVideo}
-                            />
-                        </div>
-                    )}
+                {/* Videos Section - Conditionally Rendered */}
+                {hasVideos && (
+                    <div className="lg:flex-1 mt-10">
+                        <VideoSectionCard
+                            icon={<Video className="h-3.5 w-3.5" />}
+                            title="Training Videos"
+                            description="Instructional videos and demonstrations."
+                            items={config.videos}
+                            onOpen={handleOpenVideo}
+                        />
+                    </div>
+                )}
             </div>
+
         </div>
     );
 }

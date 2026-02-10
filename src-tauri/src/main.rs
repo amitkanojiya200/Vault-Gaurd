@@ -5,12 +5,20 @@ mod admin_backend;
 mod audit;
 mod auth_backend;
 mod db;
+mod document_store;
 mod fs_ops;
 mod fs_watch;
+mod pdf_library;
 mod security;
 mod session;
 mod session_store; // NEW
-mod user_backend;
+mod user_backend; // NEW
+
+use document_store::{list_documents_by_session, upload_document_by_session};
+
+use pdf_library::{
+    add_pdf_by_session, delete_pdf_by_session, list_pdfs_by_session, open_pdf_by_session,
+}; // your renamed command in audit.rs
 
 use admin_backend::{
     admin_create_user_cmd, admin_delete_user_cmd, admin_get_user_cmd, admin_list_users_cmd,
@@ -38,14 +46,35 @@ use user_backend::{
 
 fn main() {
     tauri::Builder::default()
+        // 1. ADD THE DIALOG PLUGIN HERE
+        .plugin(tauri_plugin_dialog::init())
+        .plugin(tauri_plugin_fs::init())
+        .plugin(tauri_plugin_opener::init())
+        .plugin(tauri_plugin_shell::init())
+        // 2. MOVE YOUR SETUP LOGIC HERE
+        .setup(|app| {
+            let conn = crate::db::open_connection().map_err(|e| e.to_string())?;
+            let removed =
+                crate::fs_ops::reconcile_missing_files(&conn).map_err(|e| e.to_string())?;
+            println!("[startup] removed {} stale file entries", removed);
+
+            #[cfg(debug_assertions)]
+            {
+                app.handle().plugin(
+                    tauri_plugin_log::Builder::default()
+                        .level(log::LevelFilter::Info)
+                        .build(),
+                )?;
+            }
+            Ok(())
+        })
         .invoke_handler(tauri::generate_handler![
-            // auth
+            // ... ALL YOUR EXISTING COMMANDS ...
             auth_login,
             auth_register,
             auth_logout,
             validate_session,
             get_profile_by_session,
-            // admin
             admin_list_users_cmd,
             admin_get_user_cmd,
             admin_create_user_cmd,
@@ -56,15 +85,12 @@ fn main() {
             admin_can_create_user_cmd,
             admin_can_delete_user_cmd,
             admin_can_update_user_cmd,
-            // audit (admin)
             admin_list_audit_logs,
             get_portal_audit_logs,
             get_watchlist_blocked_attempts,
-            // session store (OS keyring)
             session_store_set,
             session_store_get,
             session_store_clear,
-            // filesystem
             list_drives,
             read_dir,
             recent_items,
@@ -91,34 +117,10 @@ fn main() {
             fs_copy_by_session,
             fs_copy,
             fs_mkdir_by_session,
-            fs_create_file_by_session
+            fs_create_file_by_session,
+            upload_document_by_session,
+            list_documents_by_session
         ])
-        .plugin(tauri_plugin_fs::init())
-        .plugin(tauri_plugin_opener::init())
-        .plugin(tauri_plugin_shell::init())
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
-}
-
-#[cfg_attr(mobile, tauri::mobile_entry_point)]
-pub fn run() {
-    tauri::Builder::default()
-        .setup(|app| {
-            let conn = crate::db::open_connection()?;
-            let removed = crate::fs_ops::reconcile_missing_files(&conn)?;
-            println!("[startup] removed {} stale file entries", removed);
-            if cfg!(debug_assertions) {
-                app.handle().plugin(
-                    tauri_plugin_log::Builder::default()
-                        .level(log::LevelFilter::Info)
-                        .build(),
-                )?;
-            }
-            Ok(())
-        })
-        .plugin(tauri_plugin_fs::init())
-        .plugin(tauri_plugin_opener::init())
-        .plugin(tauri_plugin_shell::init())
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

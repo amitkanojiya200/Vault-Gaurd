@@ -776,7 +776,6 @@ pub fn open_file_by_session(session_token: String, path: String) -> Result<(), S
 
 /// Read directory entries for `path`. Returns normalized list of FileEntry.
 /// Requires valid session_token (but in debug builds we allow missing/invalid token for dev).
-/// Read directory entries for `path`. Returns normalized list of FileEntry.
 /// session_token is optional (Option<String>) — in release builds a token is required;
 /// in debug builds missing/invalid token is tolerated for local dev convenience.
 #[tauri::command]

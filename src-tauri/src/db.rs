@@ -141,6 +141,16 @@ CREATE TABLE IF NOT EXISTS recent_access (
   FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS pdf_library (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  page_key TEXT NOT NULL,               -- which page this PDF belongs to
+  title TEXT NOT NULL,
+  file_path TEXT NOT NULL,
+  uploaded_by INTEGER,
+  uploaded_at INTEGER NOT NULL,
+  FOREIGN KEY(uploaded_by) REFERENCES users(id) ON DELETE SET NULL
+);
+
     "#;
 
     conn.execute_batch(sql).map_err(|e| e.to_string())?;

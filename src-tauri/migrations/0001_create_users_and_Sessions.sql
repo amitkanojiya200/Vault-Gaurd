@@ -49,3 +49,11 @@ CREATE TABLE IF NOT EXISTS login_history (
   ip TEXT,
   detail TEXT
 );
+
+CREATE TABLE IF NOT EXISTS pdf_library (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    file_path TEXT NOT NULL,
+    uploaded_by INTEGER,
+    uploaded_at INTEGER
+);

@@ -4,15 +4,6 @@ use rusqlite::Connection;
 use serde::Serialize;
 use tauri::{command, AppHandle};
 
-/// This file expects these helpers in your project:
-/// - crate::db::open_connection()
-/// - crate::db::init_db_schema(&Connection)
-/// - crate::db::insert_audit_log(&Connection, Option<i64>, Option<&str>, &str, Option<&str>, Option<&str>)
-/// - crate::db::get_user_by_id_row(&Connection, i64) -> Option<UserRow>
-/// - crate::session::validate_session(&Connection, &str) -> Option<i64>
-///
-/// If names differ adapt accordingly.
-
 fn pick_session_token(
     session_token: Option<String>,
     sessionToken: Option<String>,
