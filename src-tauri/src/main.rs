@@ -8,17 +8,12 @@ mod db;
 mod document_store;
 mod fs_ops;
 mod fs_watch;
-mod pdf_library;
 mod security;
 mod session;
 mod session_store; // NEW
 mod user_backend; // NEW
 
 use document_store::{list_documents_by_session, upload_document_by_session};
-
-use pdf_library::{
-    add_pdf_by_session, delete_pdf_by_session, list_pdfs_by_session, open_pdf_by_session,
-}; // your renamed command in audit.rs
 
 use admin_backend::{
     admin_create_user_cmd, admin_delete_user_cmd, admin_get_user_cmd, admin_list_users_cmd,
