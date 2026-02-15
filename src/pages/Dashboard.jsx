@@ -1410,7 +1410,7 @@ export default function Dashboard() {
                             {e.user}
                           </span>
                         </p>
-                        <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-[0.6rem] text-red-400">
+                        <span className={`rounded-full px-2 py-0.5 text-[0.6rem] ${ e.op === "document_upload" ? "text-green-500 bg-green-500/10" : "text-red-400 bg-red-500/10"}`}>
                           {e.op}
                         </span>
                       </div>

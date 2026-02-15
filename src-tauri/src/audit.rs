@@ -228,6 +228,7 @@ pub fn get_watchlist_blocked_attempts(
                OR action LIKE '%rename%'
                OR action LIKE '%move%'
                OR action LIKE '%copy%'
+               OR action LIKE '%upload%'
            )
          ORDER BY created_at DESC
          LIMIT ?2",

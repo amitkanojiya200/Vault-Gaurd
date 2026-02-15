@@ -15,6 +15,8 @@ import vidoprc23 from '@/assets/videos/3Response to Marine Oil Spills_ Environme
 const MODULE_CONFIG = {
     level1: {
         title: 'OPRC Level-1',
+        title2: 'OPRC Level-1 Documents',
+        fileKey: 'OPRC_LEVEL_1',
         subtitle: 'Awareness & Basic Response',
         instructorManual: {
             title: "OPRC Level 1_Instructor's Manual",
@@ -62,6 +64,8 @@ const MODULE_CONFIG = {
     },
     level2: {
         title: 'OPRC Level-2',
+        title2: 'OPRC Level-2 Documents',
+        fileKey: 'OPRC_LEVEL_2',
         subtitle: 'Equipment & Field Operations',
         instructorManual: {
             title: "OPRC Level 2_Instructor's Manual",
@@ -116,6 +120,8 @@ const MODULE_CONFIG = {
     },
     level3: {
         title: 'OPRC Level-3',
+        title2: 'OPRC Level-3 Documents',
+        fileKey: 'OPRC_LEVEL_3',
         subtitle: 'Tier-3 Response & Command',
         instructorManual: {
             title: "OPRC Level 3_Instructor's Manual",
@@ -176,6 +182,8 @@ const MODULE_CONFIG = {
     },
     pr: {
         title: 'OPRC PR Capsule',
+        title2: 'OPRC PR Capsule Documents',
+        fileKey: 'OPRC_PR_CAPSULE',
         subtitle: 'Public Relations & Communication',
         instructorManual: {
             title: "OPRC PR Capsule_Instructor's Manual",
@@ -247,7 +255,7 @@ function SectionCard({ icon, title, description, items, onOpen }) {
             </div>
         </div>
     );
-}
+};
 
 function VideoSectionCard({ icon, title, description, items, onOpen }) {
     return (
@@ -288,7 +296,7 @@ function VideoSectionCard({ icon, title, description, items, onOpen }) {
             </div>
         </div>
     );
-}
+};
 // File Viewer Component
 function FileViewer({ filePath, title, fileType, onClose }) {
     const getFileContent = () => {
@@ -432,8 +440,7 @@ function FileViewer({ filePath, title, fileType, onClose }) {
             </div>
         </div>
     );
-}
-
+};
 export default function OprcModulePage2({ variant, routes, onNavigate }) {
     const config = useMemo(() => MODULE_CONFIG[variant] || MODULE_CONFIG.level1, [variant]);
     const [activeFile, setActiveFile] = useState(null); // { path: string, title: string, type: string }
@@ -541,16 +548,21 @@ export default function OprcModulePage2({ variant, routes, onNavigate }) {
                         {config.title}
                     </h1>
                     {config.subtitle && (
-                        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                            {config.subtitle}
-                        </p>
+                        <div>
+                            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                                {config.subtitle}
+                            </p>
+                        </div>
+                    )}
+
+                    {config.fileKey && (
+                        <DocumentFolder
+                            folderKey={config.fileKey}
+                            title={config.title2}
+                        />
                     )}
                 </div>
 
-                <DocumentFolder
-                    folderKey="OPRC_LEVEL_1"
-                    title="OPRC Level-1 Training Documents"
-                />
 
                 {/* Manuals Section - Instructor and Participant */}
                 <motion.div

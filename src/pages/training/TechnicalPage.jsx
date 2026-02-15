@@ -4,6 +4,7 @@ import { FileText, ChevronLeft, X } from 'lucide-react';
 import bgImage2 from '@/assets/dbg2.png';
 import ModalPdfViewer from '@/components/ModalPdfViewer';
 import { openBundledPpt } from '@/lib/defaultOpener';
+import DocumentFolder from '@/components/DocumentFolder';
 
 /* =========================================================
    DOCUMENT REGISTRY
@@ -11,6 +12,8 @@ import { openBundledPpt } from '@/lib/defaultOpener';
 const FILE_SECTIONS = {
   prt: {
     title: 'PRT Equp Invt',
+    title2: 'PRT Equp Invt Documents',
+    fileKey: 'PRT_EQUIPMENT_INVENTORY',
     subtitle: 'PRT Equipment Inventory',
     files: [
       {
@@ -24,6 +27,8 @@ const FILE_SECTIONS = {
 
   dhq: {
     title: 'DHQ',
+    title2: 'DHQ Documents',
+    fileKey: 'DHQ_DOCUMENTS',
     subtitle: 'DHQ Inventory',
     files: [
       {
@@ -49,6 +54,8 @@ const FILE_SECTIONS = {
 
   stkinv: {
     title: 'Stakeholder Inventory',
+    title2: 'Stakeholder Inventory Documents',
+    fileKey: 'STAKEHOLDER_INVENTORY_DOCUMENTS',
     subtitle: 'Stakeholder Inventory',
     files: [
       {
@@ -86,6 +93,8 @@ const FILE_SECTIONS = {
 
   mnschedule: {
     title: 'Maintenance Schedule',
+    title2: 'Maintenance Schedule Documents',
+    fileKey: 'MAINTENANCE_SCHEDULE_DOCUMENTS',
     subtitle: 'Maintenance Schedule',
     files: [
       {
@@ -96,14 +105,45 @@ const FILE_SECTIONS = {
       },
     ],
   },
+
+  eqtvideo: {
+    title: 'Equipment Videos',
+    title2: 'Equipment Video Files',
+    fileKey: 'EQUIPMENT_VIDEO_FILES',
+    subtitle: 'Equipment Videos Present Here',
+    // files: [
+    //   {
+    //     id: 'mn-1',
+    //     label: 'Maintenance Scedule _PRT_W',
+    //     fileName: 'Maintenance Scedule _PRT_W.pdf',
+    //     path: '/technical/maintenanceSchedule/Maintenance Scedule _PRT_W.pdf',
+    //   },
+    // ],
+  },
 };
 
 /* =========================================================
    FILE LIST CARD
 ========================================================= */
 function FileListCard({ title, description, items, onOpen }) {
+  if (items.length === 0) {
+    return (
+      <div></div>
+      // <div className="rounded-2xl mb-5 border border-slate-200 bg-white/90 p-4 text-xs shadow-md dark:border-slate-700 dark:bg-slate-900/85">
+      //   <p className="text-[0.75rem] font-semibold text-slate-800 dark:text-slate-100">
+      //     {title}
+      //   </p>
+      //   <p className="text-[0.7rem] text-slate-500 dark:text-slate-400">
+      //     {description}
+      //   </p>
+      //   <p className="mt-3 text-[0.7rem] text-slate-500 dark:text-slate-400">
+      //     No files available.
+      //   </p>
+      // </div>
+    );
+  }
   return (
-    <div className="flex flex-col rounded-2xl border border-slate-200 bg-white/90 p-4 text-xs shadow-md dark:border-slate-700 dark:bg-slate-900/85">
+    <div className="flex flex-col mb-5 rounded-2xl border border-slate-200 bg-white/90 p-4 text-xs shadow-md dark:border-slate-700 dark:bg-slate-900/85">
       <div className="mb-2">
         <p className="text-[0.75rem] font-semibold text-slate-800 dark:text-slate-100">
           {title}
@@ -206,9 +246,17 @@ export default function OprcModulePage({ variant, routes, onNavigate }) {
         <FileListCard
           title={section.title}
           description={section.subtitle}
-          items={section.files}
+          items={section.files || []}
           onOpen={handleOpenFile}
         />
+
+        {section.fileKey && (
+          <DocumentFolder
+            folderKey={section.fileKey}
+            title={section.title2}
+          />
+        )}
+
       </div>
     </div>
   );

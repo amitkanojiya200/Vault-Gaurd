@@ -10,6 +10,7 @@ import {
 import bgImage2 from '@/assets/dbg2.png';
 import TrImg1 from '@/assets/images/training/trimg1.png';
 import TrImg2 from '@/assets/images/training/trimg2.png';
+import DocumentFolder from '@/components/DocumentFolder';
 
 // Function to render the table cells with proper styling
 const renderCell = (content, isHeader = false, isMono = false) => (
@@ -144,7 +145,7 @@ export default function TrainingNationalLevel({ routes, onNavigate }) {
                                 <h1 className="lg:text-2xl sm:text-4xl font-extrabold text-gray-800 dark:text-white mb-6 text-left pt-5">
                                     2.1 National Level
                                 </h1>
-                                <div className="overflow-x-auto shadow-2xl rounded-xl border border-orange-200 dark:border-orange-700">
+                                <div className="overflow-x-auto shadow-md rounded-xl border border-orange-200 dark:border-orange-700">
                                     <table className="min-w-full divide-orange-200 dark:divide-orange-700">
                                         {/* Table Header */}
                                         <thead className="bg-(--orange500) dark:bg-(--orange500) text-white">
@@ -246,8 +247,15 @@ export default function TrainingNationalLevel({ routes, onNavigate }) {
                                         </tbody>
                                     </table>
                                 </div>
+
                             </div>
                         </motion.div>
+                        <div className="mt-5">
+                            <DocumentFolder
+                                folderKey="Training_National_Level"
+                                title="Related Documents"
+                            />
+                        </div>
 
                     </div>
 

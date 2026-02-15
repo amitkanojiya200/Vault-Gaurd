@@ -13,7 +13,7 @@ mod session;
 mod session_store; // NEW
 mod user_backend; // NEW
 
-use document_store::{list_documents_by_session, upload_document_by_session};
+use document_store::{list_documents_by_session, upload_document_by_session, delete_document_by_session};
 
 use admin_backend::{
     admin_create_user_cmd, admin_delete_user_cmd, admin_get_user_cmd, admin_list_users_cmd,
@@ -114,7 +114,8 @@ fn main() {
             fs_mkdir_by_session,
             fs_create_file_by_session,
             upload_document_by_session,
-            list_documents_by_session
+            list_documents_by_session,
+            delete_document_by_session,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

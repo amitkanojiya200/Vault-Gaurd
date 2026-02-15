@@ -5,6 +5,7 @@ import { ChevronLeft, ShieldCheck, Image as ImageIcon } from 'lucide-react';
 import bgImage2 from '@/assets/dbg2.png';
 import Opr1 from '@/assets/images/operations/opr1.png';
 import Opr2 from '@/assets/images/operations/opr2.png';
+import DocumentFolder from '@/components/DocumentFolder';
 
 export default function Operations({ routes, onNavigate }) {
     return (
@@ -94,7 +95,7 @@ export default function Operations({ routes, onNavigate }) {
                             <div className="rounded-lg overflow-hidden shadow-lg border border-slate-300 dark:border-slate-700">
                                 <img src={Opr1} alt="Oil Spill Response Activity 1" className="w-60 h-60 object-cover" />
                             </div>
-                        {/* Image Section 2 */}
+                            {/* Image Section 2 */}
                             <div className="rounded-lg overflow-hidden shadow-lg border border-slate-300 dark:border-slate-700">
                                 <img src={Opr2} alt="Shoreline Cleanup Training Activity 2" className="w-60 h-60 object-cover" />
                             </div>
@@ -314,6 +315,10 @@ export default function Operations({ routes, onNavigate }) {
                         </p>
                     </section>
                 </div>
+                <DocumentFolder
+                    folderKey="Operations_OPS"
+                    title="Related Documents"
+                />
             </div>
         </div>
     );

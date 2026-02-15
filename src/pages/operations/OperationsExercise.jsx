@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FileText, ChevronLeft } from 'lucide-react';
 import ModalPdfViewer from '@/components/ModalPdfViewer';
 import { openBundledPpt } from '@/lib/defaultOpener';
+import DocumentFolder from '@/components/DocumentFolder';
 
 /* =========================================================
    DOCUMENT LIST (STANDALONE)
@@ -72,7 +73,11 @@ export default function OperationsExercise({ onBack }) {
             )}
 
             {/* Document List */}
-            <div className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white/90 p-4 text-xs shadow-md dark:border-slate-700 dark:bg-slate-900/85">
+            <DocumentFolder
+                folderKey="Operations_Exercise"
+                title="Related Documents"
+            />
+            {/* <div className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white/90 p-4 text-xs shadow-md dark:border-slate-700 dark:bg-slate-900/85">
                 {DOCUMENTS.map((doc) => (
                     <button
                         key={doc.id}
@@ -90,7 +95,7 @@ export default function OperationsExercise({ onBack }) {
                         <FileText className="h-4 w-4 text-slate-400 group-hover:text-sky-500" />
                     </button>
                 ))}
-            </div>
+            </div> */}
         </div>
     );
 }

@@ -62,7 +62,7 @@ export default function WatchlistBlockedModal({
                 >
                   <td className="py-1 text-slate-300">{e.time}</td>
                   <td className="py-1 text-sky-300">{e.user}</td>
-                  <td className="py-1 text-red-300">{e.op}</td>
+                  <td className={`py-1 ${e.op === 'document_upload' ? "text-green-400" : "text-red-300" }`}>{e.op}</td>
                   <td className="py-1 text-slate-400">{e.reason}</td>
                 </tr>
               ))}

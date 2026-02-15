@@ -47,3 +47,19 @@ export async function openDocument(absolutePath) {
     const token = await sessionClient.getSessionToken();
     return fsClient.openFileBySession(token, absolutePath);
 }
+
+/**
+ * Delete document (ADMIN only)
+ */
+export async function deleteDocument(folderKey, absolutePath) {
+    if (!folderKey) throw new Error('folderKey required');
+    if (!absolutePath) throw new Error('absolutePath required');
+
+    const token = await sessionClient.getSessionToken();
+
+    return invoke('delete_document_by_session', {
+        sessionToken: token,
+        folderKey,
+        absolutePath,
+    });
+}

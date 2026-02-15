@@ -24,7 +24,7 @@ import Profile from '../pages/Profile';
 // Sub-Page Components
 import TrainingNationalLevel from '@/pages/training/TrainingNationalLevel';
 import TrainingInternationalLevel from '@/pages/training/TrainingInternationalLevel';
-import OprcModulePage from '@/pages/training/OprcModulePage';
+import OprcModulePage from '@/pages/training/TechnicalPage';
 import OprcModulePage2 from '@/pages/training/OprcModulePage2';
 import OprcStakeholderLevel1 from '@/pages/stakeholders/OprcStakeholderLevel1';
 import OprcStakeholderLevel2 from '@/pages/stakeholders/OprcStakeholderLevel2';
@@ -44,6 +44,7 @@ import NationalCollaboration from '@/pages/collab/NationalCollaboration';
 import sessionClient from '@/lib/sessionClient';
 import * as userClient from '@/lib/userClient';
 import OperationsContingency from '@/pages/operations/OperationsContingency';
+import DocumentFolder from '@/components/DocumentFolder';
 
 // -------- Route keys (so NavBar / others can reuse) --------
 export const ROUTES = {
@@ -75,6 +76,7 @@ export const ROUTES = {
   DOC_OPRC_2: 'documents-oprc-2',
   DOC_OPRC_3: 'documents-oprc-3',
   DOC_OPRC_PR: 'documents-oprc-pr',
+  DOC_EQP_VIDEO: 'documents-eqp-video',
   DOC_OPRC_11: 'documents-oprc-11',
   DOC_OPRC_22: 'documents-oprc-22',
   DOC_OPRC_33: 'documents-oprc-33',
@@ -179,6 +181,8 @@ const SECTION_CONFIG = {
   },
   [ROUTES.DOC_NOSDCP]: {
     title: 'NOSDCP',
+    title2: 'NOSDCP Documents',
+    fileKey: 'NOSDCP_FILES',
     subtitle: 'National Oil Spill Disaster Contingency Plan.',
     body: ['Overview and key sections of NOSDCP can be placed here.'],
     pdfFiles: [
@@ -187,8 +191,10 @@ const SECTION_CONFIG = {
   },
   [ROUTES.DOC_CNA]: {
     title: 'CNA',
+    title2: 'CNA Documents',
+    fileKey: 'CNA_FILES',
     subtitle: 'Contingency and Needs Assessment.',
-    body: ['Placeholder description for CNA – replace with official text.'],
+    body: ['Placeholder description for CNA - replace with official text.'],
     pdfFiles: [
       // PDFs from /docs folder
       { name: 'CNA Circular 02 2025 (Docs)', path: '/docs/CNA_Circular_02_25.pdf' },
@@ -216,6 +222,8 @@ const SECTION_CONFIG = {
   },
   [ROUTES.DOC_HNS]: {
     title: 'HNS',
+    title2: 'HNS Documents',
+    fileKey: 'HNS_FILES',
     subtitle: 'Hazardous and Noxious Substances.',
     body: ['Guidelines related to HNS incidents and response.'],
     pdfFiles: [
@@ -224,6 +232,8 @@ const SECTION_CONFIG = {
   },
   [ROUTES.DOC_WERCOS]: {
     title: 'WERCOS',
+    title2: 'WERCOS Documents',
+    fileKey: 'WERCOS_FILES',
     subtitle: 'WERCOS Framework.',
     body: ['Region-specific plan details and references.'],
     pdfFiles: [
@@ -232,6 +242,8 @@ const SECTION_CONFIG = {
   },
   [ROUTES.DOC_OSD_POLICY]: {
     title: 'OSD Policy',
+    title2: 'OSD Policy Documents',
+    fileKey: 'OSD_POLICY_FILES',
     subtitle: 'Offshore Security / Spill Defence policy notes.',
     body: ['Summarise the OSD Policy and attach references.'],
     pdfFiles: [
@@ -240,6 +252,8 @@ const SECTION_CONFIG = {
   },
   [ROUTES.DOC_INCIDENT_REPORTS]: {
     title: 'Incident Reports',
+    title2: 'Incident Report Docs',
+    fileKey: 'INCIDENT_REPORTS_FILES',
     subtitle: 'Maritime incident reports and documentation.',
     body: ['Documentation and reports related to maritime incidents and response operations.'],
     pdfFiles: [
@@ -265,6 +279,7 @@ const SECTION_CONFIG = {
   // STAKEHOLDERS main view
   [ROUTES.STAKEHOLDERS]: {
     title: 'Stakeholders',
+    title2: 'Stakeholders Documents',
     subtitle: 'Key national and international partners of the Indian Coast Guard.',
     body: [
       'This section can present a full list of stakeholders with brief descriptions and contact points.',
@@ -286,7 +301,7 @@ function getStakeholderConfig(route) {
 }
 
 // -------- Generic section pages --------
-function SectionPage({ title, subtitle, body = [], pdfFiles = [] }) {
+function SectionPage({ title, title2, fileKey, subtitle, body = [], pdfFiles = [] }) {
   const [activePdf, setActivePdf] = useState(null);
 
   return (
@@ -319,7 +334,7 @@ function SectionPage({ title, subtitle, body = [], pdfFiles = [] }) {
       )}
 
       {/* Body Content */}
-      <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 text-sm leading-relaxed shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/80 dark:text-slate-200 dark:shadow-black/40">
+      {/* <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 text-sm leading-relaxed shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/80 dark:text-slate-200 dark:shadow-black/40">
         {body.map((para, idx) => (
           <p key={idx} className={idx > 0 ? 'mt-2' : ''}>
             {para}
@@ -330,14 +345,14 @@ function SectionPage({ title, subtitle, body = [], pdfFiles = [] }) {
             Content for this section will be added later.
           </p>
         )}
-      </div>
+      </div> */}
 
       {/* PDF Files Section */}
       {pdfFiles && pdfFiles.length > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-4 rounded-2xl border border-slate-200 bg-white/90 p-4 text-xs shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/85 dark:shadow-black/40"
+          className="mt-4 rounded-2xl mb-5 border border-slate-200 bg-white/90 p-4 text-xs shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/85 dark:shadow-black/40"
         >
           <p className="text-[0.75rem] font-semibold text-slate-800 dark:text-slate-100 mb-3">
             Available Documents
@@ -358,6 +373,14 @@ function SectionPage({ title, subtitle, body = [], pdfFiles = [] }) {
             ))}
           </div>
         </motion.div>
+      )}
+
+      {/* DOCUMENTS UPLOAD FEATURE */}
+      {fileKey && (
+        <DocumentFolder
+          folderKey={fileKey}
+          title={title2 || title}
+        />
       )}
     </motion.div>
   );
@@ -470,6 +493,7 @@ export function RouteProvider({ children }) {
         ROUTES.DOC_OPRC_2,
         ROUTES.DOC_OPRC_3,
         ROUTES.DOC_OPRC_PR,
+        ROUTES.DOC_EQP_VIDEO,
         ROUTES.DOC_OPRC_11,
         ROUTES.DOC_OPRC_22,
         ROUTES.DOC_OPRC_33,
@@ -687,6 +711,15 @@ export function RouterView() {
       />
     );
   }
+  if (route === ROUTES.DOC_EQP_VIDEO) {
+    return (
+      <OprcModulePage
+        variant="eqtvideo"
+        routes={ROUTES}
+        onNavigate={navigate}
+      />
+    );
+  }
   // OPRC detail pages
   if (route === ROUTES.DOC_OPRC_11) {
     return (
@@ -744,13 +777,15 @@ export function RouterView() {
   }
 
   // Document routes
-  if (route === ROUTES.DOC_NOSDCP || route === ROUTES.DOC_CNA || 
-      route === ROUTES.DOC_HNS || route === ROUTES.DOC_WERCOS || route === ROUTES.DOC_INCIDENT_REPORTS) {
+  if (route === ROUTES.DOC_NOSDCP || route === ROUTES.DOC_CNA || route === ROUTES.DOC_OSD_POLICY ||
+    route === ROUTES.DOC_HNS || route === ROUTES.DOC_WERCOS || route === ROUTES.DOC_INCIDENT_REPORTS) {
     const config = SECTION_CONFIG[route];
     if (config) {
       return (
         <SectionPage
           title={config.title}
+          title2={config.title2}
+          fileKey={config.fileKey}
           subtitle={config.subtitle}
           body={config.body}
           pdfFiles={config.pdfFiles}

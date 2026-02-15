@@ -3,6 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeft, ShieldCheck, Image as ImageIcon } from 'lucide-react';
 import bgImage2 from '@/assets/dbg2.png';
+import DocumentFolder from '@/components/DocumentFolder';
 
 export default function CollabColombo({ routes, onNavigate }) {
     return (
@@ -56,7 +57,7 @@ export default function CollabColombo({ routes, onNavigate }) {
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="rounded-2xl col-span-3 border border-slate-200 bg-white/90 p-4 text-xs shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/85 dark:shadow-black/40"
+                        className="rounded-2xl mb-5 col-span-4 border border-slate-200 bg-white/90 p-4 text-xs shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/85 dark:shadow-black/40"
                     >
                         <div className="mb-2 flex items-center gap-2">
                             <div className="flex h-7 w-7 items-center justify-center rounded-full bg-sky-100 text-sky-700 dark:bg-sky-500/15 dark:text-sky-200">
@@ -80,6 +81,10 @@ export default function CollabColombo({ routes, onNavigate }) {
                     </motion.div>
 
                 </div>
+                    <DocumentFolder
+                        folderKey="Collab_Colombo"
+                        title="Related Documents"
+                    />
             </div>
         </div>
     );

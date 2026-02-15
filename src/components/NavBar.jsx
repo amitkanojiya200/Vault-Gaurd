@@ -367,16 +367,18 @@ export default function NavBar() {
                               transition={{ duration: 0.16 }}
                               className="mt-1 space-y-1 pl-2 text-[0.8rem]"
                             >
-                              {/* <button
+
+                              <button
                                 type="button"
                                 onClick={() =>
                                   navTo(ROUTES.SERVICES_OPERATIONS_OPS)
                                 }
                                 className="flex w-full items-center justify-between rounded-md px-1 py-1 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/80"
                               >
-                                OPS
-                              </button> */}
-                              <button
+                                Operation
+                              </button>
+
+                              {/* <button
                                 type="button"
                                 onClick={() =>
                                   navTo(ROUTES.SERVICES_OPERATIONS_CONTI)
@@ -384,7 +386,8 @@ export default function NavBar() {
                                 className="flex w-full items-center justify-between rounded-md px-1 py-1 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/80"
                               >
                                 Contingency Plan
-                              </button>
+                              </button> */}
+
                               <button
                                 type="button"
                                 onClick={() =>
@@ -394,6 +397,7 @@ export default function NavBar() {
                               >
                                 Exercise
                               </button>
+
                               <button
                                 type="button"
                                 onClick={() =>
@@ -403,7 +407,8 @@ export default function NavBar() {
                               >
                                 Joint Inspection
                               </button>
-                              {/* <button
+
+                              <button
                                 type="button"
                                 onClick={() =>
                                   navTo(ROUTES.SERVICES_OPERATIONS_CASESTUDY)
@@ -411,7 +416,7 @@ export default function NavBar() {
                                 className="flex w-full items-center justify-between rounded-md px-1 py-1 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/80"
                               >
                                 Case Study
-                              </button> */}
+                              </button>
                             </motion.div>
                           )}
                         </AnimatePresence>
@@ -743,6 +748,13 @@ export default function NavBar() {
                           <span className="truncate">{title}</span>
                         </button>
                       ))}
+                      <button
+                        type="button"
+                        onClick={() => navTo(ROUTES.STAKE_OPRC_LEVEL1)}
+                        className="flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left bg-slate-200 font-bold rounded-lg text-slate-800 cursor-pointer hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-slate-800/70"
+                      >
+                        Stakeholders Document Page
+                      </button>
                     </div>
                   </motion.div>
                 )}
@@ -812,6 +824,15 @@ export default function NavBar() {
                           className="flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-slate-800/70"
                         >
                           Maintenance Schedule
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => navTo(ROUTES.DOC_EQP_VIDEO)}
+                          className="flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-slate-800/70"
+                        >
+                          Equipment Video
                         </button>
                       </li>
                     </ul>
