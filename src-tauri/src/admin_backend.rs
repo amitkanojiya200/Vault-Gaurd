@@ -246,7 +246,11 @@ pub fn admin_update_user_cmd(
 }
 
 #[command]
-pub fn admin_delete_user_cmd(_app: AppHandle, session_token: String, id: i64) -> Result<(), String> {
+pub fn admin_delete_user_cmd(
+    _app: AppHandle,
+    session_token: String,
+    id: i64,
+) -> Result<(), String> {
     let conn = crate::db::open_connection()?;
     crate::db::init_db_schema(&conn)?;
 

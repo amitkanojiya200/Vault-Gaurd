@@ -1,0 +1,45 @@
+{
+    "national_level_title": {
+        "type": "title",
+        "value": "2.1 National Level"
+    },
+    "ig_paragraph_1": {
+        "type": "paragraph",
+        "value": "Inspector General Bhisham Sharma, PTM, TM assumed charge..."
+    },
+    "ig_paragraph_2": {
+        "type": "paragraph",
+        "value": "The Flag Officer possesses exceptionally rich operational experience..."
+    },
+    "national_level_table": {
+        "type": "table",
+        "value": {
+            "columns": [
+                "Ser No.",
+                "Course Title",
+                "ICG Courses",
+                "Stakeholder Courses",
+                "ICG Trainees",
+                "Stakeholder Trainees"
+            ],
+            "rows": [
+                [
+                    1,
+                    "PR Capsule",
+                    60,
+                    7,
+                    1059,
+                    121
+                ],
+                [
+                    2,
+                    "OPRC Level - 1",
+                    45,
+                    29,
+                    1101,
+                    419
+                ]
+            ]
+        }
+    }
+}

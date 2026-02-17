@@ -4,8 +4,8 @@ use notify::{Event, EventKind, RecommendedWatcher, RecursiveMode, Watcher};
 use rusqlite::params;
 use std::path::PathBuf;
 use std::sync::mpsc::channel;
+use tauri::AppHandle;
 use tauri::Emitter;
-use tauri::{AppHandle};
 
 /// Emit a filesystem-change signal to the frontend
 fn emit_fs_event(app: &AppHandle, kind: &str, path: &str) {

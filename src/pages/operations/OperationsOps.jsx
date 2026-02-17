@@ -6,6 +6,8 @@ import bgImage2 from '@/assets/dbg2.png';
 import Opr1 from '@/assets/images/operations/opr1.png';
 import Opr2 from '@/assets/images/operations/opr2.png';
 import DocumentFolder from '@/components/DocumentFolder';
+import ParagraphBlock from '@/components/cms/ParagraphBlock';
+import TitleBlock from '@/components/cms/TitleBlock';
 
 export default function Operations({ routes, onNavigate }) {
     return (
@@ -54,40 +56,22 @@ export default function Operations({ routes, onNavigate }) {
                 </div>
 
                 {/* Main layout: Overview + 4 images stacked */}
-                <div className="p-4 sm:p-6 md:p-8 space-y-8 bg-white dark:bg-gray-900 text-slate-700 dark:text-slate-200">
+                <div className="p-4 sm:p-6 mb-5 md:p-8 space-y-8 bg-white dark:bg-gray-900 text-slate-700 dark:text-slate-200">
                     {/* 1. Introduction */}
                     <section>
-                        <h2 className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3">
-                            1. Introduction
-                        </h2>
-                        <p className="text-sm leading-relaxed">
-                            <strong>CGPRT (W)</strong> acts as a specialized unit providing **Technical and Advisory support** to all ICG units/ Ports and Oil Handling Agencies and also undertakes **PR Operations** as required during incidents in Western Region. This unit also conducts **Joint Inspections**, monitors all **PR exercises** and **PR equipment inventory/ capability details** holding with all Ports/ OHAs in Western Region as per **NOSDCP**.
-                        </p>
+                        <TitleBlock tag="operation_heading_1" className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3" />
+                        <ParagraphBlock tag="operation_para_1" />
                     </section>
 
                     {/* 2. Operations (Modified Block) */}
                     <section>
-                        <h2 className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3">
-                            2. Operations
-                        </h2>
-                        <p className="text-sm leading-relaxed mb-4">
-                            <strong>CGPRT (W)</strong> has been vested with the responsibility of **Oil spill response in the Western Region** and therefore keeps all PR Equipment, operational and ready for dispatch, at short notice. Major Operations undertaken by this unit since last Annual Inspection in Mar 25 are as follows:
-                        </p>
+                        <TitleBlock tag="operation_heading_2" className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3" />
+                        <ParagraphBlock tag="operation_para_2" />
 
                         {/* 2.1. Sinking of MV MSC ELSA 3 - Detailed Content */}
-                        <div className="pl-4 border-l-2 border-sky-400 dark:border-sky-600 space-y-2 mb-6">
-                            <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
-                                2.1. Sinking of MV MSC ELSA 3
-                            </h3>
-                            <p className="text-sm leading-relaxed">
-                                At about **0750 hours on 25 May 25**, MV MSC ELSA 3 reportedly sank in position off Alleppey. The vessel was holding **88 MT Marine Gas Oil (MGO)** and **367 MT Very Low Sulphur Fuel Oil (VLSFO)** onboard.
-                            </p>
-                            <p className="text-sm leading-relaxed">
-                                On **26 May 25**, PR equipment along with **3000 ltrs of OSD** were embarked onboard **ICGS Samudra Prahari** to carry out oil spill response at sea if the need arose.
-                            </p>
-                            <p className="text-sm leading-relaxed">
-                                A **two-member strike team** from CGPRT(W) was also deputed onboard ship for rendering expert advice on PR operations. Further, a **four-member specialist team** from CGPRT (W) was deputed on **27 Jun 25** for advising State Government on shoreline cleanup. The team met the District Collectors of Kollam & Trivandrum and advised the administration on readiness for shoreline cleanup. Training sessions in both districts were undertaken so that local administration officials understood the methodology for shoreline cleanup.
-                            </p>
+                        <div className="pl-4 border-l-2 border-sky-400 dark:border-sky-600 space-y-2 my-6">
+                            <TitleBlock tag="operation_heading_3" />
+                            <ParagraphBlock tag="operation_para_3" />
                         </div>
 
                         {/* Image Section 1 */}
@@ -106,32 +90,19 @@ export default function Operations({ routes, onNavigate }) {
 
                     {/* 3. Exercises */}
                     <section>
-                        <h2 className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3">
-                            3. Exercises
-                        </h2>
-                        <p className="text-sm leading-relaxed mb-4">
-                            The unit has participated actively in the exercise: -
-                        </p>
+                        <TitleBlock tag="operation_top_heading_4" className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3" />
 
                         {/* 3.1. Exercise Prasthan-01/25 */}
                         <div className="pl-4 border-l-2 border-sky-400 dark:border-sky-600 space-y-2">
-                            <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
-                                3.1. Exercise Prasthan-01/25
-                            </h3>
-                            <p className="text-sm leading-relaxed">
-                                Exercise **Prasthan 01/25** was conducted by Western Naval Command on **28 Apr 25**. The exercise was conducted at **HI platform in Heera Field** (operator M/s ONGC). One officer was deputed as **neutral umpire** to provide specialist advice in the scenario of an oil spill and another officer was deputed to be part of the **crisis management group**. Exercise **Prasthan 02/25** is planned on **18 Nov 25** and IPC and FPC scheduled on **04 Nov** & **12 Nov 25** respectively.
-                            </p>
+                            <TitleBlock tag="operation_heading_4" className="text-lg font-semibold text-slate-800 dark:text-slate-100" />
+                            <ParagraphBlock tag="operation_para_4" className="text-sm leading-relaxed" />
                         </div>
                     </section>
 
                     {/* 4. Joint Inspections */}
                     <section>
-                        <h2 className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3">
-                            4. Joint Inspections
-                        </h2>
-                        <p className="text-sm leading-relaxed mb-4">
-                            Joint Inspections of Ports and OHAs of Western Region for **Tier-I PR capabilities** are carried out by **CGPRT (W)** along with representatives from **MoPSW** for Ports and **OISD** for OHAs on **yearly basis**. The schedule and status of joint inspections of Ports and OHAs for current calendar year are as follows: -
-                        </p>
+                        <TitleBlock tag="operation_heading_5" className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3" />
+                        <ParagraphBlock tag="operation_para_5" className="text-sm leading-relaxed" />
 
                         {/* 4.1. Ports Table */}
                         <div className="mb-6">
@@ -216,9 +187,6 @@ export default function Operations({ routes, onNavigate }) {
                             <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">
                                 4.3. Review of Contingency Plans
                             </h3>
-                            <p className="text-sm leading-relaxed mb-3">
-                                The unit had received OSCPs of Port/ OHA from CGRHQ (W) for scrutiny. Review of all Contingency plans completed and observations forwarded to CGRHQ (W) and their status are as follows: -
-                            </p>
                             <div className="overflow-x-auto">
                                 <table className="min-w-full divide-y divide-slate-300 dark:divide-slate-700">
                                     <thead className="bg-slate-100 dark:bg-slate-700">
@@ -247,13 +215,9 @@ export default function Operations({ routes, onNavigate }) {
 
                     {/* 5. Embarkations */}
                     <section>
-                        <h2 className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3">
-                            5. Embarkations
-                        </h2>
-                        <p className="text-sm leading-relaxed mb-4">
-                            PR equipment are embarked onboard ships and aircraft for operations and exercise as well as for monsoon deployments. The details of embarkations under taken since last inspections are as follows: -
-                        </p>
-                        <div className="overflow-x-auto">
+                        <TitleBlock tag="operation_heading_6" className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3" />
+                        <ParagraphBlock tag="operation_para_6" className="text-sm leading-relaxed" />
+                        <div className="overflow-x-auto mt-5">
                             <table className="min-w-full divide-y divide-slate-300 dark:divide-slate-700">
                                 <thead className="bg-slate-100 dark:bg-slate-700">
                                     <tr>
@@ -307,12 +271,9 @@ export default function Operations({ routes, onNavigate }) {
 
                     {/* 6. Availability of Oil Spill Dispersant (OSD) */}
                     <section>
-                        <h2 className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3">
-                            6. Availability of Oil Spill Dispersant (OSD)
-                        </h2>
-                        <p className="text-sm leading-relaxed">
-                            <strong>CGPRT (W)</strong> is authorized for **3000 ltrs Type-III** and **5000 ltrs Type-II OSD**. As per policy the minimum stock level that should be maintained is **1/5th** of the authorized scale. Presently the unit is holding **5,400 ltrs** of active usable OSD (<strong>2,000 ltrs Type-II</strong>, **1,000 ltrs Type-II & III** and **2,400 ltrs Type-III**).
-                        </p>
+                        
+                        <TitleBlock tag="operation_heading_7" className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3" />
+                        <ParagraphBlock tag="operation_para_7" className="text-sm leading-relaxed" />
                     </section>
                 </div>
                 <DocumentFolder

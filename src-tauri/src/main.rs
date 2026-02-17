@@ -13,7 +13,9 @@ mod session;
 mod session_store; // NEW
 mod user_backend; // NEW
 
-use document_store::{list_documents_by_session, upload_document_by_session, delete_document_by_session};
+use document_store::{
+    delete_document_by_session, list_documents_by_session, upload_document_by_session,
+};
 
 use admin_backend::{
     admin_create_user_cmd, admin_delete_user_cmd, admin_get_user_cmd, admin_list_users_cmd,
@@ -41,11 +43,13 @@ use user_backend::{
 
 fn main() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_store::Builder::new().build())
         // 1. ADD THE DIALOG PLUGIN HERE
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_shell::init())
+        .plugin(tauri_plugin_store::Builder::new().build())
         // 2. MOVE YOUR SETUP LOGIC HERE
         .setup(|app| {
             let conn = crate::db::open_connection().map_err(|e| e.to_string())?;

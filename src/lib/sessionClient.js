@@ -30,6 +30,11 @@ export default {
             const token = await invoke('session_store_get', { key: KEY_NAME });
             return token ?? null; // Option<String> -> string | null
         } catch (err) {
+            const errMsg = String(err);
+            // ℹ️ Silence the error if it's just telling us the keyring is empty
+            if (errMsg.includes("No matching entry found")) {
+                return null;
+            }
             console.error('sessionClient.getSessionToken failed:', err);
             return null;
         }

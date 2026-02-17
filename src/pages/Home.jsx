@@ -50,6 +50,9 @@ import IG_BHISHAM from '../assets/images/homepage/IG_BHISHAM.jpg';
 import RCW from '../assets/images/homepage/Regionalcommander-west.png';
 import WhatsNewTicker from '@/components/home/WhatsNewTicker';
 
+import ParagraphBlock from "@/components/cms/ParagraphBlock";
+
+
 // Check if running in Tauri environment
 const isTauri = typeof window !== 'undefined' && window.__TAURI__ !== undefined;
 
@@ -78,18 +81,7 @@ const IgBhishamSharmaParagraphs = () => {
       </h1>
 
       <section className="space-y-3 text-blue-950 dark:text-blue-100">
-        <p className="text-[15px] text-justify leading-relaxed break-words">
-          Inspector General Bhisham Sharma, PTM, TM, assumed charge as the <b>Commander, Coast Guard Region (West)</b> at Mumbai on November 23, 2023. The Flag Officer joined the Indian Coast Guard in January 1990 and is an alumnus of the Indian Naval Academy, where he was honored as the Best Trainee Assistant Commandant. An accomplished aviator, he earned his coveted flying wings at the Indian Naval Helicopter Training School (HTS) in 1995. He has since served in all frontline helicopter squadrons on both the Western and Eastern Seaboards, successfully undertaking numerous operations, including the critical Search and Rescue (SAR) of six personnel adrift in the Andaman Sea in February 2001.
-        </p>
-        <p className="text-[15px] text-justify leading-relaxed break-words">
-          The Flag Officer possesses exceptionally rich operational experience and holds a unique record: he is the **only CG Aviator** to have commanded all four classes of ships in the Coast Guard. These include the Inshore Patrol Vessel (IPV) ICGS Chandbibi, the Extra Fast Patrol Vessel (XFPV) ICGS Kasturba Gandhi (as its commissioning CO), the new generation Offshore Patrol Vessel (OPV) ICGS Vijit, and the Advanced Offshore Patrol Vessel (AOPV) ICGS Sagar. Prior to his elevation to Flag Rank, he was commanding the Coast Guard Air Station at Chennai.
-        </p>
-        <p className="text-[15px] text-justify leading-relaxed break-words">
-          IG Sharma has held several pivotal staff and ashore appointments across the service. His notable roles include Chief Staff Officer (P&A) at Regional Headquarters (West) Mumbai, Chief Staff Officer (Operations) at Regional Headquarters (East) Chennai, and **District Commander, Coast Guard District Maharashtra**. At the Coast Guard Headquarters in New Delhi, he has served as the **Coast Guard Advisor (CGA)** to the Director General, Director (Infra & Works), Principal Director (Air Staff), and Deputy Director General (Aviation). Immediately prior to assuming command of the Western Region, he held the strategic appointment of **Commander, Coast Guard Region (A&N)**, where he spearheaded infrastructure growth and operational integration within the overall mandate of the Andaman & Nicobar Command (ANC).
-        </p>
-        <p className="text-[15px] text-justify leading-relaxed break-words">
-          The Flag Officer is a graduate of the prestigious **Defence Services Staff College (DSSC), Wellington**. He is a recipient of the **Tatrakshak Medal (Meritorious Service)** and has also been commended by the Director General, Indian Coast Guard on two separate occasions. Outside of his service, he is an avid cyclist and actively promotes cycling among the Coast Guard fraternity. He is married to Mrs. Anju Sharma (Home Maker) and the couple has two sons, Sankalp and Sukkrit.
-        </p>
+        <ParagraphBlock tag="home_paragraph_1" />
       </section>
     </div>
   );
@@ -108,55 +100,55 @@ const documentItems = [
 export default function Home() {
   const [openPdf, setOpenPdf] = useState(null);
 
-// Robust click handler — resolves path from item.path, item.href or by matching title in documentItems
-const handleDocClick = (item, e) => {
-  if (e) {
-    e.preventDefault();
-    e.stopPropagation();
-  }
+  // Robust click handler — resolves path from item.path, item.href or by matching title in documentItems
+  const handleDocClick = (item, e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
 
-  try {
-    console.log('Opening document:', item.title, item.path ?? item.href);
+    try {
+      console.log('Opening document:', item.title, item.path ?? item.href);
 
-    // Try to get the raw path from the item first
-    let raw = item.path ?? item.href ?? "";
+      // Try to get the raw path from the item first
+      let raw = item.path ?? item.href ?? "";
 
-    // If raw missing, try to find a match in documentItems by title
-    if (!raw) {
-      const matched = documentItems.find(d => String(d.title).trim() === String(item.title).trim());
-      if (matched && (matched.path || matched.href)) {
-        raw = matched.path ?? matched.href;
-        console.log('handleDocClick: found match in documentItems ->', raw);
+      // If raw missing, try to find a match in documentItems by title
+      if (!raw) {
+        const matched = documentItems.find(d => String(d.title).trim() === String(item.title).trim());
+        if (matched && (matched.path || matched.href)) {
+          raw = matched.path ?? matched.href;
+          console.log('handleDocClick: found match in documentItems ->', raw);
+        }
       }
-    }
 
-    if (!raw) {
-      // nothing we can do
-      console.error('handleDocClick: no path/href found for', item);
-      // Optionally show a user-friendly message
-      // alert('Document path not found for: ' + item.title);
-      return;
-    }
-
-    // Normalize into a usable URL for browser / Tauri
-    let normalized = String(raw).trim();
-
-    const hasScheme = /^(https?:\/\/|asset:\/\/|blob:|data:|file:\/\/)/i.test(normalized);
-    if (!hasScheme) {
-      if (!normalized.startsWith('/')) normalized = `/${normalized}`;
-      if (typeof window !== 'undefined' && window.location && String(window.location.origin).startsWith('http')) {
-        normalized = `${window.location.origin}${normalized}`; // e.g. http://localhost:5173/docs/file.pdf
-      } else {
-        normalized = `asset://${normalized.replace(/^\/+/, '')}`;
+      if (!raw) {
+        // nothing we can do
+        console.error('handleDocClick: no path/href found for', item);
+        // Optionally show a user-friendly message
+        // alert('Document path not found for: ' + item.title);
+        return;
       }
-    }
 
-    console.log('handleDocClick -> resolved:', normalized);
-    setOpenPdf({ path: normalized, title: item.title ?? 'Document' });
-  } catch (err) {
-    console.error('handleDocClick error', err);
-  }
-};
+      // Normalize into a usable URL for browser / Tauri
+      let normalized = String(raw).trim();
+
+      const hasScheme = /^(https?:\/\/|asset:\/\/|blob:|data:|file:\/\/)/i.test(normalized);
+      if (!hasScheme) {
+        if (!normalized.startsWith('/')) normalized = `/${normalized}`;
+        if (typeof window !== 'undefined' && window.location && String(window.location.origin).startsWith('http')) {
+          normalized = `${window.location.origin}${normalized}`; // e.g. http://localhost:5173/docs/file.pdf
+        } else {
+          normalized = `asset://${normalized.replace(/^\/+/, '')}`;
+        }
+      }
+
+      console.log('handleDocClick -> resolved:', normalized);
+      setOpenPdf({ path: normalized, title: item.title ?? 'Document' });
+    } catch (err) {
+      console.error('handleDocClick error', err);
+    }
+  };
 
 
   // Close PDF modal
@@ -356,9 +348,7 @@ const handleDocClick = (item, e) => {
               <p className="mb-2 text-2xl font-semibold text-(--orange500) dark:text-(--orange500)">
                 About Us
               </p>
-              <p className="text-[15px] text-slate-600 dark:text-slate-300 text-justify leading-relaxed break-words">
-                The Coast Guard Pollution Response Team (W), Mumbai was initially established as Pollution Control Cell in the 80s at Naval Dockyard, Mumbai. However, the unit was activated on 15 Apr 1989 as Coast Guard Pollution Response Cell within the premises of Mumbai Port Authority for responding to marine oil spills on the West coast of India. Prior to accord of Govt. sanction, the appointment of Officers and dedicated Staff was commenced w.e.f. 06 Jun 94 and Government sanction for establishing Pollution Response Team (West) was accorded vide Ministry of Defence sanction letter CS/0116/CG/403/DO/D (N-II) dated 25 Mar 96. On 15 Apr 89, the Unit was shifted to MbPT Shed No. 3, New Ferry Wharf and again shifted to present Loco/ Boiler Shed, MbPT Workshop at Mazgaon on 09 Jul 2017.
-              </p>
+              <ParagraphBlock tag="home_paragraph_2" />
               <img src={tImage11} className='mt-10 cover' alt="about image" />
             </div>
           </div>

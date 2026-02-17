@@ -1667,7 +1667,6 @@ pub fn fs_create_file_by_session(
 
 #[tauri::command]
 pub fn fs_delete_by_session(session_token: String, path: String) -> Result<(), String> {
-
     let conn = crate::db::open_connection().map_err(|e| format!("db open: {}", e))?;
     let maybe_uid = crate::session::validate_session(&conn, &session_token)
         .map_err(|e| format!("session validation: {}", e))?;

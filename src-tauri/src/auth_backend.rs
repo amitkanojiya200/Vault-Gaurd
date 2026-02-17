@@ -251,7 +251,10 @@ pub fn validate_session(_app: AppHandle, session_token: String) -> Result<UserPu
 
 /// Get profile by session (convenience wrapper that uses session::validate_session)
 #[command]
-pub fn get_profile_by_session(_app: AppHandle, session_token: String) -> Result<UserPublic, String> {
+pub fn get_profile_by_session(
+    _app: AppHandle,
+    session_token: String,
+) -> Result<UserPublic, String> {
     let conn = crate::db::open_connection()?;
     init_db_schema(&conn)?;
 

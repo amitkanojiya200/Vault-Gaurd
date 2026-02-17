@@ -41,7 +41,6 @@ pub fn upload_document_by_session(
     folder_key: String,
     source_path: String,
 ) -> Result<(), String> {
-    
     let conn = crate::db::open_connection().map_err(|e| e.to_string())?;
     let uid = crate::session::validate_session(&conn, &session_token)?.ok_or("invalid session")?;
     crate::db::init_db_schema(&conn).map_err(|e| format!("init schema: {}", e))?;
