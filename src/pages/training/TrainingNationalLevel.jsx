@@ -11,6 +11,7 @@ import bgImage2 from '@/assets/dbg2.png';
 import TrImg1 from '@/assets/images/training/trimg1.png';
 import TrImg2 from '@/assets/images/training/trimg2.png';
 import DocumentFolder from '@/components/DocumentFolder';
+import ParagraphBlock from '@/components/cms/ParagraphBlock';
 
 // Function to render the table cells with proper styling
 const renderCell = (content, isHeader = false, isMono = false) => (
@@ -109,11 +110,6 @@ export default function TrainingNationalLevel({ routes, onNavigate }) {
                     <h1 className="mt-1 text-2xl font-semibold text-slate-900 md:text-3xl dark:text-slate-50">
                         Training - National Level
                     </h1>
-                    <p className="mt-1 max-w-2xl text-xs text-slate-500 dark:text-slate-400">
-                        Structured national-level training for oil pollution preparedness, response
-                        and coordination. This view gives a quick overview of OPRC modules and lets
-                        you jump into detailed course material.
-                    </p>
                 </div>
 
                 {/* Main grid */}
@@ -124,7 +120,7 @@ export default function TrainingNationalLevel({ routes, onNavigate }) {
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="rounded-2xl border border-slate-200 bg-white/90 p-4 text-xs shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/85 dark:shadow-black/40"
+                            className="rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/85 dark:shadow-black/40"
                         >
                             <div className="mb-2 flex items-center gap-2">
                                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-sky-100 text-sky-700 dark:bg-sky-500/15 dark:text-sky-200">
@@ -136,10 +132,7 @@ export default function TrainingNationalLevel({ routes, onNavigate }) {
                                     </p>
                                 </div>
                             </div>
-
-                            <p className="text-lg leading-relaxed text-slate-700 dark:text-slate-200">
-                                CGPRT (W) has been conducting various courses for ICG personnel, national stakeholders and international partners. These courses include PR capsule, OPRC   Level-1 and Level-2 & 3 courses which are conducted independently. Maiden OPRC Level-3 course was conducted at CGPRT (W) in Jun 25. The record of training undertaken by CGPRT (W) till date is as follows: -
-                            </p>
+                            <ParagraphBlock tag="training_national_para_1" className="text-lg leading-relaxed text-slate-700 dark:text-slate-200" />
 
                             <div className="max-w-7xl mx-auto">
                                 <h1 className="lg:text-2xl sm:text-4xl font-extrabold text-gray-800 dark:text-white mb-6 text-left pt-5">

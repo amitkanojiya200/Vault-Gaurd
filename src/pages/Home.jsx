@@ -51,6 +51,7 @@ import RCW from '../assets/images/homepage/Regionalcommander-west.png';
 import WhatsNewTicker from '@/components/home/WhatsNewTicker';
 
 import ParagraphBlock from "@/components/cms/ParagraphBlock";
+import TitleBlock from '@/components/cms/TitleBlock';
 
 
 // Check if running in Tauri environment
@@ -76,12 +77,9 @@ const operationalImgs = [
 const IgBhishamSharmaParagraphs = () => {
   return (
     <div className="max-w-4xl mx-auto p-4 space-y-4 bg-gray-50 dark:bg-slate-900/80 text-gray-800 border-l-4 border-(--orange500) dark:border-(--orange500)">
-      <h1 className="text-2xl font-bold text-(--orange500) dark:text-(--orange500) mb-4 border-b pb-2">
-        Inspector General Bhisham Sharma, PTM, TM: Commander, Coast Guard Region (West)
-      </h1>
-
+      <TitleBlock tag="home_heading_7" className="text-2xl font-bold text-(--orange500) dark:text-(--orange500) mb-4 border-b pb-2" />
       <section className="space-y-3 text-blue-950 dark:text-blue-100">
-        <ParagraphBlock tag="home_paragraph_1" />
+        <ParagraphBlock tag="home_paragraph_1" className="text-[15px] text-slate-600 dark:text-slate-300 text-justify leading-relaxed break-words" />
       </section>
     </div>
   );
@@ -338,7 +336,7 @@ export default function Home() {
                 </div>
               </div>
               {/* Bottom section: brief about info */}
-              <div className="mt-3 border-t border-slate-200/70 pt-3 text-[0.75rem] text-slate-600 dark:border-slate-700/70 dark:text-slate-300">
+              <div className="mt-3 border-t border-slate-200/70 pt-3 text-slate-600 dark:border-slate-700/70 dark:text-slate-300">
                 <IgBhishamSharmaParagraphs />
               </div>
             </div>
@@ -348,7 +346,7 @@ export default function Home() {
               <p className="mb-2 text-2xl font-semibold text-(--orange500) dark:text-(--orange500)">
                 About Us
               </p>
-              <ParagraphBlock tag="home_paragraph_2" />
+              <ParagraphBlock tag="home_paragraph_2" className="text-[15px] text-slate-600 dark:text-slate-300 text-justify leading-relaxed break-words" />
               <img src={tImage11} className='mt-10 cover' alt="about image" />
             </div>
           </div>
