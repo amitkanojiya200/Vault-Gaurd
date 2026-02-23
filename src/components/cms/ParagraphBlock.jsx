@@ -4,7 +4,7 @@ import { useCMS } from "@/context/CMSContext";
 import EditableWrapper from "./EditableWrapper";
 import CMSModal from "./CMSModal";
 
-export default function ParagraphBlock({ tag, clasName }) {
+export default function     ParagraphBlock({ tag, clasName }) {
     const { cms, updateTag, isAdmin } = useCMS();
     const [open, setOpen] = useState(false);
 

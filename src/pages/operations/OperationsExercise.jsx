@@ -3,6 +3,7 @@ import { FileText, ChevronLeft } from 'lucide-react';
 import ModalPdfViewer from '@/components/ModalPdfViewer';
 import { openBundledPpt } from '@/lib/defaultOpener';
 import DocumentFolder from '@/components/DocumentFolder';
+import ParagraphBlock from '@/components/cms/ParagraphBlock';
 
 /* =========================================================
    DOCUMENT LIST (STANDALONE)
@@ -56,10 +57,10 @@ export default function OperationsExercise({ onBack }) {
             {/* Header */}
             <div className="mb-4">
                 <h1 className="text-2xl font-semibold dark:text-slate-50">
-                    Seminar, Exercise, Workshp and mockdrill
+                    <ParagraphBlock tag="exercise_heading_1" className="truncate text-md font-semibold text-slate-900 dark:text-slate-100" />
                 </h1>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Click a document to view or open
+                    Services | Operations | Exercise
                 </p>
             </div>
 
@@ -72,6 +73,9 @@ export default function OperationsExercise({ onBack }) {
                 />
             )}
 
+            <div className="mb-5">
+            <ParagraphBlock tag="exercise_heading_2" className="truncate text-md font-semibold text-slate-900 dark:text-slate-100" />
+            </div>
             {/* Document List */}
             <DocumentFolder
                 folderKey="Operations_Exercise"

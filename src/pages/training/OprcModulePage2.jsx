@@ -15,8 +15,10 @@ import vidoprc23 from '@/assets/videos/3Response to Marine Oil Spills_ Environme
 const MODULE_CONFIG = {
     level1: {
         title: 'OPRC Level-1',
-        title2: 'OPRC Level-1 Documents',
-        fileKey: 'OPRC_LEVEL_1',
+        title2: 'OPRC Level-1 Courses',
+        title3: 'OPRC Level-1 Exercises',
+        fileKey1: 'OPRC_LEVEL_1_COURSES',
+        fileKey2: 'OPRC_LEVEL_1_EXERCISES',
         subtitle: 'Awareness & Basic Response',
         instructorManual: {
             title: "OPRC Level 1_Instructor's Manual",
@@ -64,8 +66,12 @@ const MODULE_CONFIG = {
     },
     level2: {
         title: 'OPRC Level-2',
-        title2: 'OPRC Level-2 Documents',
-        fileKey: 'OPRC_LEVEL_2',
+        title2: 'OPRC Level-2 Courses',
+        title3: 'OPRC Level-2 Exercises',
+        title4: 'OPRC Level-2 Videos',
+        fileKey1: 'OPRC_LEVEL_2_COURSES',
+        fileKey2: 'OPRC_LEVEL_2_EXERCISES',
+        fileKey3: 'OPRC_LEVEL_2_VIDEOS',
         subtitle: 'Equipment & Field Operations',
         instructorManual: {
             title: "OPRC Level 2_Instructor's Manual",
@@ -120,8 +126,10 @@ const MODULE_CONFIG = {
     },
     level3: {
         title: 'OPRC Level-3',
-        title2: 'OPRC Level-3 Documents',
-        fileKey: 'OPRC_LEVEL_3',
+        title2: 'OPRC Level-3 Courses',
+        title3: 'OPRC Level-3 Exercises',
+        fileKey1: 'OPRC_LEVEL_3_COURSES',
+        fileKey2: 'OPRC_LEVEL_3_EXERCISES',
         subtitle: 'Tier-3 Response & Command',
         instructorManual: {
             title: "OPRC Level 3_Instructor's Manual",
@@ -182,8 +190,10 @@ const MODULE_CONFIG = {
     },
     pr: {
         title: 'OPRC PR Capsule',
-        title2: 'OPRC PR Capsule Documents',
-        fileKey: 'OPRC_PR_CAPSULE',
+        title2: 'OPRC PR Capsule Courses',
+        title3: 'OPRC PR Capsule Exercises',
+        fileKey1: 'OPRC_PR_CAPSULE_COURSES',
+        fileKey2: 'OPRC_PR_CAPSULE_EXERCISES',
         subtitle: 'Public Relations & Communication',
         instructorManual: {
             title: "OPRC PR Capsule_Instructor's Manual",
@@ -472,8 +482,6 @@ export default function OprcModulePage2({ variant, routes, onNavigate }) {
             return;
         }
 
-        // ❌ REMOVE THIS COMPLETELY
-        // window.open(url, '_blank');
     }
 
     function handleOpenFile(item) {
@@ -512,21 +520,7 @@ export default function OprcModulePage2({ variant, routes, onNavigate }) {
 
     return (
         <div className="relative min-h-screen overflow-hidden">
-            <img
-                src={bgImage2}
-                alt="PRABAL background"
-                className="fixed inset-0 -z-20 h-full w-full object-cover blur-lg brightness-75 saturate-150"
-            />
-            <div
-                className="fixed inset-0 -z-10 backdrop-blur-xl opacity-90 dark:opacity-60"
-                style={{
-                    background:
-                        'radial-gradient(circle at top, rgba(148,163,253,0.22), transparent 80%), linear-gradient(135deg, var(--gradient-from), var(--gradient-to))',
-                }}
-            />
-            <div className="pointer-events-none fixed inset-0 -z-10 hidden bg-[radial-gradient(circle_at_top,_rgba(15,23,42,0.85),_transparent_70%)] dark:block" />
-
-            <div className="relative z-10 px-4 py-4 text-slate-900 md:px-10 md:py-6 dark:text-[var(--soft-white,_#e5e7eb)]">
+            <div className="relative z-10 px-4 text-slate-900 md:px-10 md:py-6 dark:text-[var(--soft-white,_#e5e7eb)]">
                 {/* Top bar: Back to Training */}
                 <div className="mb-3 flex items-center justify-between gap-2">
                     <button
@@ -553,13 +547,6 @@ export default function OprcModulePage2({ variant, routes, onNavigate }) {
                                 {config.subtitle}
                             </p>
                         </div>
-                    )}
-
-                    {config.fileKey && (
-                        <DocumentFolder
-                            folderKey={config.fileKey}
-                            title={config.title2}
-                        />
                     )}
                 </div>
 
@@ -605,35 +592,27 @@ export default function OprcModulePage2({ variant, routes, onNavigate }) {
                     </div>
                 </motion.div>
 
-                {/* Three sections: Course PPT + Exercise + Videos (conditionally) */}
-                <motion.div
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.05 }}
-                    className={`flex flex-col gap-3 ${hasVideos ? 'lg:flex-row' : 'lg:flex-row'}`}
-                >
-                    <div className={`flex flex-col gap-3 ${hasVideos ? 'lg:flex-[2]' : 'lg:flex-1'}`}>
-                        <div className="flex flex-col gap-3 lg:flex-row">
-                            <SectionCard
-                                icon={<Presentation className="h-3.5 w-3.5" />}
-                                title="Course PPT"
-                                description="Slides for classroom delivery and briefings."
-                                items={config.coursePpts}
-                                onOpen={handleOpenFile}
-                            />
-                            {config.exercises.length > 0 && (
-                                <SectionCard
-                                    icon={<PlayCircle className="h-3.5 w-3.5" />}
-                                    title="Exercise"
-                                    description="Tabletop / field / communication drills."
-                                    items={config.exercises}
-                                    onOpen={handleOpenFile}
-                                />
-                            )}
-                        </div>
-                    </div>
-                </motion.div>
+                <div className="grid grid-flow-col auto-cols-fr gap-4">
+                    {config.fileKey1 && (
+                        <DocumentFolder
+                            folderKey={config.fileKey1}
+                            title={config.title2}
+                        />
+                    )}
 
+                    {config.fileKey2 && (
+                        <DocumentFolder
+                            folderKey={config.fileKey2}
+                            title={config.title3}
+                        />
+                    )}
+                </div>
+                {config.fileKey3 && (
+                    <DocumentFolder
+                        folderKey={config.fileKey3}
+                        title={config.title4}
+                    />
+                )}
 
                 {/* File Viewer Section - Conditionally Rendered */}
                 {activeFile && (
@@ -662,18 +641,6 @@ export default function OprcModulePage2({ variant, routes, onNavigate }) {
                     </>
                 )}
 
-                {/* Videos Section - Conditionally Rendered */}
-                {hasVideos && (
-                    <div className="lg:flex-1 mt-10">
-                        <VideoSectionCard
-                            icon={<Video className="h-3.5 w-3.5" />}
-                            title="Training Videos"
-                            description="Instructional videos and demonstrations."
-                            items={config.videos}
-                            onOpen={handleOpenVideo}
-                        />
-                    </div>
-                )}
             </div>
 
         </div>

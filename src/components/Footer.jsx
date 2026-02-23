@@ -5,6 +5,7 @@ import { ChevronDown } from "lucide-react";
 import { useRoute, ROUTES } from "../router/Router";
 
 import icgLogo from '../assets/icg-logo.png';
+import ParagraphBlock from "./cms/ParagraphBlock";
 /**
  * Footer with real app routing (Tauri-friendly)
  * - Uses useRoute().navigate(...) instead of href="#"
@@ -118,7 +119,7 @@ export default function Footer() {
                 PRABAL
               </h3>
               <p className="text-sm text-[var(--navy-muted)] dark:text-[var(--soft-white-muted)]">
-                Pollution Response Abate and Library • Secure offline file search & access
+                <ParagraphBlock tag="prabal_fullform_1" className="text-sm text-[var(--navy-muted)] dark:text-[var(--soft-white-muted)]" />
               </p>
             </div>
           </motion.div>

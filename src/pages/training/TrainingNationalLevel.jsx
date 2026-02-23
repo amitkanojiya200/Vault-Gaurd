@@ -12,60 +12,11 @@ import TrImg1 from '@/assets/images/training/trimg1.png';
 import TrImg2 from '@/assets/images/training/trimg2.png';
 import DocumentFolder from '@/components/DocumentFolder';
 import ParagraphBlock from '@/components/cms/ParagraphBlock';
-
-// Function to render the table cells with proper styling
-const renderCell = (content, isHeader = false, isMono = false) => (
-    <td className={`px-6 py-3 whitespace-nowrap text-sm text-center ${isHeader ? 'font-medium' : 'font-normal'} ${isMono ? 'font-mono' : ''} ${isHeader ? 'text-gray-900 dark:text-gray-100' : 'text-gray-600 dark:text-gray-400'}`}>
-        {content === null ? '—' : content}
-    </td>
-);
-
-const renderTitleCell = (title) => (
-    <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300 text-left">
-        {title}
-    </td>
-);
-
-// Helper component for a single row
-const TableRow = ({ serNo, title, coursesICG, coursesStakeholders, traineesICG, traineesStakeholders, isEven }) => (
-    <tr className={isEven ? 'bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150' : 'bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-150'}>
-        {renderCell(serNo, true)}
-        {renderTitleCell(title)}
-        {renderCell(coursesICG)}
-        {renderCell(coursesStakeholders)}
-        {renderCell(traineesICG, false, true)}
-        {renderCell(traineesStakeholders, false, true)}
-    </tr>
-);
+import TableBlock from '@/components/cms/TableBlock';
+import TitleBlock from '@/components/cms/TitleBlock';
 
 // Receives routes + onNavigate from Router
 export default function TrainingNationalLevel({ routes, onNavigate }) {
-    const OPRC_TABS = [
-        {
-            id: routes.DOC_OPRC_11,
-            label: 'OPRC Level-1',
-            code: 'Level-1',
-            blurb: 'Introductory oil pollution preparedness & basic response skills.',
-        },
-        {
-            id: routes.DOC_OPRC_22,
-            label: 'OPRC Level-2',
-            code: 'Level-2',
-            blurb: 'Intermediate response, equipment handling and deployment drills.',
-        },
-        {
-            id: routes.DOC_OPRC_33,
-            label: 'OPRC Level-3',
-            code: 'Level-3',
-            blurb: 'National / international tier-3 coordination and escalation.',
-        },
-        {
-            id: routes.DOC_OPRC_PRR,
-            label: 'OPRC PR Capsule',
-            code: 'PR',
-            blurb: 'Awareness, public relations and communication capsule.',
-        },
-    ];
 
     return (
         <div className="relative min-h-screen overflow-hidden">
@@ -107,13 +58,12 @@ export default function TrainingNationalLevel({ routes, onNavigate }) {
                     <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
                         Indian Coast Guard · Training
                     </p>
-                    <h1 className="mt-1 text-2xl font-semibold text-slate-900 md:text-3xl dark:text-slate-50">
-                        Training - National Level
-                    </h1>
+                    <TitleBlock tag="national_level_heading1" className="mt-1 text-2xl font-semibold text-slate-900 md:text-3xl dark:text-slate-50" />
                 </div>
 
                 {/* Main grid */}
-                <div className="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1.4fr)]">
+                <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,0.8fr)]">
+
                     {/* LEFT: Overview + TOC */}
                     <div className="space-y-3">
                         {/* Overview */}
@@ -135,121 +85,15 @@ export default function TrainingNationalLevel({ routes, onNavigate }) {
                             <ParagraphBlock tag="training_national_para_1" className="text-lg leading-relaxed text-slate-700 dark:text-slate-200" />
 
                             <div className="max-w-7xl mx-auto">
-                                <h1 className="lg:text-2xl sm:text-4xl font-extrabold text-gray-800 dark:text-white mb-6 text-left pt-5">
-                                    2.1 National Level
-                                </h1>
-                                <div className="overflow-x-auto shadow-md rounded-xl border border-orange-200 dark:border-orange-700">
-                                    <table className="min-w-full divide-orange-200 dark:divide-orange-700">
-                                        {/* Table Header */}
-                                        <thead className="bg-(--orange500) dark:bg-(--orange500) text-white">
-                                            <tr>
-                                                <th
-                                                    scope="col"
-                                                    rowSpan="2"
-                                                    className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider border-r border-orange-700 dark:border-orange-900 w-16"
-                                                >
-                                                    Ser No.
-                                                </th>
-                                                <th
-                                                    scope="col"
-                                                    rowSpan="2"
-                                                    className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider border-r border-orange-700 dark:border-orange-900 min-w-[200px]"
-                                                >
-                                                    Course Title
-                                                </th>
-                                                <th
-                                                    scope="colgroup"
-                                                    colSpan="2"
-                                                    className="px-6 py-3 text-center text-xs font-semibold uppercase tracking-wider border-r border-orange-700 dark:border-orange-900"
-                                                >
-                                                    No. of Courses
-                                                </th>
-                                                <th
-                                                    scope="col"
-                                                    rowSpan="2"
-                                                    className="px-6 py-3 text-center text-xs font-semibold uppercase tracking-wider border-r border-orange-700 dark:border-orange-900"
-                                                >
-                                                    No. of ICG Trainees
-                                                </th>
-                                                <th
-                                                    scope="col"
-                                                    rowSpan="2"
-                                                    className="px-6 py-3 text-center text-xs font-semibold uppercase tracking-wider"
-                                                >
-                                                    No. of Trainees (Stakeholders)
-                                                </th>
-                                            </tr>
-                                            {/* Sub-Header for No. of Courses */}
-                                            <tr className="bg-(--bg-light) dark:bg-(--dark-acc) text-(--orange500) dark:text-white">
-                                                <th scope="col" className="px-3 py-2 text-center text-xs font-semibold uppercase tracking-wider border-t border-r border-(--orange700) dark:border-sky-950">
-                                                    ICG
-                                                </th>
-                                                <th scope="col" className="px-3 py-2 text-center text-xs font-semibold uppercase tracking-wider border-t border-r border-(--orange700) dark:border-sky-950">
-                                                    Stakeholders
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        {/* Table Body - Hardcoded Data */}
-                                        <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-
-                                            <TableRow
-                                                serNo={1}
-                                                title="PR Capsule"
-                                                coursesICG={60}
-                                                coursesStakeholders={7}
-                                                traineesICG={1059}
-                                                traineesStakeholders={121}
-                                                isEven={true}
-                                            />
-                                            <TableRow
-                                                serNo={2}
-                                                title="OPRC Level - 1"
-                                                coursesICG={45}
-                                                coursesStakeholders={29}
-                                                traineesICG={1101}
-                                                traineesStakeholders={419}
-                                                isEven={false}
-                                            />
-                                            <TableRow
-                                                serNo={3}
-                                                title="OPRC Level - 2"
-                                                coursesICG={10}
-                                                coursesStakeholders={3}
-                                                traineesICG={172}
-                                                traineesStakeholders={66}
-                                                isEven={true}
-                                            />
-                                            <TableRow
-                                                serNo={4}
-                                                title="OPRC Level - 3"
-                                                coursesICG={null} // Null for empty cell
-                                                coursesStakeholders={10}
-                                                traineesICG={52}
-                                                traineesStakeholders={94}
-                                                isEven={false}
-                                            />
-                                            <TableRow
-                                                serNo={5}
-                                                title="PR Capsule for Indian Navy"
-                                                coursesICG={null} // Null for empty cell
-                                                coursesStakeholders={68}
-                                                traineesICG={614}
-                                                traineesStakeholders={null} // Null for empty cell
-                                                isEven={true}
-                                            />
-                                        </tbody>
-                                    </table>
+                                <div className="mb-4">
+                                    <TitleBlock tag="national_level_subheading1" className="lg:text-2xl sm:text-4xl font-extrabold text-gray-800 dark:text-white mb-6 text-left pt-5" />
                                 </div>
-
+                                <TableBlock
+                                    tag="national_level_training_table1"
+                                    className="mt-8 shadow-lg"
+                                />
                             </div>
                         </motion.div>
-                        <div className="mt-5">
-                            <DocumentFolder
-                                folderKey="Training_National_Level"
-                                title="Related Documents"
-                            />
-                        </div>
-
                     </div>
 
                     {/* RIGHT: Images + OPRC tabs */}
@@ -268,51 +112,24 @@ export default function TrainingNationalLevel({ routes, onNavigate }) {
                             </div>
 
                         </motion.div>
+                    </div>
+                </div>
 
-                        {/* OPRC clickable tabs */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 12 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.08 }}
-                            className="rounded-2xl border border-slate-200 bg-white/90 p-4 text-xs shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/85 dark:shadow-black/40"
-                        >
-                            <div className="mb-2 flex items-center justify-between gap-2">
-                                <div>
-                                    <p className="text-[0.75rem] font-semibold text-slate-800 dark:text-slate-100">
-                                        OPRC Training Modules
-                                    </p>
-                                    <p className="text-[0.7rem] text-slate-500 dark:text-slate-400">
-                                        Click a module to open its detailed page with PPTs and exercises.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="mt-2 flex flex-col gap-2">
-                                {OPRC_TABS.map((tab) => (
-                                    <button
-                                        key={tab.id}
-                                        type="button"
-                                        onClick={() => onNavigate(tab.id)}
-                                        className="group flex w-full items-center justify-between gap-2 rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2 text-left text-[0.75rem] transition hover:border-sky-400 hover:bg-sky-50/90 dark:border-slate-700 dark:bg-slate-900/80 dark:hover:border-sky-400/70 dark:hover:bg-slate-800/80"
-                                    >
-                                        <div className="flex min-w-0 items-center gap-3">
-                                            <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-sky-100 text-[0.65rem] font-semibold text-sky-700 dark:bg-sky-500/15 dark:text-sky-200">
-                                                {tab.code}
-                                            </div>
-                                            <div className="min-w-0">
-                                                <p className="truncate font-medium text-slate-900 dark:text-slate-50">
-                                                    {tab.label}
-                                                </p>
-                                                <p className="truncate text-[0.7rem] text-slate-500 dark:text-slate-400">
-                                                    {tab.blurb}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <ArrowRightCircle className="h-4 w-4 flex-shrink-0 text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-sky-500 dark:text-slate-500" />
-                                    </button>
-                                ))}
-                            </div>
-                        </motion.div>
+                {/* Document List */}
+                <div className="grid grid-flow-col auto-cols-fr gap-4 mt-10">
+                    <div className="">
+                        <TitleBlock tag="training_national_level_current_heading" className="text-2xl font-semibold dark:text-slate-50" />
+                        <DocumentFolder
+                            folderKey="Training_National_Level_Current"
+                            title="Related Documents"
+                        />
+                    </div>
+                    <div className="">
+                        <TitleBlock tag="training_national_level_archive_heading" className="text-2xl font-semibold dark:text-slate-50" />
+                        <DocumentFolder
+                            folderKey="Training_National_Level_Archive"
+                            title="Related Documents"
+                        />
                     </div>
                 </div>
             </div>

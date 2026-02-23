@@ -19,6 +19,7 @@ import sessionClient from "@/lib/sessionClient";
 import * as userClient from "@/lib/userClient";
 import * as authClient from "@/lib/authClient";
 import ModalPdfViewer from '@/components/ModalPdfViewer';
+import ParagraphBlock from "./cms/ParagraphBlock";
 
 // --- Cleaned Stakeholder list without duplicates ---
 const STAKEHOLDER_DOCUMENTS = [
@@ -292,7 +293,7 @@ export default function NavBar() {
                 PRABAL
               </div>
               <div className="text-[0.7rem] text-slate-500 dark:text-slate-400">
-                Pollution Response Abate and Library
+                <ParagraphBlock tag="prabal_fullform_1" className="text-[0.7rem] text-slate-500 dark:text-slate-400" />
               </div>
             </div>
           </button>
@@ -417,6 +418,37 @@ export default function NavBar() {
                               >
                                 Case Study
                               </button>
+
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  navTo(ROUTES.SERVICES_OPERATIONS_REVIEW_OF_CONTIGENCY_PLAN)
+                                }
+                                className="flex w-full items-center justify-between rounded-md px-1 py-1 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/80"
+                              >
+                                Review Of Contigency Plan
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  navTo(ROUTES.SERVICES_OPERATIONS_AVAILABILITY_OF_OSD)
+
+                                }
+                                className="flex w-full items-center justify-between rounded-md px-1 py-1 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/80"
+                              >
+                                Availability Of OSD
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  navTo(ROUTES.SERVICES_OPERATIONS_EMBARKATION)
+                                }
+                                className="flex w-full items-center justify-between rounded-md px-1 py-1 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/80"
+                              >
+                                Embarkation
+                              </button>
                             </motion.div>
                           )}
                         </AnimatePresence>
@@ -467,6 +499,15 @@ export default function NavBar() {
                                 className="flex w-full items-center justify-between rounded-md px-1 py-1 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/80"
                               >
                                 International Level
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  navTo(ROUTES.SERVICES_TRAINING_OTHERS)
+                                }
+                                className="flex w-full items-center justify-between rounded-md px-1 py-1 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/80"
+                              >
+                                Others
                               </button>
                             </motion.div>
                           )}
@@ -698,6 +739,15 @@ export default function NavBar() {
                           className="flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-slate-800/70"
                         >
                           Incident Reports
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => navTo(ROUTES.DOC_OTHERS)}
+                          className="flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-slate-800/70"
+                        >
+                          Others
                         </button>
                       </li>
                     </ul>

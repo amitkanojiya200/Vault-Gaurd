@@ -8,6 +8,7 @@ import Opr2 from '@/assets/images/operations/opr2.png';
 import DocumentFolder from '@/components/DocumentFolder';
 import ParagraphBlock from '@/components/cms/ParagraphBlock';
 import TitleBlock from '@/components/cms/TitleBlock';
+import TableBlock from '@/components/cms/TableBlock';
 
 export default function Operations({ routes, onNavigate }) {
     return (
@@ -50,9 +51,7 @@ export default function Operations({ routes, onNavigate }) {
                     <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
                         Indian Coast Guard · Operations
                     </p>
-                    <h1 className="mt-1 text-2xl font-semibold text-slate-900 md:text-3xl dark:text-slate-50">
-                        Operations OPS
-                    </h1>
+                    <TitleBlock tag="operation_heading" className="mt-1 text-2xl font-semibold text-slate-900 md:text-3xl dark:text-slate-50" />
                 </div>
 
                 {/* Main layout: Overview + 4 images stacked */}
@@ -109,6 +108,10 @@ export default function Operations({ routes, onNavigate }) {
                             <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">
                                 4.1. Ports
                             </h3>
+                            <TableBlock
+                                tag="operations_ops_table1"
+                                className="mt-8 shadow-lg"
+                            />
                             <div className="overflow-x-auto">
                                 <table className="min-w-full divide-y divide-slate-300 dark:divide-slate-700">
                                     <thead className="bg-slate-100 dark:bg-slate-700">
@@ -160,26 +163,10 @@ export default function Operations({ routes, onNavigate }) {
                             <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">
                                 4.2. OHAs
                             </h3>
-                            <div className="overflow-x-auto">
-                                <table className="min-w-full divide-y divide-slate-300 dark:divide-slate-700">
-                                    <thead className="bg-slate-100 dark:bg-slate-700">
-                                        <tr>
-                                            <th className="px-4 py-2 text-left text-xs font-medium text-slate-600 dark:text-slate-300 uppercase tracking-wider">Ser No.</th>
-                                            <th className="px-4 py-2 text-left text-xs font-medium text-slate-600 dark:text-slate-300 uppercase tracking-wider">OHAs</th>
-                                            <th className="px-4 py-2 text-left text-xs font-medium text-slate-600 dark:text-slate-300 uppercase tracking-wider">Date of Inspection</th>
-                                            <th className="px-4 py-2 text-left text-xs font-medium text-slate-600 dark:text-slate-300 uppercase tracking-wider">Remarks</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-slate-200 dark:divide-slate-800 bg-white dark:bg-slate-900">
-                                        <tr>
-                                            <td className="px-4 py-2 whitespace-nowrap text-sm">1</td>
-                                            <td className="px-4 py-2 whitespace-nowrap text-sm">Oil and Natural Gas Corporation, Mumbai</td>
-                                            <td className="px-4 py-2 whitespace-nowrap text-sm">Nov 25</td>
-                                            <td className="px-4 py-2 text-sm text-blue-600 dark:text-blue-400">Planned to be undertaken as per schedule</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <TableBlock
+                                tag="operations_ops_table2"
+                                className="mt-8 shadow-lg"
+                            />
                         </div>
 
                         {/* 4.3. Review of Contingency Plans Table */}
@@ -187,29 +174,10 @@ export default function Operations({ routes, onNavigate }) {
                             <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">
                                 4.3. Review of Contingency Plans
                             </h3>
-                            <div className="overflow-x-auto">
-                                <table className="min-w-full divide-y divide-slate-300 dark:divide-slate-700">
-                                    <thead className="bg-slate-100 dark:bg-slate-700">
-                                        <tr>
-                                            <th className="px-4 py-2 text-left text-xs font-medium text-slate-600 dark:text-slate-300 uppercase tracking-wider">Ser No.</th>
-                                            <th className="px-4 py-2 text-left text-xs font-medium text-slate-600 dark:text-slate-300 uppercase tracking-wider">Name of Ports / OHAs</th>
-                                            <th className="px-4 py-2 text-left text-xs font-medium text-slate-600 dark:text-slate-300 uppercase tracking-wider">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-slate-200 dark:divide-slate-800 bg-white dark:bg-slate-900">
-                                        <tr>
-                                            <td className="px-4 py-2 whitespace-nowrap text-sm">1</td>
-                                            <td className="px-4 py-2 whitespace-nowrap text-sm">M/s Adani Vizhinjam Port Pvt Ltd</td>
-                                            <td className="px-4 py-2 text-sm text-green-600 dark:text-green-400">Completed & forwarded with observation</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="px-4 py-2 whitespace-nowrap text-sm">2</td>
-                                            <td className="px-4 py-2 whitespace-nowrap text-sm">M/s Jawahar Lal Nehru Port Authority</td>
-                                            <td className="px-4 py-2 text-sm text-green-600 dark:text-green-400">Completed & forwarded with observation</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <TableBlock
+                                tag="operations_ops_table3"
+                                className="mt-8 shadow-lg"
+                            />
                         </div>
                     </section>
 
@@ -217,61 +185,15 @@ export default function Operations({ routes, onNavigate }) {
                     <section>
                         <TitleBlock tag="operation_heading_6" className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3" />
                         <ParagraphBlock tag="operation_para_6" className="text-sm leading-relaxed" />
-                        <div className="overflow-x-auto mt-5">
-                            <table className="min-w-full divide-y divide-slate-300 dark:divide-slate-700">
-                                <thead className="bg-slate-100 dark:bg-slate-700">
-                                    <tr>
-                                        <th className="px-4 py-2 text-left text-xs font-medium text-slate-600 dark:text-slate-300 uppercase tracking-wider">Ser No.</th>
-                                        <th className="px-4 py-2 text-left text-xs font-medium text-slate-600 dark:text-slate-300 uppercase tracking-wider">Unit</th>
-                                        <th className="px-4 py-2 text-left text-xs font-medium text-slate-600 dark:text-slate-300 uppercase tracking-wider">Date</th>
-                                        <th className="px-4 py-2 text-left text-xs font-medium text-slate-600 dark:text-slate-300 uppercase tracking-wider">Exercise</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-slate-200 dark:divide-slate-800 bg-white dark:bg-slate-900">
-                                    <tr>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">1</td>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">ICGS Apoorva</td>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">21 Nov 24 - 09 Jun 25</td>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">Exercise Prasthan- 02/24</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">2</td>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">ICGS Samrat</td>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">27-28 Mar 25</td>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">Harbour demo. for students from World Maritime University.</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">3</td>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">ICGS Samrat</td>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">11-28 Apr 25</td>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">Monsoon Deployment</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">4</td>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">ICGS Sankalp</td>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">16-26 Apr 25</td>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">Monsoon Deployment</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">5</td>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">ICGS Samudra Prahari</td>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">25 Jun - 01 Jul 25</td>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm text-red-600 dark:text-red-400">PR Operation for sinking of MV MSC ELSA 3</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">6</td>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">ICGS Samudra Prahari</td>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">18 Sep - 24 Oct 25</td>
-                                        <td className="px-4 py-2 whitespace-nowrap text-sm">NATPOLREX - X</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <TableBlock
+                            tag="operations_ops_table4"
+                            className="mt-8 shadow-lg"
+                        />
                     </section>
 
                     {/* 6. Availability of Oil Spill Dispersant (OSD) */}
                     <section>
-                        
+
                         <TitleBlock tag="operation_heading_7" className="text-xl font-bold text-(--orange500) dark:text-(--orange500) mb-3" />
                         <ParagraphBlock tag="operation_para_7" className="text-sm leading-relaxed" />
                     </section>

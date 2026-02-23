@@ -30,7 +30,6 @@ import OprcStakeholderLevel1 from '@/pages/stakeholders/OprcStakeholderLevel1';
 import OprcStakeholderLevel2 from '@/pages/stakeholders/OprcStakeholderLevel2';
 import OprcStakeholderLevel3 from '@/pages/stakeholders/OprcStakeholderLevel3';
 // Operations
-import Operations from '@/pages/operations/Operations';
 import OperationsOps from '@/pages/operations/OperationsOps';
 import OperationsExercise from '@/pages/operations/OperationsExercise';
 import OperationsJoinInspection from '@/pages/operations/OperationsJoinInspection';
@@ -45,6 +44,12 @@ import sessionClient from '@/lib/sessionClient';
 import * as userClient from '@/lib/userClient';
 import OperationsContingency from '@/pages/operations/OperationsContingency';
 import DocumentFolder from '@/components/DocumentFolder';
+import OperationsReviewContigencyPlan from '@/pages/operations/OperationsReviewContigencyPlan';
+import OperationsAvailabilityOfOsd from '@/pages/operations/OperationsAvailabilityOfOsd';
+import OperationsEmbarkation from '@/pages/operations/OperationsEmbarkation';
+import TrainingOthers from '@/pages/training/TrainingOthers';
+import ParagraphBlock from '@/components/cms/ParagraphBlock';
+import DocOthers from '@/pages/docs/DocOthers';
 
 // -------- Route keys (so NavBar / others can reuse) --------
 export const ROUTES = {
@@ -63,8 +68,12 @@ export const ROUTES = {
   SERVICES_OPERATIONS_EXERCISE: 'services-operations-exercise',
   SERVICES_OPERATIONS_JOININSPECTION: 'services-operations-joininspection',
   SERVICES_OPERATIONS_CASESTUDY: 'services-operations-casestudy',
+  SERVICES_OPERATIONS_REVIEW_OF_CONTIGENCY_PLAN: 'services-operations-review-of-contigency-plan',
+  SERVICES_OPERATIONS_AVAILABILITY_OF_OSD: 'services-operations-availability-of-osd',
+  SERVICES_OPERATIONS_EMBARKATION: 'services-operations-embarkation',
   SERVICES_TRAINING_NATIONAL: 'services-training-national',
   SERVICES_TRAINING_INTERNATIONAL: 'services-training-international',
+  SERVICES_TRAINING_OTHERS: 'services-training-others',
   SERVICES_COLLAB_NATIONAL: 'services-collab-national',
   SERVICES_COLLAB_INT_SACEP: 'services-collab-int-sacep',
   SERVICES_COLLAB_INT_COLOMBO: 'services-collab-int-colombo',
@@ -87,6 +96,7 @@ export const ROUTES = {
   DOC_WERCOS: 'documents-wercos',
   DOC_OSD_POLICY: 'documents-osd-policy',
   DOC_INCIDENT_REPORTS: 'documents-incident-reports',
+  DOC_OTHERS: 'documents-others',
 
   // Stakeholders (main list)
   STAKEHOLDERS: 'stakeholders',
@@ -183,7 +193,7 @@ const SECTION_CONFIG = {
     title: 'NOSDCP',
     title2: 'NOSDCP Documents',
     fileKey: 'NOSDCP_FILES',
-    subtitle: 'National Oil Spill Disaster Contingency Plan.',
+    subtitle: 'nosdcp_policy_description',
     body: ['Overview and key sections of NOSDCP can be placed here.'],
     pdfFiles: [
       { name: 'NOS DCP CGBR 771', path: '/NOCDCP-HNS-HNS/NOS DCP CGBR 771.pdf' },
@@ -193,7 +203,7 @@ const SECTION_CONFIG = {
     title: 'CNA',
     title2: 'CNA Documents',
     fileKey: 'CNA_FILES',
-    subtitle: 'Contingency and Needs Assessment.',
+    subtitle: 'cna_description',
     body: ['Placeholder description for CNA - replace with official text.'],
     pdfFiles: [
       // PDFs from /docs folder
@@ -224,7 +234,7 @@ const SECTION_CONFIG = {
     title: 'HNS',
     title2: 'HNS Documents',
     fileKey: 'HNS_FILES',
-    subtitle: 'Hazardous and Noxious Substances.',
+    subtitle: 'hns_description',
     body: ['Guidelines related to HNS incidents and response.'],
     pdfFiles: [
       { name: 'HNS Response', path: '/NOCDCP-HNS-HNS/HNS response.pdf' },
@@ -234,7 +244,7 @@ const SECTION_CONFIG = {
     title: 'WERCOS',
     title2: 'WERCOS Documents',
     fileKey: 'WERCOS_FILES',
-    subtitle: 'WERCOS Framework.',
+    subtitle: 'wercos_description',
     body: ['Region-specific plan details and references.'],
     pdfFiles: [
       { name: 'WERCOS-19 VOL-I (OPS & ADM)', path: '/NOCDCP-HNS-HNS/WERCOS-19, VOL-I (OPS & ADM).pdf' },
@@ -244,7 +254,7 @@ const SECTION_CONFIG = {
     title: 'OSD Policy',
     title2: 'OSD Policy Documents',
     fileKey: 'OSD_POLICY_FILES',
-    subtitle: 'Offshore Security / Spill Defence policy notes.',
+    subtitle: 'osd_policy_description',
     body: ['Summarise the OSD Policy and attach references.'],
     pdfFiles: [
       { name: 'CGO_04_2025', path: '/Incident-Reports/CGO_04_2025 (2).pdf' },
@@ -254,7 +264,7 @@ const SECTION_CONFIG = {
     title: 'Incident Reports',
     title2: 'Incident Report Docs',
     fileKey: 'INCIDENT_REPORTS_FILES',
-    subtitle: 'Maritime incident reports and documentation.',
+    subtitle: 'incident_reports_description',
     body: ['Documentation and reports related to maritime incidents and response operations.'],
     pdfFiles: [
       { name: 'Adobe Scan 01-Dec-2025', path: '/Incident-Reports/Adobe Scan 01-Dec-2025.pdf' },
@@ -280,7 +290,7 @@ const SECTION_CONFIG = {
   [ROUTES.STAKEHOLDERS]: {
     title: 'Stakeholders',
     title2: 'Stakeholders Documents',
-    subtitle: 'Key national and international partners of the Indian Coast Guard.',
+    subtitle: 'stakeholders_description',
     body: [
       'This section can present a full list of stakeholders with brief descriptions and contact points.',
     ],
@@ -318,9 +328,7 @@ function SectionPage({ title, title2, fileKey, subtitle, body = [], pdfFiles = [
           {title}
         </h1>
         {subtitle && (
-          <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-            {subtitle}
-          </p>
+            <ParagraphBlock tag={subtitle} className="mt-1 text-md text-slate-600 dark:text-slate-300" />
         )}
       </div>
 
@@ -331,48 +339,6 @@ function SectionPage({ title, title2, fileKey, subtitle, body = [], pdfFiles = [
           src={activePdf.path}
           onClose={() => setActivePdf(null)}
         />
-      )}
-
-      {/* Body Content */}
-      {/* <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 text-sm leading-relaxed shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/80 dark:text-slate-200 dark:shadow-black/40">
-        {body.map((para, idx) => (
-          <p key={idx} className={idx > 0 ? 'mt-2' : ''}>
-            {para}
-          </p>
-        ))}
-        {body.length === 0 && (
-          <p className="text-slate-500 dark:text-slate-400">
-            Content for this section will be added later.
-          </p>
-        )}
-      </div> */}
-
-      {/* PDF Files Section */}
-      {pdfFiles && pdfFiles.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mt-4 rounded-2xl mb-5 border border-slate-200 bg-white/90 p-4 text-xs shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/85 dark:shadow-black/40"
-        >
-          <p className="text-[0.75rem] font-semibold text-slate-800 dark:text-slate-100 mb-3">
-            Available Documents
-          </p>
-          <div className="flex flex-col gap-2">
-            {pdfFiles.map((pdf, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => setActivePdf(pdf)}
-                className="group flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-2.5 text-left text-[0.75rem] transition hover:border-sky-400 hover:bg-sky-50/90 dark:border-slate-700 dark:bg-slate-900/80 dark:hover:border-sky-400/70 dark:hover:bg-slate-800/80"
-              >
-                <span className="truncate font-medium text-slate-900 dark:text-slate-50">
-                  {pdf.name}
-                </span>
-                <Download className="h-4 w-4 flex-shrink-0 text-slate-400 transition group-hover:text-sky-500 dark:text-slate-500" />
-              </button>
-            ))}
-          </div>
-        </motion.div>
       )}
 
       {/* DOCUMENTS UPLOAD FEATURE */}
@@ -487,8 +453,12 @@ export function RouteProvider({ children }) {
         ROUTES.SERVICES_OPERATIONS_EXERCISE,
         ROUTES.SERVICES_OPERATIONS_JOININSPECTION,
         ROUTES.SERVICES_OPERATIONS_CASESTUDY,
+        ROUTES.SERVICES_OPERATIONS_REVIEW_OF_CONTIGENCY_PLAN,
+        ROUTES.SERVICES_OPERATIONS_AVAILABILITY_OF_OSD,
+        ROUTES.SERVICES_OPERATIONS_EMBARKATION,
         ROUTES.SERVICES_TRAINING_NATIONAL,
         ROUTES.SERVICES_TRAINING_INTERNATIONAL,
+        ROUTES.SERVICES_TRAINING_OTHERS,
         ROUTES.DOC_OPRC_1,
         ROUTES.DOC_OPRC_2,
         ROUTES.DOC_OPRC_3,
@@ -504,6 +474,7 @@ export function RouteProvider({ children }) {
         ROUTES.DOC_OSD_POLICY,
         ROUTES.DOC_NOSDCP,
         ROUTES.DOC_INCIDENT_REPORTS,
+        ROUTES.DOC_OTHERS,
         ROUTES.SERVICES_COLLAB_NATIONAL,
         ROUTES.SERVICES_COLLAB_INT_SACEP,
         ROUTES.SERVICES_COLLAB_INT_COLOMBO,
@@ -598,6 +569,9 @@ export function RouterView() {
       />
     );
   }
+  if (route === ROUTES.DOC_OTHERS) {
+    return <DocOthers />;
+  }
   if (route === ROUTES.STAKE_OPRC_LEVEL1) {
     return <OprcStakeholderLevel1 />;
   }
@@ -656,6 +630,30 @@ export function RouterView() {
       />
     );
   }
+  if (route === ROUTES.SERVICES_OPERATIONS_REVIEW_OF_CONTIGENCY_PLAN) {
+    return (
+      <OperationsReviewContigencyPlan
+        routes={ROUTES}
+        onNavigate={navigate}
+      />
+    );
+  }
+  if (route === ROUTES.SERVICES_OPERATIONS_AVAILABILITY_OF_OSD) {
+    return (
+      <OperationsAvailabilityOfOsd
+        routes={ROUTES}
+        onNavigate={navigate}
+      />
+    );
+  }
+  if (route === ROUTES.SERVICES_OPERATIONS_EMBARKATION) {
+    return (
+      <OperationsEmbarkation
+        routes={ROUTES}
+        onNavigate={navigate}
+      />
+    );
+  }
   // Training - National Level
   if (route === ROUTES.SERVICES_TRAINING_NATIONAL) {
     return (
@@ -669,6 +667,15 @@ export function RouterView() {
   if (route === ROUTES.SERVICES_TRAINING_INTERNATIONAL) {
     return (
       <TrainingInternationalLevel
+        routes={ROUTES}
+        onNavigate={navigate}
+      />
+    );
+  }
+  // Training - Others Level  ⬅️ NEW
+  if (route === ROUTES.SERVICES_TRAINING_OTHERS) {
+    return (
+      <TrainingOthers
         routes={ROUTES}
         onNavigate={navigate}
       />

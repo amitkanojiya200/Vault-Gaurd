@@ -7,7 +7,7 @@ import ParagraphBlock from '@/components/cms/ParagraphBlock';
 /* =========================================================
    STANDALONE PAGE
 ========================================================= */
-export default function OperationsCaseStudy({ onBack }) {
+export default function OperationsAvailabilityOfOsd({ onBack }) {
 
     return (
         <div className="min-h-screen px-4 py-4 md:px-10 md:py-6">
@@ -25,18 +25,18 @@ export default function OperationsCaseStudy({ onBack }) {
             {/* Header */}
             <div className="mb-4">
                 <div className="mb-4">
-                    <TitleBlock tag="case_study_heading" className="text-2xl font-semibold dark:text-slate-50" />
+                    <TitleBlock tag="availability_of_osd_heading" className="text-2xl font-semibold dark:text-slate-50" />
                     <p className="text-xs text-slate-500 dark:text-slate-400">
-                        Services | Operations | Case Study
+                        Services | Operations | Availability Of OSD
                     </p>
-                    <ParagraphBlock tag="case_study_description" className="text-md text-slate-500 dark:text-slate-400" />
+                    <ParagraphBlock tag="availability_of_osd_description" className="text-md text-slate-500 dark:text-slate-400" />
                 </div>
             </div>
 
             {/* Document List */}
             <DocumentFolder
-                folderKey="Operations_Case_Study"
-                title="Case Study Documents"
+                folderKey="Operations_Availability_Of_OSD"
+                title="Related Documents"
             />
         </div>
     );

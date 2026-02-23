@@ -1,47 +1,17 @@
 import React, { useState } from 'react';
 import { FileText, ChevronLeft } from 'lucide-react';
 import ModalPdfViewer from '@/components/ModalPdfViewer';
-import { openBundledPpt } from '@/lib/defaultOpener';
 import DocumentFolder from '@/components/DocumentFolder';
-
-/* =========================================================
-   DOCUMENT LIST (STANDALONE)
-========================================================= */
-const DOCUMENTS = [
-    {
-        id: 'doc-1',
-        label: 'Joint Inspection',
-        fileName: 'Joint Inspection.pdf',
-        path: '/servicesOprDocs/Joint Inspection.pdf',
-    },
-];
+import TitleBlock from '@/components/cms/TitleBlock';
+import ParagraphBlock from '@/components/cms/ParagraphBlock';
 
 /* =========================================================
    STANDALONE PAGE
 ========================================================= */
 export default function OperationsJoinInspection({ onBack }) {
-    const [activePdf, setActivePdf] = useState(null);
-
-    function handleOpenFile(item) {
-        const ext = item.fileName.split('.').pop().toLowerCase();
-
-        // PDF → internal viewer
-        if (ext === 'pdf') {
-            setActivePdf({
-                title: item.label,
-                url: item.path,
-            });
-            return;
-        }
-
-        // Non-PDF → OS default app (Tauri)
-        openBundledPpt(item.path).catch((err) => {
-            console.error('Failed to open file:', err);
-        });
-    }
 
     return (
-        <div className="min-h-screen px-4 py-4 md:px-10 md:py-6">
+        <div className="min-h-screen p-4 md:p-10">
             {/* Back button (optional) */}
             {onBack && (
                 <button
@@ -55,47 +25,28 @@ export default function OperationsJoinInspection({ onBack }) {
 
             {/* Header */}
             <div className="mb-4">
-                <h1 className="text-2xl font-semibold dark:text-slate-50">
-                    Joint Inspection
-                </h1>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Click a document to view or open
-                </p>
+                <TitleBlock tag="joint_inspection_heading" className="text-2xl font-semibold dark:text-slate-50" />
+                <ParagraphBlock tag="joint_inspection_description" className="text-md text-slate-500 dark:text-slate-400" />
             </div>
 
-            {/* PDF Viewer */}
-            {activePdf && (
-                <ModalPdfViewer
-                    title={activePdf.title}
-                    src={activePdf.url}
-                    onClose={() => setActivePdf(null)}
-                />
-            )}
-
             {/* Document List */}
-            <DocumentFolder
-                folderKey="Operations_Joint_Inspection"
-                title="Related Documents"
-            />
-            {/* <div className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white/90 p-4 text-xs shadow-md dark:border-slate-700 dark:bg-slate-900/85">
-                {DOCUMENTS.map((doc) => (
-                    <button
-                        key={doc.id}
-                        onClick={() => handleOpenFile(doc)}
-                        className="group flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2 text-left transition hover:border-sky-400 hover:bg-sky-50 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-sky-400"
-                    >
-                        <div className="min-w-0">
-                            <div className="truncate font-medium text-slate-900 dark:text-slate-50">
-                                {doc.label}
-                            </div>
-                            <div className="truncate text-[0.7rem] text-slate-500 dark:text-slate-400">
-                                {doc.fileName}
-                            </div>
-                        </div>
-                        <FileText className="h-4 w-4 text-slate-400 group-hover:text-sky-500" />
-                    </button>
-                ))}
-            </div> */}
+            <div className="grid grid-flow-col auto-cols-fr gap-4">
+
+                <div className="">
+                    <TitleBlock tag="joint_inspection_ports_heading" className="text-2xl font-semibold dark:text-slate-50" />
+                    <DocumentFolder
+                        folderKey="Operations_Joint_Inspection_Ports"
+                        title="Related Documents"
+                    />
+                </div>
+                <div className="">
+                    <TitleBlock tag="joint_inspection_ohs_heading" className="text-2xl font-semibold dark:text-slate-50" />
+                    <DocumentFolder
+                        folderKey="Operations_Joint_Inspection_OHS"
+                        title="Related Documents"
+                    />
+                </div>
+            </div>
         </div>
     );
 }

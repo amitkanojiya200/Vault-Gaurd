@@ -319,9 +319,7 @@ export default function Home() {
 
                 {/* Center: label + title + subtext */}
                 <div className="min-w-0">
-                  <p className="truncate text-md font-semibold text-slate-900 dark:text-slate-100">
-                    Inspector General Bhisham Sharma
-                  </p>
+                  <ParagraphBlock tag="inspector_general1" className="truncate text-md font-semibold text-slate-900 dark:text-slate-100" />
                   <p className="mb-1 text-md font-semibold uppercase tracking-wide text-(--orange500) dark:text-(--orange500)">
                     PTM,TM
                   </p>
