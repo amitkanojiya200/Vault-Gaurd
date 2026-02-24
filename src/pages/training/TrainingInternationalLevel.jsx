@@ -8,8 +8,8 @@ import {
   ChevronLeft,
 } from 'lucide-react';
 import bgImage2 from '@/assets/dbg2.png';
-import TrImg3 from '@/assets/images/training/trimg3.jpg';
-import TrImg4 from '@/assets/images/training/trimg4.jpg';
+import TrImg3 from '@/assets/internationalimg1.jpeg';
+import TrImg4 from '@/assets/internationalimg2.jpeg';
 import DocumentFolder from '@/components/DocumentFolder';
 import TitleBlock from '@/components/cms/TitleBlock';
 import TableBlock from '@/components/cms/TableBlock';

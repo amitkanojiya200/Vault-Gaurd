@@ -27,8 +27,6 @@ import TrainingInternationalLevel from '@/pages/training/TrainingInternationalLe
 import OprcModulePage from '@/pages/training/TechnicalPage';
 import OprcModulePage2 from '@/pages/training/OprcModulePage2';
 import OprcStakeholderLevel1 from '@/pages/stakeholders/OprcStakeholderLevel1';
-import OprcStakeholderLevel2 from '@/pages/stakeholders/OprcStakeholderLevel2';
-import OprcStakeholderLevel3 from '@/pages/stakeholders/OprcStakeholderLevel3';
 // Operations
 import OperationsOps from '@/pages/operations/OperationsOps';
 import OperationsExercise from '@/pages/operations/OperationsExercise';
@@ -50,6 +48,7 @@ import OperationsEmbarkation from '@/pages/operations/OperationsEmbarkation';
 import TrainingOthers from '@/pages/training/TrainingOthers';
 import ParagraphBlock from '@/components/cms/ParagraphBlock';
 import DocOthers from '@/pages/docs/DocOthers';
+import TrainingInternationOther from '@/pages/training/TrainingInternationalOthers';
 
 // -------- Route keys (so NavBar / others can reuse) --------
 export const ROUTES = {
@@ -97,12 +96,11 @@ export const ROUTES = {
   DOC_OSD_POLICY: 'documents-osd-policy',
   DOC_INCIDENT_REPORTS: 'documents-incident-reports',
   DOC_OTHERS: 'documents-others',
+  TRAINING_INTERNATIONAL_OTHERS: 'training-international-others',
 
   // Stakeholders (main list)
   STAKEHOLDERS: 'stakeholders',
   STAKE_OPRC_LEVEL1: 'stakeholder-oprc-level1',
-  STAKE_OPRC_LEVEL2: 'stakeholder-oprc-level2',
-  STAKE_OPRC_LEVEL3: 'stakeholder-oprc-level3',
 };
 
 // -------- Content config for generic sections --------
@@ -475,13 +473,12 @@ export function RouteProvider({ children }) {
         ROUTES.DOC_NOSDCP,
         ROUTES.DOC_INCIDENT_REPORTS,
         ROUTES.DOC_OTHERS,
+        ROUTES.TRAINING_INTERNATIONAL_OTHERS,
         ROUTES.SERVICES_COLLAB_NATIONAL,
         ROUTES.SERVICES_COLLAB_INT_SACEP,
         ROUTES.SERVICES_COLLAB_INT_COLOMBO,
         ROUTES.STAKEHOLDERS,
         ROUTES.STAKE_OPRC_LEVEL1,
-        ROUTES.STAKE_OPRC_LEVEL2,
-        ROUTES.STAKE_OPRC_LEVEL3,
       ];
 
       // --- Not logged in: only publicRoutes allowed ---
@@ -572,24 +569,12 @@ export function RouterView() {
   if (route === ROUTES.DOC_OTHERS) {
     return <DocOthers />;
   }
+  if (route === ROUTES.TRAINING_INTERNATIONAL_OTHERS) {
+    return <TrainingInternationOther routes={ROUTES} onNavigate={navigate} />;
+  }
   if (route === ROUTES.STAKE_OPRC_LEVEL1) {
     return <OprcStakeholderLevel1 />;
   }
-  if (route === ROUTES.STAKE_OPRC_LEVEL2) {
-    return <OprcStakeholderLevel2 />;
-  }
-  if (route === ROUTES.STAKE_OPRC_LEVEL3) {
-    return <OprcStakeholderLevel3 />;
-  }
-  // Operations
-  // if (route === ROUTES.SERVICES_OPERATIONS) {
-  //   return (
-  //     <Operations
-  //       routes={ROUTES}
-  //       onNavigate={navigate}
-  //     />
-  //   );
-  // }
   if (route === ROUTES.SERVICES_OPERATIONS_OPS) {
     return (
       <OperationsOps

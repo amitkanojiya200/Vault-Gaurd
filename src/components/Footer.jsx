@@ -105,10 +105,10 @@ export default function Footer() {
               className="w-15 h-18 rounded-full flex items-center justify-center text-white font-bold"
             >
               <img
-                      src={icgLogo}
-                      alt="PRABAL background"
-                      className="h-full w-full object-fit brightness-75 saturate-150"
-                    />
+                src={icgLogo}
+                alt="PRABAL background"
+                className="h-full w-full object-fit brightness-75 saturate-150"
+              />
             </div>
 
             <div>
@@ -118,9 +118,9 @@ export default function Footer() {
               >
                 PRABAL
               </h3>
-              <p className="text-sm text-[var(--navy-muted)] dark:text-[var(--soft-white-muted)]">
-                <ParagraphBlock tag="prabal_fullform_1" className="text-sm text-[var(--navy-muted)] dark:text-[var(--soft-white-muted)]" />
-              </p>
+
+              <ParagraphBlock tag="prabal_fullform_1" className="text-sm text-[var(--navy-muted)] dark:text-[var(--soft-white-muted)]" />
+
             </div>
           </motion.div>
 
@@ -192,9 +192,8 @@ export default function Footer() {
                     {sec.title}
                   </span>
                   <ChevronDown
-                    className={`transform transition-transform ${
-                      open[idx] ? "rotate-180" : ""
-                    }`}
+                    className={`transform transition-transform ${open[idx] ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
 

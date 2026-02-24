@@ -7,8 +7,8 @@ import {
     ArrowRightCircle,
     ChevronLeft,
 } from 'lucide-react';
-import bgImage2 from '@/assets/dbg2.png';
-import TrImg1 from '@/assets/images/training/trimg1.png';
+import bgImage2 from '@/assets/nationalimg2.jpeg';
+// import TrImg1 from '@/assets/images/training/trimg1.png';
 import TrImg2 from '@/assets/images/training/trimg2.png';
 import DocumentFolder from '@/components/DocumentFolder';
 import ParagraphBlock from '@/components/cms/ParagraphBlock';
@@ -105,7 +105,7 @@ export default function TrainingNationalLevel({ routes, onNavigate }) {
                             className="flex gap-5 flex-col items-center"
                         >
                             <div className="relative h-full overflow-hidden rounded-2xl">
-                                <img src={TrImg1} className='bg-cover' alt="ICG Training Image" />
+                                <img src={bgImage2} className='bg-cover' alt="ICG Training Image" />
                             </div>
                             <div className="relative h-full overflow-hidden rounded-2xl">
                                 <img src={TrImg2} className='bg-cover' alt="ICG Training Image" />

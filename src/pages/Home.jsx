@@ -52,6 +52,7 @@ import WhatsNewTicker from '@/components/home/WhatsNewTicker';
 
 import ParagraphBlock from "@/components/cms/ParagraphBlock";
 import TitleBlock from '@/components/cms/TitleBlock';
+import DocumentFolder from '@/components/DocumentFolder';
 
 
 // Check if running in Tauri environment
@@ -330,7 +331,8 @@ export default function Home() {
 
                 {/* Right image holder (e.g. unit badge / avatar) */}
                 <div className="relative mx-auto h-35 w-30 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 dark:border-slate-700/90 dark:bg-slate-950/80">
-                  <img src={IG_BHISHAM} alt="IG_BHISHAM" className="relative h-full w-full object-contain" />
+                  {/* <img src={IG_BHISHAM} alt="IG_BHISHAM" className="relative h-full w-full object-contain" /> */}
+                  <img src={RCW} alt="IG_BHISHAM" className="relative h-full w-full object-contain" />
                 </div>
               </div>
               {/* Bottom section: brief about info */}
@@ -340,12 +342,18 @@ export default function Home() {
             </div>
 
             {/* b. About us */}
-            <div className="rounded-2xl border border-slate-200 bg-white/85 p-4 backdrop-blur-xl shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/80 dark:shadow-black/40">
-              <p className="mb-2 text-2xl font-semibold text-(--orange500) dark:text-(--orange500)">
-                About Us
-              </p>
-              <ParagraphBlock tag="home_paragraph_2" className="text-[15px] text-slate-600 dark:text-slate-300 text-justify leading-relaxed break-words" />
-              <img src={tImage11} className='mt-10 cover' alt="about image" />
+            <div className="rounded-2xl">
+              <DocumentFolder
+                folderKey="Latest_Documents"
+                title="Latest Documents"
+              />
+              <div className="rounded-2xl border border-slate-200 bg-white/85 p-4 backdrop-blur-xl shadow-md shadow-slate-300/40 dark:border-[var(--border-dark-soft,#1f2937)] dark:bg-slate-900/80 dark:shadow-black/40">
+                <p className="mb-2 text-2xl font-semibold text-(--orange500) dark:text-(--orange500)">
+                  About Us
+                </p>
+                <ParagraphBlock tag="home_paragraph_2" className="text-[15px] text-slate-600 dark:text-slate-300 text-justify leading-relaxed break-words" />
+                <img src={tImage11} className='mt-10 cover' alt="about image" />
+              </div>
             </div>
           </div>
         </section>

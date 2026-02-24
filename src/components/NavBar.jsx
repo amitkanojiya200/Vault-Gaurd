@@ -276,18 +276,20 @@ export default function NavBar() {
       <header ref={navRef} className={`z-40 -mb-15 ${topBg}`}>
         <div className="mx-auto flex w-full items-center justify-between px-2 py-3.5">
           {/* Left: logo + text */}
-          <button
-            type="button"
-            onClick={() => navTo(ROUTES.HOME)}
-            className="flex items-center justify-left gap-3 rounded focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-950"
-          >
-            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900">
-              <img
-                src={HeroImg}
-                alt="ICG emblem"
-                className="h-8 w-auto object-contain"
-              />
-            </div>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => navTo(ROUTES.HOME)}
+              className="flex items-center justify-left gap-3 rounded focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-950"
+            >
+              <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900">
+                <img
+                  src={HeroImg}
+                  alt="ICG emblem"
+                  className="h-8 w-auto object-contain"
+                />
+              </div>
+            </button>
             <div className="hidden text-left sm:block">
               <div className="text-sm font-semibold text-slate-900 dark:text-slate-50">
                 PRABAL
@@ -296,7 +298,7 @@ export default function NavBar() {
                 <ParagraphBlock tag="prabal_fullform_1" className="text-[0.7rem] text-slate-500 dark:text-slate-400" />
               </div>
             </div>
-          </button>
+          </div>
 
           {/* Center: main nav (desktop) */}
           <nav className="hidden items-center gap-2 md:flex">
@@ -608,6 +610,17 @@ export default function NavBar() {
                                         >
                                           Colombo Security Conclave
                                         </button>
+                                        <button
+                                          type="button"
+                                          onClick={() =>
+                                            navTo(
+                                              ROUTES.TRAINING_INTERNATIONAL_OTHERS
+                                            )
+                                          }
+                                          className="block w-full rounded px-1 py-1 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/80"
+                                        >
+                                          Others
+                                        </button>
                                       </motion.div>
                                     )}
                                 </AnimatePresence>
@@ -784,7 +797,7 @@ export default function NavBar() {
                     </p>
 
                     <div className="space-y-1 text-sm">
-                      {NAVBAR_STAKEHOLDERS.map((title) => (
+                      {/* {NAVBAR_STAKEHOLDERS.map((title) => (
                         <button
                           key={title}
                           type="button"
@@ -797,7 +810,7 @@ export default function NavBar() {
                         >
                           <span className="truncate">{title}</span>
                         </button>
-                      ))}
+                      ))} */}
                       <button
                         type="button"
                         onClick={() => navTo(ROUTES.STAKE_OPRC_LEVEL1)}
