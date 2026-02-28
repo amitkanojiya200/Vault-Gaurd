@@ -63,14 +63,7 @@ pub fn upload_document_by_session(
 
     // audit
     let detail = format!("'{}' Uploaded by '{}'", dest.to_string_lossy(), user.role);
-    // let _ = crate::db::insert_audit_log(
-    //     &conn,
-    //     Some(uid),
-    //     Some(&user.username),
-    //     "document_upload",
-    //     None,
-    //     Some(&detail),
-    // );
+
     crate::db::insert_audit_log(
         &conn,
         Some(uid),

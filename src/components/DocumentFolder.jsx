@@ -58,7 +58,9 @@ export default function DocumentFolder({
         const file = await open({
             multiple: false,
             filters: [
-                { name: 'Documents', extensions: ['pdf', 'ppt', 'pptx', 'doc', 'docx'] },
+                {
+                    name: 'Documents', extensions: ['pdf', 'ppt', 'pptx', 'doc', 'docx', 'mp4', 'mov','jpg', 'jpeg', 'png', 'mp3', 'txt', 'xls', 'xlsx', 'csv', 'json', 'xml', 'webp', 'avi', 'mkv', 'webm', 'ogg', 'm4a', 'zip', 'sql', 'yaml', 'yml']
+                },
             ],
         });
 

@@ -20,20 +20,6 @@ export default function TrainingNationalLevel({ routes, onNavigate }) {
 
     return (
         <div className="relative min-h-screen overflow-hidden">
-            {/* Background (match Dashboard/Home styles) */}
-            <img
-                src={bgImage2}
-                alt="PRABAL background"
-                className="fixed inset-0 -z-20 h-full w-full object-cover blur-lg brightness-75 saturate-150"
-            />
-            <div
-                className="fixed inset-0 -z-10 backdrop-blur-xl opacity-90 dark:opacity-60"
-                style={{
-                    background:
-                        'radial-gradient(circle at top, rgba(148,163,253,0.22), transparent 80%), linear-gradient(135deg, var(--gradient-from), var(--gradient-to))',
-                }}
-            />
-            <div className="pointer-events-none fixed inset-0 -z-10 hidden bg-[radial-gradient(circle_at_top,_rgba(15,23,42,0.85),_transparent_70%)] dark:block" />
 
             <div className="relative z-10 px-4 py-4 text-slate-900 md:px-10 md:py-6 dark:text-[var(--soft-white,_#e5e7eb)]">
                 {/* Top bar: Back button + chip */}
