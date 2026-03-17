@@ -451,6 +451,16 @@ export default function NavBar() {
                               >
                                 Embarkation
                               </button>
+
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  navTo(ROUTES.SERVICES_OPERATIONS_VIDEOS)
+                                }
+                                className="flex w-full items-center justify-between rounded-md px-1 py-1 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/80"
+                              >
+                                Videos
+                              </button>
                             </motion.div>
                           )}
                         </AnimatePresence>
@@ -502,6 +512,17 @@ export default function NavBar() {
                               >
                                 International Level
                               </button>
+
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  navTo(ROUTES.SERVICES_TRAINING_VIDEOS)
+                                }
+                                className="flex w-full items-center justify-between rounded-md px-1 py-1 text-left text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/80"
+                              >
+                                Videos
+                              </button>
+                              
                               <button
                                 type="button"
                                 onClick={() =>

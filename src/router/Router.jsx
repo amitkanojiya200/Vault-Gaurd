@@ -45,6 +45,8 @@ import DocumentFolder from '@/components/DocumentFolder';
 import OperationsReviewContigencyPlan from '@/pages/operations/OperationsReviewContigencyPlan';
 import OperationsAvailabilityOfOsd from '@/pages/operations/OperationsAvailabilityOfOsd';
 import OperationsEmbarkation from '@/pages/operations/OperationsEmbarkation';
+import OperationsVideos from '@/pages/operations/OperationsVideos';
+import TrainingVideosPage from '@/pages/training/TrainingVideosPage';
 import TrainingOthers from '@/pages/training/TrainingOthers';
 import ParagraphBlock from '@/components/cms/ParagraphBlock';
 import DocOthers from '@/pages/docs/DocOthers';
@@ -70,9 +72,11 @@ export const ROUTES = {
   SERVICES_OPERATIONS_REVIEW_OF_CONTIGENCY_PLAN: 'services-operations-review-of-contigency-plan',
   SERVICES_OPERATIONS_AVAILABILITY_OF_OSD: 'services-operations-availability-of-osd',
   SERVICES_OPERATIONS_EMBARKATION: 'services-operations-embarkation',
+  SERVICES_OPERATIONS_VIDEOS: 'services-operations-videos',
   SERVICES_TRAINING_NATIONAL: 'services-training-national',
   SERVICES_TRAINING_INTERNATIONAL: 'services-training-international',
   SERVICES_TRAINING_OTHERS: 'services-training-others',
+  SERVICES_TRAINING_VIDEOS: 'services-training-videos',
   SERVICES_COLLAB_NATIONAL: 'services-collab-national',
   SERVICES_COLLAB_INT_SACEP: 'services-collab-int-sacep',
   SERVICES_COLLAB_INT_COLOMBO: 'services-collab-int-colombo',
@@ -454,8 +458,10 @@ export function RouteProvider({ children }) {
         ROUTES.SERVICES_OPERATIONS_REVIEW_OF_CONTIGENCY_PLAN,
         ROUTES.SERVICES_OPERATIONS_AVAILABILITY_OF_OSD,
         ROUTES.SERVICES_OPERATIONS_EMBARKATION,
+        ROUTES.SERVICES_OPERATIONS_VIDEOS,
         ROUTES.SERVICES_TRAINING_NATIONAL,
         ROUTES.SERVICES_TRAINING_INTERNATIONAL,
+        ROUTES.SERVICES_TRAINING_VIDEOS,
         ROUTES.SERVICES_TRAINING_OTHERS,
         ROUTES.DOC_OPRC_1,
         ROUTES.DOC_OPRC_2,
@@ -639,6 +645,14 @@ export function RouterView() {
       />
     );
   }
+  if (route === ROUTES.SERVICES_OPERATIONS_VIDEOS) {
+    return (
+      <OperationsVideos
+        routes={ROUTES}
+        onNavigate={navigate}
+      />
+    );
+  }
   // Training - National Level
   if (route === ROUTES.SERVICES_TRAINING_NATIONAL) {
     return (
@@ -661,6 +675,15 @@ export function RouterView() {
   if (route === ROUTES.SERVICES_TRAINING_OTHERS) {
     return (
       <TrainingOthers
+        routes={ROUTES}
+        onNavigate={navigate}
+      />
+    );
+  }
+  // Training - Video Level  ⬅️ NEW
+  if (route === ROUTES.SERVICES_TRAINING_VIDEOS) {
+    return (
+      <TrainingVideosPage
         routes={ROUTES}
         onNavigate={navigate}
       />
